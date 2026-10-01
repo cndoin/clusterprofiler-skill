@@ -1,0 +1,17 @@
+# 文本文件统一 LF 行尾；Windows 上 core.autocrlf=true 也不会改
+*.R text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.sh text eol=lf
+*.txt text eol=lf
+
+# 二进制锁字节，不让 Git 试探转换
+*.zip binary
+*.tar.gz binary
+*.gif binary
+*.png binary
+*.jpg binary
+*.pdf binary
