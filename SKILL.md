@@ -1,17 +1,17 @@
 ---
-# clusterProfiler 4.21 Skill - 必需字段（Claude Agent Skill 官方规范）
+# clusterprofiler-skill · 必需字段（Claude Agent Skill 官方规范）
 name: clusterprofiler-skill
-description: "clusterProfiler 4.21.x 的 R 脚本编排助手：写、校验、规划与执行 GO / KEGG / WikiPathways / KEGG Module / PathwayCommons / DAVID / MSigDB 富集分析，覆盖 ORA / GSEA / NSEA / 多层网络 / 多组学比较 / 拓扑感知 / 贝叶斯 term 选择 / LLM 解读，覆盖基因 ID 转换（bitr/bitr_kegg）、离线 GSON 数据库、PPI 网络、uniprot 查询、enrichplot 全套可视化（dotplot/cnetplot/emapplot/gseaplot/ridgeplot/heatplot/goplot）。覆盖 Bioconductor 下的 R 富集分析核心场景：过表示分析、基因集富集、KEGG / Reactome / DisGeNET 注释、gr 多个物种的 OrgDb（org.Hs.eg.db / org.Mm.eg.db / org.Dr.eg.db 等）、msigdb 的 hallmark / c2 / c5 集合。事实底座自源码解析 144 个 clusterProfiler 主包符号 + enrichplot / dplyr / magrittr / enrichit 等 re-export，自动拦截 LLM 写 clusterProfiler 代码时最常见的幻觉函数 / 幻觉参数 / 拼写错误 / 全角符号 / 括号不匹配。"
+description: "Y 叔（YuLab-SMU）全套生物信息学 R 包生态的 Agent 技能，覆盖 37 个包 / 2458 个符号：clusterProfiler 4.21.x（GO/KEGG/WikiPathways/KEGG Module/PathwayCommons/DAVID/MSigDB/enricher 富集分析，ORA/GSEA/NSEA/MNSEA/网络拓扑/贝叶斯 term 选择/LLM 解读）、enrichit（C++ 富集引擎，aggregate_enrichment/bayes_enrich/harmonize_ids/setReadable/nseGO/nseKEGG/mnsea/ora/gsea）、enrichplot 可视化（dotplot/cnetplot/emapplot/gseaplot/ridgeplot/heatplot/goplot/upsetplot）、gson 知识表示、DOSE（Disease Ontology/NCG/DisGeNET 疾病注释）、ReactomePA（Reactome pathway 分析）、meshes（MeSH 富集）、GOSemSim（GO 语义相似度，含 mgoSim/godata）、ChIPseeker（ChIP-seq/ATAC-seq peak 注释）、MicrobiomeProfiler（微生物组富集）、HDO（Human Disease Ontology）、aPEAR（网络富集装饰）、aisdk（LLM 集成）、ggtree + treeio + ggtreeExtra + tidytree（系统发育树全套）、MicrobiotaProcess（微生物组深度分析）、SVP（空间转录组）+ ggsc、sclet + scMSGNN（单细胞）、createKEGGdb + CNEr（KEGG/CNE 数据库）、aplot + ggimage + ggtangle + ggbreak + ggmsa + ivolcano（科研绘图）、yulab.utils、msigdbr（MSigDB）、epiSeeker（表观遗传）、tigeR（肿瘤免疫）、scholar（学者引用）。完整覆盖 ID 转换（bitr/bitr_kegg）、离线 GSON、KEGG Module 富集、PPI 网络（STRING）、Uniprot 查询、4 大知识源（GO/KEGG/Reactome/DO/MeSH/MSigDB）。事实底座从上游源码 NAMESPACE + R/*.R 真实 formals 解析，cp_lint 自动拦截 LLM 写 R 代码时最常见的 10 类幻觉函数 / 幻觉参数 / 拼写错误 / 全角符号 / 括号不匹配。"
 # 下方为 WorkBuddy 宿主扩展字段；Claude Code 会忽略（不报错、不影响解析）。
 license: MIT
-version: 1.0.0
+version: 2.0.0
 allowed-tools: Bash, Read, Grep, Glob
 agent_created: true
 ---
 
-# clusterProfiler Skill · R 富集分析编排技能
+# clusterprofiler-skill · Y 叔全套 R 包生态编排技能
 
-面向 **clusterProfiler 4.21.x**（事实底座取自上游 `devel` 分支的 NAMESPACE + R/*.R 真实 formals）。
+面向 **37 个 YuLab-SMU 生态包**（事实底座取自每个上游仓库 `devel` 分支的 NAMESPACE + R/*.R 真实 formals + 手工核对的第三方包 formals）。
 
 本技能负责：**选对函数 → 写对参数 → 校验脚本 → 编排流程 → 解读报错**。
 不负责替用户猜数据、猜基因、猜物种 —— 那些必须由用户给或从结果里读。
@@ -85,7 +85,56 @@ agent_created: true
 
 ---
 
-## 三、任务 → 流程路由表
+## 三、生态包路由（37 包按用途归类）
+
+按用户的实际问题路由到对应包：
+
+| 用户场景 | 该用包 | 关键函数 |
+|---|---|---|
+| GO / KEGG / 通路 ORA / GSEA | **clusterProfiler** | `enrichGO` / `enrichKEGG` / `gseGO` / `gseKEGG` / `compareCluster` |
+| Disease / NCG / DisGeNET 注释 | **DOSE** | `enrichDO` / `gseDO` / `enrichNCG` / `gseNCG` / `enricher` (DisGeNET) |
+| Reactome 通路 | **ReactomePA** | `enrichPathway` / `gsePathway` |
+| MeSH 富集 + 语义 | **meshes** | `enrichMeSH` / `gseMeSH` / `meshHyperGTest` |
+| GO term / gene 相似度 | **GOSemSim** | `godata` / `mgoSim` / `geneSim` / `Wang` / `Rel` |
+| C 富集分析（GO+KEGG+其他） | **clusterProfiler::enricher** + GMT 文件 | `read.gmt` + `enricher` |
+| ChIP-seq / ATAC-seq peak 注释 | **ChIPseeker** | `annotatePeak` / `peakAnno` / `makeTxDbFromGFF` / `covplot` / `getGEO` |
+| 微生物组功能富集 | **MicrobiomeProfiler** | `taxaMe` + Shiny App |
+| 人类疾病本体（HDO） | **HDO** | `enrichHDO` / `gseHDO` |
+| 富集结果网络化 | **aPEAR** | `enrichmentNetwork` / `networkPlot` |
+| 网络感知 GSEA | **enrichit** | `nseGO` / `nseKEGG` / `mnseGO` / `mnseKEGG` |
+| 贝叶斯 term 选择 | **enrichit** | `bayes_enrich` / `bayes_summary` |
+| 多组学聚合 | **enrichit** | `aggregate_enrichment` / `aggregate_omics` / `harmonize_ids` |
+| ID 映射 | **clusterProfiler / DOSE / ReactomePA / meshes** | `bitr` / `bitr_kegg` / `bitr_dgn` |
+| 富集结果可视化 | **enrichplot** | `dotplot` / `cnetplot` / `emapplot` / `gseaplot` / `ridgeplot` / `heatplot` |
+| 系统发育树绘制 | **ggtree** + treeio | `ggtree` / `ggtree` + GROSS 文件 / `rotate` / `collapse` |
+| 系统发育树 + 子图 | **ggtreeExtra** | `geom_fruit` / `geom_inset` |
+| 微生物组数据 | **MicrobiotaProcess** | `summarize_taxa` / `alpha_diversity` / `beta_diversity` |
+| 空间转录组高变特征 | **SVP** | `RunSVP` / `spatial_heatmap` |
+| 空间 / 单细胞可视化 | **ggsc** | `SpatialMap` / `CellDifferentiogram` |
+| 单细胞分类 / 聚类 | **sclet** | `run_SCSeed` / `run_PRESS` |
+| 单细胞 GNN 整合 | **scMSGNN** | `scMSGNN` |
+| KEGG 数据库构建 | **createKEGGdb** | `create_kegg_db` |
+| CNE（非编码元件）数据库 | **CNEr** | `CNE_range` / `CNErscan` |
+| 进化保守非编码元件 | **CNEr** + **ggtree** | 结合使用 |
+| 火山图 | **ivolcano** | `ivolcano` |
+| 轴断点 | **ggbreak** | `scale_x_break` / `scale_y_break` |
+| 多序列比对 | **ggmsa** | `ggmsa` |
+| 装饰图 | **aplot** | `plot_list` / `insert_top` |
+| 图中加图 | **ggimage** | `geom_subview` |
+| 网络图 / 关联图 | **ggtangle** | `ggtangle` |
+| 肿瘤免疫 | **tigeR** | `tigeR` / `receptor_clonotype` |
+| Wiki 注释 | **wikiprofiler** | `wp_profile` |
+| 表观遗传峰 | **epiSeeker** | `epiStat` / `diffBind` |
+| 学者引用分析 | **scholar** | `get_profile` / `get_citation_history` |
+| 序列处理 | **seqmagick** | `fa_mask` / `fa_rc` |
+| 中文医案数据 | **TCMDATA** | `TCM_API` |
+| 通用工具 | **yulab.utils** | `yread` / `get_fun_from_pkg` / `user_dir` |
+| 离线 GSON 数据库 | **gson** | `gson_GO` / `gson_KEGG` / `read.gmt` |
+| LLM 解读 | **aisdk** | `Agent` / `ChatSession` / `generate_object` |
+
+---
+
+## 四、任务 → 流程路由表
 
 | 用户要什么 | 关键函数序列（顺序不能乱） |
 | --- | --- |
@@ -119,7 +168,7 @@ agent_created: true
 
 ---
 
-## 四、常用函数签名速查（从源码提取的真实 formals）
+## 五、常用函数签名速查（从源码提取的真实 formals）
 
 ```r
 enrichGO(gene, OrgDb, keyType="ENTREZID", ont="MF", pvalueCutoff=0.05,
@@ -158,7 +207,7 @@ merge_result(enrichResultList)
 
 ---
 
-## 五、工具
+## 六、工具
 
 | 工具 | 干什么 | 依赖 R 吗 |
 | --- | --- | --- |
@@ -198,7 +247,7 @@ warning 不阻断（`...` 透传、未装 library()），但要在回复里说�
 
 ---
 
-## 六、失败协议（按症状查）
+## 七、失败协议（按症状查）
 
 | 症状 | 真实原因 | 处置 |
 | --- | --- | --- |
@@ -224,7 +273,7 @@ warning 不阻断（`...` 透传、未装 library()），但要在回复里说�
 
 ---
 
-## 七、本机环境边界（诚实说明）
+## 八、本机环境边界（诚实说明）
 
 Windows 上**当前未安装 R**（`which R` 无输出，已实测）。因此：
 
@@ -239,7 +288,7 @@ Windows 上**当前未安装 R**（`which R` 无输出，已实测）。因此�
 
 ---
 
-## 八、参考文件
+## 九、参考文件
 
 - `references/api-signatures.md` —— 145 个真实符号的完整签名（grep 用）
 - `references/function-index.md` —— 按模块 / S3 method / S4 method / S4 类分类
@@ -249,7 +298,7 @@ Windows 上**当前未安装 R**（`which R` 无输出，已实测）。因此�
 
 ---
 
-## 九、宿主兼容性（Claude Code / WorkBuddy / Codex / DeepSeek Hermes）
+## 十、宿主兼容性（Claude Code / WorkBuddy / Codex / DeepSeek Hermes）
 
 本技能只依赖三样东西：**Bash（跑 python3）+ Read + Grep**。
 不联网（核心工具全离线）、不依赖 MCP、不依赖任何宿主专有能力，因此任何支持「目录型 skill」
