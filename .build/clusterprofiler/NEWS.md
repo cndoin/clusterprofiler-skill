@@ -1,0 +1,367 @@
+
+# clusterProfiler 4.21.2
+
++ `enrichMKEGG()` and `gseMKEGG()` accept a `GSON` object for `organism`, as `enrichKEGG()`/`gseKEGG()` already did, so KEGG **module** enrichment can run against a locally built annotation (`gson_KEGG()`) when KEGG is unreachable; they also now stop with "organism should be a species name or a GSON object" instead of an unrelated error from the organism mapper. The `organism` documentation for the KEGG functions now mentions the GSON option at all (2026-09-22, Tue, #623)
++ `enrichGO()` takes an `evidence` argument to restrict the GO annotation by evidence code before the analysis, e.g. `evidence = c("IDA", "IPI", "IMP")` to keep manually supported annotations or `evidence = "IEA"` for electronic ones only; dropping `IEP` is the usual way to avoid circular reasoning when the gene sets come from co-expression clustering. Because the annotation (and hence the background) changes, the result is not simply a subset of the unfiltered run, and filtered runs are not cached (2026-09-22, Tue, #160)
++ `enrichGO()` no longer aborts with `missing value where TRUE/FALSE needed` when an OrgDb's organism cannot be identified — an AnnotationHub OrgDb, for example. The cached-GO-data check compared the cached organism against `get_organism(OrgDb)` in a bare `if()`, and that comparison is `NA` for such an OrgDb, so the second call in a session failed with an error that named none of this; an unidentifiable organism is now treated as "not cached" and the annotation is rebuilt (2026-09-22, Tue, #232)
++ `Gff2GeneTable()` now reads Ensembl/GTF-style GFF3 as well as NCBI/RefSeq files: it accepts a `gene_id=` attribute (Ensembl) in addition to `GeneID=` (NCBI) and takes the gene symbol from `Name=`/`gene_name=` when `gene=` is absent. Previously an Ensembl file left every key `NA`, and merging two all-`NA` key columns is a cartesian product — useful-looking but wrong on a small file and `negative length vectors are not allowed` on a real genome. A file with neither identifier style now stops with a message saying what is expected (2026-09-22, Tue, #193)
++ `add_go_level()` appends a `level` column giving the GO level of every enriched term (1 = the ontology root), so results can be kept to a band of levels with e.g. `subset(res, level >= 3 & level <= 6)`; the level is taken from the ontology the term itself belongs to, so `ont = "ALL"` and `compareCluster()` results are labelled term by term (2026-09-22, Tue, #793)
++ `simplify()` now infers the ontology from the GO IDs when the result object does not carry one, instead of refusing: this covers a `gseaResult` whose `@setType` holds a collection name rather than an ontology (MSigDB C5, a gson GO file, a `TERM2GENE` built from GO annotations) as well as an `enrichResult` from `enricher()`, which previously required assigning `x@ontology` by hand; results spanning several ontologies are simplified as `GOALL`, and non-GO gene sets are still rejected with a message that says so (2026-09-22, Tue, #753, #369)
++ `compareCluster()` now warns when a non-character `universe` is supplied: it wraps each per-cluster call in `suppressMessages()`, which used to swallow the underlying enrichment function's "`universe` is not in character and will be ignored" message, so a numeric universe appeared to be accepted while having no effect (2026-09-22, Tue, #654)
++ `gsePC()` and `gseWP()` now expose an `eps` argument and forward it to `GSEA()` (and on to `enrichit::gsea_gson()`), matching `GSEA()`, `gseGO()`, `gseKEGG()` and `gseMKEGG()` (2026-09-22, Tue)
++ fix `gson_cpd()` to use the `compound` KEGG REST endpoint; `enrichKEGG(organism = 'cpd')` had been failing since KEGG retired `/link/cpd/pathway`, which now returns HTTP 400 (2026-09-22, Tue, #828)
++ `kegg_rest()` now reports a failed download where it happens, telling an unreachable network apart from an HTTP error status and from an empty response; previously these surfaced much later as an obscure error (2026-09-22, Tue)
++ `download.KEGG.Path()` and `download.KEGG.Module()` now stop with an actionable message when the downloaded annotation is empty, or when the gene/pathway table shares no ID with the pathway-name table, instead of returning an empty annotation that downstream surfaced as a misleading `"No gene can be mapped"`; this replaces an `is.null()` guard that could never fire (2026-09-22, Tue, #146, #378, #561, #646)
++ align GSEA significance filtering with the historical behavior of clusterProfiler <= 4.18.x: `pvalueCutoff` now requires both the raw p-value and the adjusted p-value to pass the cutoff, so significant-pathway counts from `GSEA()`/`gseGO()`/`gseKEGG()`/`gseMKEGG()` are again comparable with the DOSE/fgsea backend (2026-08-14, Thu)
++ restore the `seed` argument on `GSEA()`, `gseGO()`, `gseMKEGG()` and `gseKEGG()` and forward it to `enrichit::gsea_gson()`, so permutation-based GSEA results can be reproduced with a fixed seed (or `set.seed()` before the call); the argument had been dropped when the enrichit engine was introduced (2026-08-14, Thu)
++ fix `get_data_from_KEGG_db()` to strip species suffix from pathway names when `use_internal_data=TRUE`, matching the online path behaviour (2026-08-04, Tue, #783)
++ fix `enrichGO()` to check whether the OrgDb supports `ENTREZID` before attempting the ENTREZID-remapping optimisation; custom OrgDb packages without `ENTREZID` keytype (e.g., non-model organisms) now fall back to the original `get_GO_data` path instead of throwing an error (2026-08-04, Tue, #823)
+
+# clusterProfiler 4.21.1
+
++ support `UniProt accession -> KO` conversion in `bitr_kegg()` via KEGG REST and export `gson_KO()` for KEGG Orthology workflows (2026-06-24, Wed)
++ add `nseGO()`, `nseKEGG()`, `nseMKEGG()`, `nseWP()`, `mnseGO()`, `mnseKEGG()`, `mnseMKEGG()`, and `mnseWP()` as high-level topology-aware enrichment wrappers powered by `enrichit`, with metadata backfilling and lightweight wrapper tests (2026-06-24, Wed)
++ re-export `aggregate_omics()`, `aggregate_enrichment()`, `harmonize_ids()`, and `select_features_for_ora()` from enrichit for high-level multi-omics workflows (2026-06-24, Wed)
++ `get_ppi_network` to download and cache the full STRING PPI network for a specific species (2026-06-23, Tue)
+  - the `getPPI` is now alias to `get_ppi`
++ fix GSEA wrappers to restore `eps`, forward extra arguments such as `sampleSize` to `enrichit::gsea_gson()`, and align the GSEA method documentation with the current enrichit interface (2026-06-22, Mon, #822)
++ re-export `bayes_enrich()` and `bayes_summary()` from enrichit (>= 0.1.5) for Bayesian term selection and posterior-ranked summaries of ORA enrichment results (2026-06-16, Tue)
+
+# clusterProfiler 4.20.0
+
++ Bioconductor RELEASE_3_23 (2026-04-29, Wed)
+
+# clusterProfiler 4.19.8
+
++ fix: map non-ENTREZID universe in enrichGO (2026-04-22, Wed)
+
+# clusterProfiler 4.19.7
+
++ `interpret()`, `interpret_agent()`, and `interpret_hierarchical()` now use aisdk's global default model when `model = NULL`, so users can switch the package-wide default with `aisdk::set_model()` while still overriding per call with an explicit `model` argument (2026-03-31, Tue)
+
+# clusterProfiler 4.19.6
+
++ update `ko2name()` to robustly parse KO names via KEGG REST, support vector input with deduplication, and return NA when NAME is missing (2026-02-25, Wed)
++ bug fixed for `plot.interpret` (2026-02-05, Thu)
+
+# clusterProfiler 4.19.5
+
++ `interpret()` prompt optimized with 'Comparative Analysis' and 'Rule of Exclusion' to better distinguish cell types with shared functions (e.g. NK vs CD8+ T cells) using specific marker genes (2026-01-22, Thu)
++ fixed a bug in `interpret()` where empty interpretation results were returned due to incorrect list structure handling in `process_enrichment_input` (2026-01-22, Thu)
++ `interpret()` now considers specific marker genes in cell type annotation to avoid key markers being overshadowed by general pathways (2026-01-21, Wed)
++ optimize `enrichGO()` to avoid memory boom when keyType is not ENTREZID (2026-01-21, Wed, #805)
++ `gson_GO_local()` to support local GO annotation by adding ancestral terms (2026-01-21, Wed)
++ `interpret()` implements a gene-based fallback mode for clusters with no enriched pathways, ensuring comprehensive analysis (2026-01-20, Tue)
++ `plot()` method for interpretation object to visualize the LLM-inferred regulatory network using `ggtangle` (2026-01-20, Tue)
++ `interpret_agent()` supports multi-agent system (Deep Mode) for interpretation (2026-01-20, Tue)
+  - Agent Cleaner: Filters noise and selects relevant pathways
+  - Agent Detective: Identifies key regulators and functional modules using PPI/TF data
+  - Agent Synthesizer: Synthesizes findings into a coherent narrative
++ `interpret()` supports 'Knowledge-Guided Interpretation' (2026-01-20, Tue)
+  - `add_ppi` parameter to integrate PPI network and identify hub genes
+  - `gene_fold_change` parameter to incorporate expression levels
+  - Mixed-source enrichment analysis support (e.g. Pathways + TFs) for causal integration
+  - LLM-guided network refinement to output core regulatory networks
++ `interpret_hierarchical()` for hierarchical interpretation (e.g. Major -> Minor clusters) (2026-01-20, Tue)
++ `interpret()` now supports `prior` parameter for reference-guided interpretation (e.g. from SingleR/scGPT) (2026-01-20, Tue)
+
+# clusterProfiler 4.19.4
+
++ `interpret()` now supports `task` parameter to specify the task: 'interpretation', 'annotation' and 'phenotyping' (2025-01-18, Sat)
++ `interpret()` supports `enrichResult`, `gseaResult`, `compareClusterResult` and `list` of enrichment results (2025-01-18, Sat)
+
+# clusterProfiler 4.19.3
+
++ instead of packing KEGG cache data in the package, we now download it from <https://yulab-smu.top/clusterProfiler> (2025-12-15, Mon)
++ add github action to automatically update KEGG cache data (2025-12-09, Tue)
++ use 'enrichit' as engine for enrichment analysis (2025-12-07, Sun)
+
+# clusterProfiler 4.19.2
+
++ use 'quarto' as vignette engine (2025-11-20, Thu)
++ update KEGG cache data (2025-11-20, Thu, #792)
+  - number of KEGG pathway with category information: 582
+  - Number of species: 11344
+
+# clusterProfiler 4.19.1
+
++ bug fixed in `enrichPC` (2025-11-01, Sat, #789) 
+
+# clusterProfiler 4.18.0
+
++ Bioconductor RELEASE_3_22 (2025-10-30, Thu)
+
+# clusterProfiler 4.16.0
+
++ Bioconductor RELEASE_3_21 (2025-04-17, Thu)
+
+# clusterProfiler 4.15.2
+
++ more general regular pattern to remove species suffix in KEGG pathway name (2025-02-27, Thu)
++ remove input duplicated genes in `groupGO()` (2024-11-29, Fri, #741)
+ 
+# clusterProfiler 4.15.1
+
++ `simplify()` keeps the most informative term if there exist multiple terms that meets the criteria (2024-11-29, Fri, #744)
++ add 'RichFactor', 'FoldEnrichment' and 'zScore' in `enrichDAVID()` result (2024-11-12, Tue)
++ update DAVID Web Service URL to make `enrichDAVID()` work properly (2024-11-09, Sat)
+  - <https://davidbioinformatics.nih.gov/content.jsp?file=WS.html>
++ add new citation (2024-11-07, Thu)
+  - <https://doi.org/10.1016/j.xinn.2024.100722>
+
+# clusterProfiler 4.14.0
+
++ Bioconductor RELEASE_3_20 (2024-10-30, Wed)
+
+# clusterProfiler 4.13.4
+
++ re-export `DOSE::enrichDO()` and `DOSE::gseDO()` (2024-10-01, Tue)
+
+# clusterProfiler 4.13.3
+
++ fixed bug in `enrichPC()` (2024-08-26, Mon)
+
+# clusterProfiler 4.13.2
+
++ fixed bug of `gson_KEGG()` (2024-08-19, Mon)
+
+# clusterProfiler 4.13.1
+
++ update functions to access PathwayCommons data (2024-08-11, Sun, gson#9) 
++ use `yulab.utils::yulab_msg()` for startup message (2024-07-26, Fri)
++ update `kegg_category` information (7 categories and 572 subcategories) (2024-07-26, Fri)
+  - Cellular Processes (36)                    
+  - Drug Development (75)
+  - Environmental Information Processing (41)
+  - Genetic Information Processing (39)
+  - Human Diseases (99)
+  - Metabolism (190)
+  - Organismal Systems (92)
+  
+# clusterProfiler 4.12.0
+
++ Bioconductor RELEASE_3_19 (2024-05-15, Wed)
+
+# clusterProfiler 4.10.1
+
++ bug fixed in parsing KEGG category (2024-03-07, Thu, #664)
++ update citation (#656) and wikipedia data URL (2024-01-10, Wed, #633)
+
+# clusterProfiler 4.10.0
+
++ Bioconductor RELEASE_3_18 (2023-10-25, Wed)
+
+# clusterProfiler 4.9.5
+
++ fixed R check (2023-10-18, Wed)
+
+# clusterProfiler 4.9.4
+
++ use `check_installed()` to check package dependency (2023-09-08, Fri, #621)
++ use `yread()` in WikiPathway utilities (2023-09-07, Thu)
+
+# clusterProfiler 4.9.3
+
++ `enrichKEGG()` and `gseKEGG()` now supports `organism = 'cpd'` to accept KEGG Compound ID (2023-08-31, Thu)
+  + `gson_cpd()` and `gson_ko()`
++ use `yulab.utils::yread()` to parse file (2023-08-15, Tue)
++ supports Pathways Common (2023-08-02, Wed, #613)
+
+# clusterProfiler 4.9.2
+
++ `append_kegg_category()` function to add KEGG pathway category information to KEGG enrichment result and now it is the default behavior of `enrichKEGG()` and `gseKEGG()` (2023-07-12, Wed)
++ parse KEGG Pathway Category information (2023-07-11, Tue)
++ mv `parse_gff()` to `GOSemSim::read.gaf()` and re-export (2023-07-10, Mon)
++ mv `buildGOmap()` to `GOSemSim::buildGOmap() and re-export
+
+# clusterProfiler 4.9.1
+
++ `getPPI()` to query PPI network from 'stringdb' (2023-05-15, Mon)
++ `getTaxID()` and `getTaxInfo()` functions to query taxonomy information (2023-05-14, Sun)
+
+# clusterProfiler 4.8.0
+
++ Bioconductor RELEASE_3_17 (2023-05-03, Wed)
+
+# clusterProfiler 4.7.2
+
++ change wikiPathways link. (2023-03-10, Fri)
++ update `get_data_from_KEGG_db()` for the KEGG api changes (2023-03-05, Sun)
++ removing species info at the end of KEGG pathway names (2023-03-05, Sun)
+ 
+# clusterProfiler 4.7.1
+
++ update according to the KEGG api changes (2023-03-01, Wed)
+
+# clusterProfiler 4.6.0
+
++ Bioconductor 3.16 release 
+
+# clusterProfiler 4.5.3
+
++ `GSEA()` supports `GSONList` object (2022-09-21, Wed)
++ `enricher()` supports `GSONList` object (2022-09-06, Tue)
+
+# clusterProfiler 4.5.2
+
++ support passing a GSON object to `enricher(USER_DATA)` and `GSEA(USER_DATA)` (2022-8-01, Mon)
++ `gson_kegg_mapper()` allows building a gson object from outputs of KEGG Mapper service (2022-07-29, Fri, #492)
++ fix `show` method for `compareClusterResult` (2022-06-21, Tue, #473)
++ `gson_KEGG()` download latest KEGG and output a GSON object (2022-06-08, Wed)
++ support passing a GSON object to `gseKEGG(organism)` 
++ support passing a GSON object to `enrichKEGG(organism)` (2022-06-06, Mon)
+
+# clusterProfiler 4.5.1
+
++ follow KEGG api upgrade that change from http to https (2022-06-06, Mon)
++ use 'wininet' to download KEGG data when `.Platform$OS.type = "windows"` (2022-06-03, Fri)
++ mv `read.gmt` and `read.gmt.wp` to the 'gson' package and reexport these two functions from 'gson' (2022-04-28, Thu)
++ fix `compareCluster` when fun = `enrichPathway`(2022-4-28, Thu)
+
+# clusterProfiler 4.4.0
+
++ Bioconductor 3.15 release
+
+# clusterProfiler 4.3.4
+
++ fix `enrichGO` , `gseGO` and `groupGO` when `keyType = 'SYMBOL'` && `readable=TRUE`(2022-4-9, Sat)
+
+# clusterProfiler 4.3.3
+
++ parse GAF file to prepare GO annotation data (esp for proteomic study) (2022-03-08, Tue, #397, #418, #421, #442)
++ bug fixed in `compareCluster()` (2022-01-27, Thu, #424)
+
+# clusterProfiler 4.3.2
+
++ bug fixed in `extract_params()` (2022-01-12, Wed, #392, @amcdavid)
++ make `simplify()` works for `gseGO()` in `compareCluster()`
++ support formula interface for GSEA methods in `compareCluster()` (2022-01-04, Tue, @altairwei, #416)
+
+# clusterProfiler 4.3.1
+
++ `compareCluster()` supports GSEA algorithm (2021-12-11, Sat)
++ update error message of `download.KEGG.Path()` and `download.KEGG.Module()`(2021-11-21, Sun)
++ update `simplify()` function to support `ont = ALL` (2021-10-27, Wed)
+
+# clusterProfiler 4.2.0
+
++ Bioconductor 3.14 release
+
+# clusterProfiler 4.1.4
+
++ import `yulab.utils` (2021-08-20, Fri)
+
+# clusterProfiler 4.1.3
+
++ Remove Human Gut Microbiome dataset as the functionalities are provided in <https://github.com/YuLab-SMU/MicrobiomeProfiler> (2021-08-15, Sun)
+
+# clusterProfiler 4.1.2
+
++ update citation and DESCRIPTION (2021-08-15, Sun)
++ update kegg_species.rda and allow online download using KEGG api (2021-08-14, Sat)
+
+# clusterProfiler 4.1.1
+
++ add citation (new paper published on The Innovation) (2021-07-04, Sun)
+
+# clusterProfiler 4.0.0
+
++ Bioconductor 3.13 release
+
+# clusterProfiler 3.99.1
+
++ Add new data set, `DE_GSE8057`, which contains DE genes obtained from GSE8057 (2020-03-08, Mon)
+
+# clusterProfiler 3.99.0
+
++ Add KEGG enrichment analysis of Human Gut Microbiome data (2021-02-20, Sat)
+
+# clusterProfiler 3.19.1
+
++ setting default timeout to 300 for downloads (2021-02-05, Fri)
++ fixed download method setting 
++ capable of setting KEGG download method via `options(clusterProfiler.download.method = METHOD)` (2020-12-31, Thu)
+
+# clusterProfiler 3.18.0
+
++ Bioconductor 3.12 release (2020-10-28, Wed)
+
+# clusterProfiler 3.17.5
+
++ update `[[.compareClusterResult` (2020-10-14, Wed)
+
+# clusterProfiler 3.17.3
+
++ internal suports of enrichment analyses using WikiPathways (2020-09-09, Wed)
+  - `enrichWP` for ORA analysis
+  - `gseWP` for GSEA analysis
+  - `get_wp_organisms` for listing supported organisms
+  - `read.gmt.wp` for parsing gmt file downloaded from wikiPathways 
+
+# clusterProfiler 3.17.2
+
++ use `libcurl` if capable (2020-09-08, Tue)
+  - <https://github.com/YuLab-SMU/clusterProfiler/pull/290>
+
+# clusterProfiler 3.17.1
+
++ bug fixed of `extract_params` (2020-08-18, Tue)
+  - <https://github.com/YuLab-SMU/clusterProfiler/issues/282>
+
+# clusterProfiler 3.16.0
+
++ Bioconductor 3.11 release
+
+# clusterProfiler 3.15.3
+
++ incorporate clusterProfiler.dplyr (2020-03-12, Thu)
+  + arrange, filter, group_by, mutate, rename, select, slice and summarize
+
+# clusterProfiler 3.15.2
+
++ remove `Suggests` of `KEGG.db` as it will be deprecated in Bioconductor 3.11 (2020-01-14, Tue)
++ optimize `enrichGO` to use less memory (2019-12-13, Fri)
++ re-implement `read.gmt` without using GSEABase, and my own version is much more fasta :) 
+
+# clusterProfiler 3.15.1
+
++ e.g. user can pass `fun=enrichGO` to `compareCluster` without quoting `enrichGO` (2019-12-02, Mon)
++ add `keytype` and `readable` info in `compareCluster` output
++ mv `compareClusterResult` class defintion to `DOSE` (2019-11-02, Sat)
++ mv `fortify`, `barplot` and  `dotplot` for `compareClusterResult` to `enrichplot`.
+
+# clusterProfiler 3.14.0
+
++ Bioconductor 3.10 release
+
+# clusterProfiler 3.12.0
+
++ Bioconductor 3.9 release
+
+# clusterProfiler 3.11.1
+
++ `asis` parameter in `[.compareClusterResult` (2018-12-24, Mon)
+  - <https://github.com/GuangchuangYu/enrichplot/issues/17>
+
+# clusterProfiler 3.10.0
+
++ Bioconductor 3.8 release
+
+# clusterProfiler 3.9.2
+
++ re-export `DOSE::gsfilter` and `DOSE::setReadable` (2018-05-25, Fri)
+
+# clusterProfiler 3.9.1
+
++ change color scheme of dotplot of compareClusterResult back to red->purple
+  (2018-05-17, Thu)
+  - <https://support.bioconductor.org/p/108996/>
+
+# clusterProfiler 3.8.0
+
++ Bioconductor 3.7 release
+
+# clusterProfiler 3.7.1
+
++ uniprot_get function (2018-01-30, Tue)
++ import enrichplot (2018-01-29, Mon)

@@ -1,0 +1,61 @@
+NOTICE — 上游归属与许可证
+
+本 skill 自身以 MIT 发布（见 LICENSE）。
+
+事实底座派生自下列开源项目，仅提取接口性事实信息（函数签名、参数名、
+模块归属、S3/S4 method、re-export 关系），不含上游实现代码。
+
+## clusterProfiler
+
+- 项目：https://github.com/YuLab-SMU/clusterProfiler
+- 维护者：Guangchuang Yu (https://yulab-smu.top)
+- 许可证：Artistic-2.0（与 R 包一致）
+- 用途：本技能自动抓取 `NAMESPACE` + `R/*.R` 的真实 formals，用于
+  cp_lint.py 的函数/参数存在性校验。
+
+## enrichit（clusterProfiler 底层引擎）
+
+- 项目：https://github.com/YuLab-SMU/enrichit
+- 维护者：YuLab-SMU
+- 许可证：Artistic-2.0
+- 用途：作为 clusterProfiler 的核心计算引擎；本技能收录其关键导出函数
+  （aggregate_enrichment / aggregate_omics / bayes_enrich / setReadable / ...）
+  的真实形参，避免用户写 clusterProfiler 代码时被报幻觉。
+
+## enrichplot（可视化）
+
+- 项目：https://github.com/YuLab-SMU/enrichplot
+- 许可证：Artistic-2.0
+- 用途：clusterProfiler 通过 `importFrom` re-export 的可视化函数
+  （dotplot / cnetplot / emapplot / gseaplot / ridgeplot / heatplot / goplot）。
+  本技能标注它们的来源包为 enrichplot，并对其参数名做手工核对。
+
+## 其他 re-export 的第三方 R 包
+
+下列包通过 clusterProfiler 的 `importFrom` / 间接依赖被引用，本技能不去抓
+它们源码，但记录已手工核对过的函数形参以保证 cp_lint.py 不报幻觉：
+
+- dplyr（MIT）：arrange / filter / group_by / mutate / rename / select /
+  slice / summarise / n
+- magrittr（MIT）：%>% / %<>%
+- rlang（MIT）：%||%
+- ggplot2（MIT）：aes / geom_point / geom_label / ggplot / ggtitle / scale_color_manual
+- GO.db（Artistic-2.0 + Bioconductor）：GOTERM / GOBPCHILDREN / GOCCCHILDREN / GOMFCHILDREN
+- AnnotationDbi（LGPL）：keys / keytypes / toTable / mappedkeys / Ontology / mget
+- GOSemSim（LGPL）：buildGOmap / godata / mgoSim / read.gaf / read.blast2go
+- gson（Artistic-2.0）：gson / read.gmt / read.gmt.wp
+- yulab.utils（Artistic-2.0）：yread / yread_tsv / get_organism / load_OrgDb ...
+- aisdk（Artistic-2.0）：Agent / ChatSession / generate_object / z_string / z_object ...
+- org.*.eg.db 系列（Artistic-2.0 + Bioconductor）：物种对应 OrgDb
+
+完整依赖列表见 `references/environment.md` 和 `tools/whitelist.json`。
+
+---
+
+本 skill 不隶属于 Y 叔 / YuLab-SMU，也不是 clusterProfiler 官方产物。
+事实底座派生自上游源码，仅提取接口性事实，不含上游实现代码。
+
+---
+
+文档与注释使用中文（与本项目「中文注释 + 中文交付」约定一致）。
+代码标识符、API 名称、命令行参数保持英文（与 R / Python 生态一致）。
