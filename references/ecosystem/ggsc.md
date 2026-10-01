@@ -1,0 +1,34 @@
+# ggsc — 1.11.2
+
+> 数据源：github.com/YuLab-SMU/ggsc@devel
+> 24 个已知符号
+
+## Function (23)
+
+- `%<+%(?)`
+- `aes(?)`
+- `draw_key_bgpoint(data, params, size)`
+- `geom_bgpoint(mapping=NULL, data=NULL, stat="identity", position="identity", ..., na.rm=FALSE, show.legend=NA, inherit.aes=TRUE, gap_colour='white', gap_alpha=1, bg_line_width=.3, gap_line_width=.1, pointsize=NULL)`
+- `geom_scattermore2(mapping=NULL, data=NULL, stat="identity", position="identity", ..., na.rm=FALSE, show.legend=NA, inherit.aes=TRUE, interpolate=FALSE, pointsize=0, pixels=c(512, 512), gap_colour='white', gap_alpha=1, bg_line_width=.3, gap_line_width=.1)`
+- `plot_lisa_feature(spe, lisa.res, features=NULL, assay.type='logcounts', geom=geom_bgpoint, pointsize=2, hlpointsize=1.8, clustertype='High', hlcolor=c('black'), gap_line_width=.1, bg_line_width=.3, facet_name=NULL, reduction=NULL, image.plot=FALSE, label_wrap_width=30, ncol=6, ...)`
+- `sc_dim(object, dims=c(1,2)`
+- `sc_dim_count(sc_dim_plot)`
+- `sc_dim_geom_ellipse(geom=stat_ellipse, mapping=NULL, level=0.95, ...)`
+- `sc_dim_geom_feature(object, features, dims=c(1,2), ncol=3, ..., .fun=function(.data) dplyr::filter(.data, ...)`
+- `sc_dim_geom_label(geom=ggplot2::geom_text, mapping=NULL, ...)`
+- `sc_dim_geom_sub(mapping=NULL, subset, .column="ident", ...)`
+- `sc_dim_sub(subset, .column="ident")`
+- `sc_dot(object, features, group.by=NULL, split.by=NULL, cols=c("lightgrey", "blue")`
+- `sc_feature(object, features, dims=c(1, 2)`
+- `sc_geom_annot(data=NULL, mapping=NULL, pointsize=2, pixels=c(512, 512), gap_colour="white", gap_alpha=1, bg_line_width=0.3, gap_line_width=0.1, show.legend=NA, na.rm=FALSE, ...)`
+- `sc_geom_point(mapping=NULL, ...)`
+- `sc_spatial(object, features=NULL, slot="data", plot.pie=FALSE, pie.radius.scale=.3, image.plot=TRUE, image.first.operation='rotate', image.rotate.degree=NULL, image.mirror.axis='v', remove.point=FALSE, mapping=NULL, ncol=6, density=FALSE, grid.n=100, joint=FALSE, joint.fun=prod, common.legend=TRUE, pointsize=5, geom=sc_geom_point, reduction=NULL, dims=NULL, ...)`
+- `sc_violin(object, features, cells=NULL, slot="data", .fun=NULL, mapping=NULL, ncol=3, geom=geom_violin, ...)`
+- `scale_bg_color_manual(..., values, aesthetics="bg_colour", breaks=waiver(), na.value="grey50")`
+- `scale_bg_colour_discrete(...)`
+- `scale_bg_colour_manual(..., values, aesthetics="bg_colour", breaks=waiver(), na.value="grey50")`
+- `theme(?)`
+
+## Generic (1)
+
+- `ggplot_add(object, plot, object_name, ...)`

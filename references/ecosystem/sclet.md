@@ -1,0 +1,87 @@
+# sclet — 1.0.1
+
+> 数据源：github.com/YuLab-SMU/sclet@devel
+> 208 个已知符号
+
+## Function (208)
+
+- `ActiveIdent(object)`
+- `ActiveIdent<-(?)`
+- `AggregateExpression(object, group_by, assay.type="counts", fun="sum")`
+- `as.SCE(object, ...)`
+- `as.Seurat(object, ...)`
+- `assay(?)`
+- `AuditAnalysisChain(sce, features, raw_layer="counts", integrated_layer=NULL, ...)`
+- `BatchRemover(sce, batch=NULL, HVG=NULL, nHVG=5000, assay.type="logcounts", PARAM=NULL, restrict=NULL, correct.all=FALSE, name="batchcorrect")`
+- `CellDimPlot(object, group.by=NULL, reduction=NULL, ...)`
+- `CellRankSummary(object, id=NULL)`
+- `CellStatPlot(object, group.by=NULL, split.by=NULL, position="fill", ...)`
+- `colData(?)`
+- `colData<-(?)`
+- `CommandLog(object, details=FALSE)`
+- `DefaultAssay(object)`
+- `DefaultAssay<-(?)`
+- `DefaultGraph(object)`
+- `DefaultGraph<-(?)`
+- `DefaultLayer(object)`
+- `DefaultLayer<-(?)`
+- `DefaultReduction(object)`
+- `DefaultReduction<-(?)`
+- `DEtestPlot(object, id=NULL, p_val_cutoff=0.05, logfc_cutoff=0.25, ...)`
+- `DimPlot(object, reduction=NULL, ...)`
+- `ElbowPlot(object)`
+- `EnrichmentPlot(object, id=NULL, showCategory=10, ...)`
+- `FeatureDimPlot(object, features, layer=NULL, reduction=NULL, ...)`
+- `FeatureScatter(object, feature1, feature2)`
+- `FindAllMarkers(object, min.pct=0.01, logfc.threshold=0.1, return.thresh=0.01, only.pos=FALSE, base=2, pseudocount.use=1, assay=NULL, layer=NULL, ...)`
+- `FindClusters(object, resolution=0.5)`
+- `FindMarkerPathways(sce, altExp_name="PathwayScores", group.by=NULL, assay="scores", ...)`
+- `FindMarkers(object, ident.1=NULL, ident.2=NULL, min.pct=0.01, logfc.threshold=0.1, base=2, pseudocount.use=1, assay=NULL, layer=NULL, ...)`
+- `FindMarkers_pseudobulk(object, design, contrast, ...)`
+- `FindNeighbors(object, dims, reduction=NULL, k=10)`
+- `FindVariableFeatures(object, nfeatures=2000, method="scran", ...)`
+- `gene_summary_table(gene, gene_col="gene", orgDb="org.Hs.eg.db", keyType="SYMBOL", cluster_col, output="html", browse=TRUE)`
+- `genecurve_plot(sce, assay_name="logcounts", features, lineaegs=NULL, pseudotime.data="slingPseudotime", method=c("smooth","gam"), point=FALSE, line.size=0.8, alpha=0.5, size=1, ncol=NULL, se=TRUE)`
+- `get_analysis_context(object, element=NULL)`
+- `get_annotation(object, element=NULL, id=NULL)`
+- `get_batch(object, element=NULL)`
+- `get_cci(object, id=NULL)`
+- `get_cellchat(object, element=NULL, id=NULL)`
+- `get_cellphonedb(object, element=NULL, id=NULL)`
+- `get_cellrank(object, element=NULL, id=NULL)`
+- `get_colocalization(object, element=NULL)`
+- `get_detest(object, id=NULL)`
+- `get_enrichment(object, id=NULL)`
+- `get_geneset_scoring(object, element=NULL, id=NULL)`
+- `get_graph(object, name=NULL, element=NULL)`
+- `get_hvg(object, element=NULL)`
+- `get_integration(object, element=NULL, id=NULL)`
+- `get_mapping(object, element=NULL, id=NULL)`
+- `get_milo(object, element=NULL, id=NULL)`
+- `get_nichenet(object, element=NULL, id=NULL)`
+- `get_perturbation(object, element=NULL, id=NULL)`
+- `get_perturbation_priority(object, element=NULL)`
+- `get_program(object, program, source=c("auto", "geneset_scoring", "scenic"), id=NULL, assay=NULL)`
+- `get_rare_cells(object, element=NULL)`
+- `get_scenic(object, element=NULL, id=NULL)`
+- `get_spatial(object, element=NULL, id=NULL)`
+- `get_spatial_niche(object, element=NULL)`
+- `get_supercell(object, element=NULL, id=NULL)`
+- `get_trajectory(object, element=NULL, id=NULL)`
+- `get_velocity(object, element=NULL, id=NULL)`
+- `GroupHeatmap(object, features, group.by=NULL, layer=NULL, ...)`
+- `has_annotation(object, id=NULL)`
+- `has_batch(object)`
+- `has_cci(object, id=NULL)`
+- `has_cellchat(object, id=NULL)`
+- `has_cellphonedb(object, id=NULL)`
+- `has_cellrank(object)`
+- `has_colocalization(object)`
+- `has_detest(object, id=NULL)`
+- `has_enrichment(object, id=NULL)`
+- `has_geneset_scoring(object, id=NULL)`
+- `has_graph(object, name=NULL)`
+- `has_hvg(object)`
+- `has_integration(object, id=NULL)`
+- `has_mapping(object, id=NULL)`
+- `has_milo(object, id=NULL)`

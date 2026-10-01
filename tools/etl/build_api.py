@@ -1,39 +1,45 @@
 # -*- coding: utf-8 -*-
-"""从 clusterProfiler 源码生成 skill 的事实底座。
+"""从 YuLab-SMU 生态包的源码生成 skill 的事实底座。
 
-产出：<BUILD>/raw/api_full.json
-  - functions: dict[name] = {pkg, name, def, file, line, args}
-  - s3methods, s4classes, s4methods
-  - imports: 按 pkg 聚合的 importFrom 函数
-  - internal_functions: 全部解析到的函数名（含 S4 / alias / 私有名）
+支持的包（详见 fetch_sources.py 的 PACKAGES 字典）：clusterProfiler / DOSE /
+ReactomePA / meshes / GOSemSim / ChIPseeker / MicrobiomeProfiler / HDO / aPEAR /
+enrichit / enrichplot / gson / aisdk / ggtree / treeio / ggtreeExtra / tidytree /
+MicrobiotaProcess / SVP / sclet / scMSGNN / ggsc / createKEGGdb / CNEr /
+yulab.utils / aplot / ggimage / ggtangle / ggbreak / ggmsa / ivolcano / tigeR /
+wikiprofiler / epiSeeker / scholar / seqmagick / TCNMDATA ...
 
-数据源：<BUILD>/clusterprofiler/{NAMESPACE, DESCRIPTION, R/*.R}
+数据源：<BUILD>/<pkg>/{NAMESPACE, DESCRIPTION, R/*.R}
+
+产出（按 env 合并，可由 build_all.py 一次生成）：
+  <BUILD>/<pkg>/raw/api_full.json   ← 单包事实
+  <SKILL_DIR>/tools/whitelist.json  ← 合并后的总白名单
+
+支持参数：
+  python3 build_api.py                       默认只构建 clusterProfiler
+  python3 build_api.py --pkg NAME           单包
+  python3 build_api.py --pkg NAME --pkg NAME 多个
+  python3 build_api.py --all                全部 PACKAGES
+  python3 build_api.py --merge              合并所有 pkg 输出到 whitelist.json
 
 特别处理：
-  1. R 文件里有 `name <- function(...)`、`name = function(...)`、`setMethod(...)` 三种函数定义语法。
-  3. `name <- alias` / `name = alias` 是别名赋值，复用 alias 的 formals。
-  4. importFrom 的第三方包函数（enrichplot::dotplot / dplyr::filter / magrittr::%>% / ...）
-     通过 NAMESPACE 间接 re-export，本技能不去抓它们源码，但把已核对的 formals
-     用 THIRD_PARTY_PARAMS 注入白名单（保证 cp_lint.py 不报幻觉）。
+  1. R 文件里 `name <- function(...)`、`name = function(...)`、`setMethod(...)` 三种定义。
+  2. `name <- alias` / `name = alias` 是别名赋值，复用 alias 的 formals。
+  3. importFrom 的第三方包函数：进 whitelist（保证 cp_lint 不报幻觉）。
 """
-import io, os, re, json
+import io, os, re, json, sys
 
 # ---- 路径 ----
 _HERE = os.path.dirname(os.path.abspath(__file__))        # tools/etl
 SKILL_DIR = os.path.dirname(os.path.dirname(_HERE))       # skill 根目录
 BUILD_DIR = os.path.abspath(os.environ.get(
     "CP_BUILD_DIR", os.path.join(SKILL_DIR, ".build")))
-CP = os.path.abspath(os.environ.get(
-    "CP_SRC", os.path.join(BUILD_DIR, "clusterprofiler")))
-RAW = os.path.abspath(os.environ.get(
-    "CP_RAW", os.path.join(BUILD_DIR, "raw")))
-os.makedirs(RAW, exist_ok=True)
+WHITELIST_PATH = os.path.join(SKILL_DIR, "tools", "whitelist.json")
+os.makedirs(BUILD_DIR, exist_ok=True)
 
 
 # ================ 通用 R 解析 ================
 
 def strip_comments(s):
-    """去掉 # 之后的注释，忽略字符串内的 #"""
     out, inq = [], None
     i, n = 0, len(s)
     while i < n:
@@ -90,16 +96,11 @@ def split_args(argstr):
     return out
 
 
-# 支持 <- 和 = 两种赋值风格
 FN_RE = re.compile(r"(?P<name>[\w.]+)\s*(?:<-|=)\s*function\s*\(", re.M)
-
-# 别名赋值：name <- alias / name = alias（alias 是已存在的另一个函数名）
 ALIAS_RE = re.compile(
     r"(?P<name>[\w.]+)\s*(?:<-|=)\s*(?P<alias>[A-Za-z][A-Za-z0-9._]*)\s*$",
     re.M,
 )
-
-# setMethod("gen", signature(...), function(args) {...})
 S4_RE = re.compile(
     r"setMethod\s*\(\s*\"(?P<gen>[\w.<>-]+)\"\s*,\s*"
     r"(?P<sig>[^,]+),\s*function\s*\(\s*(?P<args>[^)]*)\)",
@@ -108,13 +109,11 @@ S4_RE = re.compile(
 
 
 def parse_r(path, rel):
-    """解析一个 R 文件，返回 {name: {file, line, args, [alias_of], [s4method]}}"""
     try:
         src = io.open(path, encoding="utf-8", errors="replace").read()
     except Exception:
         return {}
     res = {}
-    # 1) name <- function(...) 或 name = function(...)
     for m in FN_RE.finditer(src):
         name = m.group("name")
         if name in res:
@@ -148,7 +147,6 @@ def parse_r(path, rel):
             "file": rel, "line": line_no,
             "args": [{"name": a, "default": b} for a, b in args],
         }
-    # 2) setMethod("gen", signature, function(args))
     for m in S4_RE.finditer(src):
         gen = m.group("gen")
         sig = m.group("sig")
@@ -168,7 +166,6 @@ def parse_r(path, rel):
             "args": [{"name": a, "default": b} for a, b in args],
             "s4method": True, "generic": gen, "class": cls_name,
         }
-    # 3) name <- alias / name = alias 别名
     for am in ALIAS_RE.finditer(src):
         a_name = am.group("name")
         a_alias = am.group("alias")
@@ -184,435 +181,535 @@ def parse_r(path, rel):
     return res
 
 
-# ================ 1. 解析 clusterProfiler 源码 ================
-rdir = os.path.join(CP, "R")
-cp_fns = {}
-for fn in sorted(os.listdir(rdir)):
-    if fn.endswith(".R"):
-        cp_fns.update(parse_r(os.path.join(rdir, fn), fn))
-
-
-# ================ 2. 解析 NAMESPACE ================
-ns = io.open(os.path.join(CP, "NAMESPACE"), encoding="utf-8").read()
-
-
-def parse_export(text):
-    out = []
-    for m in re.finditer(r"^export\(\s*([^)]*)\)", text, re.M):
-        inner = m.group(1)
-        if inner.startswith('"'):
-            out.append(inner.strip('"'))
-        else:
-            out += [x.strip() for x in inner.split(",") if x.strip()]
-    return sorted(set(out))
-
-
-cp_exports = [x.strip('"') for x in parse_export(ns)]
-
-s3 = []
-for m in re.finditer(r'^S3method\(\s*"?([\w.<\-]+)"?\s*,\s*"?([\w.]+)"?', ns, re.M):
-    s3.append({"generic": m.group(1), "class": m.group(2)})
-
-s4cls = []
-for m in re.finditer(r"^exportClasses\(([^)]*)\)", ns, re.M):
-    s4cls += [x.strip().strip('"') for x in m.group(1).split(",") if x.strip()]
-
-# exportMethods(...)：clusterProfiler 把 simplify 等 S4 method 作为公开方法暴露。
-# 用户脚本里写 simplify(ek) 是合法的（S4 dispatch），cp_lint 必须放行。
-exported_methods = []
-for m in re.finditer(r"^exportMethods\(\s*([^)]+?)\s*\)", ns, re.M):
-    inner = m.group(1)
-    for tok in inner.split(","):
-        tok = tok.strip().strip('"')
-        if tok:
-            exported_methods.append(tok)
-
-imports = {}
-for m in re.finditer(r"^importFrom\(([^,]+),\s*([\s\S]*?)\)\s*$", ns, re.M):
-    pkg = m.group(1).strip().strip('"')
-    rest = m.group(2)
-    fns = [x.strip() for x in rest.split(",") if x.strip()]
-    imports.setdefault(pkg, []).extend(fns)
-
-
-# ================ 3. 第三方包函数的已知参数表 ================
-# clusterProfiler 通过 importFrom re-export 但不在 export() 里的函数，
-# 本技能不去抓那些包源码，但记录已手工核对过的 formals，保证 cp_lint.py
-# 不报幻觉。
-
+# ================ 第三方包函数的已知 formals（手工核对） ================
+# 生态包互 re-export（如 clusterProfiler 通过 importFrom 把 enrichplot 的函数
+# re-export 出来）。本技能不去抓那些被 re-export 包的源码，但用已核对过的
+# formals 填进 args，保证 cp_lint 不误报 unknown-arg。
 THIRD_PARTY_PARAMS = {
     # enrichplot
-    "dotplot": ["object", "x", "showCategory", "size", "title", "font.size",
-                "label_format", "color", "orderBy", "decreasing", "xlim", "ylim"],
-    "cnetplot": ["x", "showCategory", "foldChange", "layout", "colorEdge",
-                 "nodeLabel", "cex_category", "cex_gene", "cex_label_category",
-                 "cex_label_gene", "categorySize", "shadowtext", "color_category"],
+    "dotplot": ["object", "x", "color", "showCategory", "size", "split",
+                 "font.size", "title", "label_format", "orderBy",
+                 "decreasing", "xlim", "ylim"],
+    "cnetplot": ["x", "layout", "showCategory", "color_category",
+                  "size_category", "color_item", "size_item", "color_edge",
+                  "size_edge", "categorySizeBy", "node_label", "node_label_size",
+                  "foldChange", "fc_threshold", "hilight", "hilight_alpha",
+                  # 兼容别名（被 normalize_legacy_* 翻译）
+                  "categorySize", "colorEdge", "circular", "pie", "split",
+                  "includeAll"],
     "emapplot": ["x", "showCategory", "color", "layout", "cex_category",
-                 "cex_line", "min_edge", "group_category", "group_legend",
-                 "node_label", "label_format"],
-    "gseaplot": ["x", "geneSetID", "by", "type", "color", "title", "pvalue_table"],
-    "goplot": ["x", "showCategory", "color", "size", "geom", "hi",
-                "lo", "font.size"],
-    "heatplot": ["x", "showCategory", "foldChange", "color", "label"],
-    "ridgeplot": ["x", "showCategory", "label_format", "fill", "orderBy",
-                  "decreasing", "scale_bar"],
+                  "cex_line", "min_edge", "group_category"],
+    "gseaplot": ["x", "geneSetID", "by", "type", "color", "title"],
+    "goplot": ["x", "showCategory", "color", "size"],
+    "heatplot": ["x", "showCategory", "foldChange"],
+    "ridgeplot": ["x", "showCategory", "label_format"],
     # magrittr
     "%>%": ["lhs", "rhs"],
     "%<>%": ["lhs", "rhs"],
     # rlang
     "%||%": ["lhs", "rhs"],
-    # enrichit (clusterProfiler 的底层引擎；用户脚本里通过 enrichit::xxx 调用)
-    "aggregate_enrichment": ["res_list", "method"],
-    "aggregate_omics": ["x", "method", "input", "feature_type", "conflict_policy"],
-    "bayes_enrich": ["x", "candidate", "n_terms", "by", "prior", "false_positive",
-                       "false_negative", "n_iter", "burnin", "thin",
-                       "posterior_cutoff", "seed", "verbose"],
-    "bayes_summary": ["x", "active", "n"],
-    "gsfilter": ["x", "by", "min", "max"],
-    "harmonize_ids": ["x", "mapping", "from", "to", "collapse"],
-    "select_features_for_ora": ["x", "cutoff", "by"],
-    "setReadable": ["x", "OrgDb", "keyType", "toType"],
-    "build_kegg_graph": ["organism"],
-    "build_go_graph": ["ont", "organism"],
-    "build_string_graph": ["taxID"],
-    "prepare_network": ["graph", "organism"],
-    "prepare_multilayer_network": ["graphs"],
-    "propagate_multilayer": ["multilayer_graph"],
-    "collapse_multilayer_scores": ["scores"],
-    "ora": ["gene", "pathway"],
-    "gsea": ["gene_list", "pathway"],
-    "gseaScores": ["geneList"],
-    "get_omics_contribution": ["x"],
-    "classify_omics_pattern": ["x"],
-    "get_mnsea_contribution": ["x"],
-    "extract_mnsea_subnetwork": ["x"],
-    "as_enrichResult": ["x"],
-    "as_gseaResult": ["x"],
-    # aisdk (LLM 解释)
+    # aisdk
     "Agent": ["description", "name", "model"],
-    "ChatSession": ["agent", "user_message"],
-    "generate_object": ["session", "schema", "prompt"],
-    "z_string": [],
-    "z_enum": ["values"],
-    "z_array": ["items"],
-    "z_object": ["fields"],
+    "ChatSession": ["agent"],
+    "generate_object": ["session", "schema"],
+    "z_string": [], "z_enum": ["values"], "z_array": ["items"], "z_object": ["fields"],
     # yulab.utils
-    "download_yulab_file": ["url", "destfile", "method", "extra"],
-    "get_cache": ["dir", "create"],
-    "get_cache_item": ["key", "cache_dir"],
-    "get_fun_from_pkg": ["pkg", "fun"],
-    "is.installed": ["pkg"],
-    "load_OrgDb": ["orgdb"],
-    "user_dir": [".appname"],
-    "yread": ["file"],
-    "yread_tsv": ["file"],
+    "download_yulab_file": ["url", "destfile"],
+    "get_cache": ["dir"], "get_cache_item": ["key"],
+    "get_fun_from_pkg": ["pkg", "fun"], "is.installed": ["pkg"],
+    "load_OrgDb": ["OrgDb"], "user_dir": ["appname"],
+    "yread": ["file"], "yread_tsv": ["file"],
     # AnnotationDbi
-    "Ontology": ["object"],
-    "keys": ["x", "k"],
-    "keytypes": ["x"],
-    "toTable": ["x"],
-    "mappedkeys": ["x"],
-    "mget": ["x", "envir", "mode", "ifnotfound"],
-    # GO.db (纯数据对象，无 formals)
+    "Ontology": ["object"], "keys": ["x"], "keytypes": ["x"],
+    "toTable": ["x"], "mappedkeys": ["x"], "mget": ["x"],
     # GOSemSim
-    "buildGOmap": ["gostats", "db", "ont", "genome"],
-    "get_organism": ["db"],
-    "godata": ["ont", "organism", "db", "keytype"],
-    "mgoSim": ["GO1", "GO2", "semData", "measure", "combine"],
-    "read.blast2go": ["file", "format"],
-    "read.gaf": ["file"],
+    "buildGOmap": ["gostats"], "get_organism": ["db"],
+    "godata": ["ont", "organism"], "mgoSim": ["GO1", "GO2"],
+    "read.blast2go": ["file"], "read.gaf": ["file"],
     # gson
-    "gson": ["gsid2gene", "gsid2name", "species", "gsname", "version",
-             "keytype", "accessed_date", "file", "obo"],
-    "read.gmt": ["gmtfile", "sep"],
-    "read.gmt.wp": ["gmtfile"],
-    # tidyr
-    "gather": ["data", "key", "value"],
-    "separate": ["data", "col", "into", "sep", "remove", "convert"],
-    # stats
-    "formula": [],
-    "setNames": ["object", "nm"],
+    "gson": ["gsid2gene", "gsid2name"],
+    "read.gmt": ["gmtfile"], "read.gmt.wp": ["gmtfile"],
     # utils
-    "browseURL": ["url"],
-    "citation": ["package"],
-    "head": ["x", "n"],
-    "installed.packages": ["pkgs", "lib"],
-    "modifyList": ["x", "val"],
-    "packageDescription": ["pkg", "lib"],
-    "read.table": ["file", "header", "sep", "quote", "dec"],
-    "stack": ["x"],
-    "str": ["object"],
-    "tail": ["x", "n"],
-    # plyr
-    "dlply": [".data", ".variables", ".fun"],
-    "ldply": [".data", ".fun"],
-    "llply": [".data", ".fun"],
-    # ggplot2
-    "aes": ["x", "y"],
-    "geom_label": ["mapping", "data"],
-    "geom_point": ["mapping", "data"],
+    "head": ["x"], "tail": ["x"],
+    # ggplot2 (limited)
     "ggplot": ["data", "mapping"],
-    "ggtitle": ["label"],
+    "aes": ["x", "y"],
     "scale_color_manual": ["values"],
-    "theme_void": [],
-    # methods
-    "is": ["object", "class2"],
-    "new": ["Class"],
+    # msigdbr
+    "msigdbr": ["species", "category", "subcategory"],
+    # simplify (enrichplot::simplify.enrichResult 的 S3 dispatch 入口)
+    "simplify": ["object", "cutoff", "by", "select_fun", "measure", "semData"],
+    # enrichit 网络构建函数
+    "build_kegg_graph": ["organism"],
+    "build_string_graph": ["taxID"],
+    "build_go_graph": ["ont", "organism"],
+    "prepare_network": ["graph"],
+    "prepare_multilayer_network": ["graphs"],
+    # igraph
+    "layout_with_kk": [],
+    "layout_nicely": [],
+    "layout_in_circle": [],
 }
 
 
-# ================ 4. 组装导出记录 ================
-def find_def(name, table):
-    if name in table:
-        d = table[name]
-        if d.get("alias_of") and d["alias_of"] in table:
-            return d["alias_of"], table[d["alias_of"]]
-        return name, d
-    # 替换函数：name<-
-    if name.endswith("<-"):
-        base = name[:-2]
-        for suf in (".enrichResult", ".compareClusterResult", ".gseaResult",
-                    ".data.frame", ".default", ".list"):
-            cand = base + suf
+# ================ 1. 解析 R source ================
+
+def parse_pkg(pkg):
+    """解析单个包。返回 (functions_dict, version_str, raw_data_dict)。"""
+    src_dir = os.path.join(BUILD_DIR, pkg)
+    rdir = os.path.join(src_dir, "R")
+    ns = os.path.join(src_dir, "NAMESPACE")
+    desc = os.path.join(src_dir, "DESCRIPTION")
+    if not os.path.isfile(ns):
+        raise FileNotFoundError("NAMESPACE 不存在: %s (请先跑 fetch_sources.py)" % ns)
+    ns_text = io.open(ns, encoding="utf-8").read()
+
+    # R sources
+    fns = {}
+    if os.path.isdir(rdir):
+        for fn in sorted(os.listdir(rdir)):
+            if fn.endswith(".R"):
+                fns.update(parse_r(os.path.join(rdir, fn), fn))
+
+    # NAMESPACE: export / S3method / exportClasses / exportMethods / importFrom
+    def parse_export(text):
+        out = []
+        for m in re.finditer(r"^export\(\s*([^)]*)\)", text, re.M):
+            inner = m.group(1)
+            if inner.startswith('"'):
+                out.append(inner.strip('"'))
+            else:
+                out += [x.strip() for x in inner.split(",") if x.strip()]
+        return sorted(set(out))
+
+    pkg_exports = [x.strip('"') for x in parse_export(ns_text)]
+
+    s3 = []
+    for m in re.finditer(r'^S3method\(\s*"?([\w.<\-]+)"?\s*,\s*"?([\w.]+)"?', ns_text, re.M):
+        s3.append({"generic": m.group(1), "class": m.group(2)})
+
+    s4cls = []
+    for m in re.finditer(r"^exportClasses\(([^)]*)\)", ns_text, re.M):
+        s4cls += [x.strip().strip('"') for x in m.group(1).split(",") if x.strip()]
+
+    exported_methods = []
+    for m in re.finditer(r"^exportMethods\(\s*([^)]+?)\s*\)", ns_text, re.M):
+        for tok in m.group(1).split(","):
+            tok = tok.strip().strip('"')
+            if tok:
+                exported_methods.append(tok)
+
+    imports = {}
+    for m in re.finditer(r"^importFrom\(([^,]+),\s*([\s\S]*?)\)\s*$", ns_text, re.M):
+        p = m.group(1).strip().strip('"')
+        fns_in = [x.strip() for x in m.group(2).split(",") if x.strip()]
+        imports.setdefault(p, []).extend(fns_in)
+
+    # find_def
+    def find_def(name, table):
+        if name in table:
+            d = table[name]
+            if d.get("alias_of") and d["alias_of"] in table:
+                return d["alias_of"], table[d["alias_of"]]
+            return name, d
+        if name.endswith("<-"):
+            base = name[:-2]
+            for suf in (".enrichResult", ".compareClusterResult", ".gseaResult",
+                        ".data.frame", ".default", ".list"):
+                cand = base + suf
+                if cand in table:
+                    return cand, table[cand]
+        for suf in (".default", ".enrichResult", ".compareClusterResult",
+                    ".gseaResult", ".groupGOResult", ".interpretation"):
+            cand = name + suf
             if cand in table:
                 return cand, table[cand]
-    # 算子类：name.default
-    for suf in (".default", ".enrichResult", ".compareClusterResult",
-                ".gseaResult", ".groupGOResult", ".interpretation"):
-        cand = name + suf
-        if cand in table:
-            return cand, table[cand]
-    return None, None
+        return None, None
 
-
-records = {}
-for name in cp_exports:
-    key, d = find_def(name, cp_fns)
-    rec = {"name": name, "pkg": "clusterProfiler", "kind": "function", "def": key}
-    if d:
-        rec["file"] = d["file"]
-        rec["line"] = d["line"]
-        rec["args"] = d["args"]
-    else:
-        rec["file"] = None; rec["line"] = None; rec["args"] = []
-    records[name] = rec
-
-# 把 exportMethods(...) 暴露的方法也加入（如果尚未存在）。
-# 这类 S4 method 真实签名在 setMethod("simplify", ...) 处定义的 generic.class；
-# 但用户写 simplify(ek) 会由 R 自动 dispatch，cp_lint 只要知道名字合法即可。
-for mname in exported_methods:
-    if mname in records:
-        continue
-    records[mname] = {
-        "name": mname, "pkg": "clusterProfiler", "kind": "s4method",
-        "def": None, "file": None, "line": None, "args": [],
-    }
-
-# S3 method 变体的参数并入对应 generic
-for item in s3:
-    g, c = item["generic"], item["class"]
-    cand = "%s.%s" % (g, c)
-    if cand in cp_fns:
-        if g in records and not records[g]["args"]:
-            records[g]["args"] = cp_fns[cand]["args"]
-            records[g]["def"] = cand
-            records[g]["file"] = cp_fns[cand]["file"]
-
-
-# ================ 4b. generic 的真实参数 = S3 method 参数的并集 ================
-def merge_args(list_of_arglists):
-    idx, out = {}, []
-    for al in list_of_arglists:
-        for a in al:
-            n = a["name"]
-            if n == "...":
-                continue
-            if n not in idx:
-                idx[n] = dict(a)
-                out.append(n)
-            else:
-                if idx[n].get("default") is None and a.get("default") is not None:
-                    idx[n] = dict(a)
-    if any(any(a["name"] == "..." for a in al) for al in list_of_arglists):
-        idx["..."] = {"name": "...", "default": None}
-        out.append("...")
-    return [idx[n] for n in out]
-
-
-def collect_generic_args(table):
-    g = {}
-    for fname, d in table.items():
-        if "." not in fname:
-            continue
-        gen, cls = fname.rsplit(".", 1)
-        if not gen or not cls:
-            continue
-        g.setdefault(gen, {})[cls] = d["args"]
-    return g
-
-
-gen_from_cp = collect_generic_args(cp_fns)
-s3_generics = sorted({x["generic"] for x in s3})
-
-for gen, variants in gen_from_cp.items():
-    if gen not in records:
-        if gen not in s3_generics:
-            continue
-        records[gen] = {"name": gen, "pkg": "clusterProfiler", "kind": "generic",
-                        "def": None, "file": None, "line": None, "args": []}
-    chosen = None
-    for pref in ("default", "enrichResult", "compareClusterResult",
-                 "gseaResult", "groupGOResult"):
-        if pref in variants and variants[pref]:
-            chosen = variants[pref]
-            break
-    if chosen is None:
-        chosen = merge_args(list(variants.values()))
-    merged = merge_args([chosen] + list(variants.values()))
-    if merged:
-        r = records[gen]
-        if len(merged) > len(r["args"]):
-            r["args"] = merged
-            r["variants"] = sorted(variants.keys())
-            pref_cls = None
-            for pref in ("default", "enrichResult", "compareClusterResult",
-                         "gseaResult", "groupGOResult"):
-                if pref in variants and variants[pref]:
-                    pref_cls = pref
-                    break
-            if pref_cls is None and variants:
-                pref_cls = sorted(variants.keys())[0]
-            cand = "%s.%s" % (gen, pref_cls)
-            if cand in cp_fns:
-                r["def"] = cand
-                r["file"] = cp_fns[cand]["file"]
-                r["line"] = cp_fns[cand]["line"]
-
-
-# ================ 4c. importFrom 的所有函数 ================
-# 对已在 export() 里的 re-exported 函数（典型场景：R/<pkg>.R 里的
-# `enrichplot::dotplot` 形式），如果没解析到 args，用 THIRD_PARTY_PARAMS 补齐。
-for pkg, fns in imports.items():
-    for fn in fns:
-        name = fn.strip().strip('"')
-        if not name:
-            continue
-        params = THIRD_PARTY_PARAMS.get(name)
-        if params is None:
-            continue
-        arg_records = [{"name": a, "default": None} for a in params
-                       if a != "..."]
-        if name in records:
-            r = records[name]
-            if not r["args"]:
-                r["args"] = arg_records
-            r["pkg"] = pkg
-            r["kind"] = "reexport"
+    # 组装 exports
+    records = {}
+    for name in pkg_exports:
+        key, d = find_def(name, fns)
+        rec = {"name": name, "pkg": pkg, "kind": "function", "def": key}
+        if d:
+            rec["file"] = d["file"]; rec["line"] = d["line"]
+            rec["args"] = d["args"]
         else:
-            records[name] = {
-                "name": name, "pkg": pkg, "kind": "reexport",
-                "def": None, "file": None, "line": None, "args": arg_records,
-            }
+            rec["file"] = None; rec["line"] = None; rec["args"] = []
+        records[name] = rec
 
+    # S3 method -> generic
+    for item in s3:
+        g, c = item["generic"], item["class"]
+        cand = "%s.%s" % (g, c)
+        if cand in fns:
+            if g in records and not records[g]["args"]:
+                records[g]["args"] = fns[cand]["args"]
+                records[g]["def"] = cand
+                records[g]["file"] = fns[cand]["file"]
 
-# ================ 4d. enrichit 关键函数补充 ================
-# enrichit 是 clusterProfiler 的依赖引擎（cp 的 importFrom 列表里没有它），
-# 但用户脚本里常通过 enrichit::xxx 直接调用。
-# THIRD_PARTY_PARAMS 里已列出这些函数的形参，这里把它们加进 records。
-EXTRA_ENRICHIT = {
-    "aggregate_enrichment", "aggregate_omics", "bayes_enrich", "bayes_summary",
-    "gsfilter", "harmonize_ids", "select_features_for_ora", "setReadable",
-    "build_kegg_graph", "build_go_graph", "build_string_graph",
-    "prepare_network", "prepare_multilayer_network",
-    "propagate_multilayer", "collapse_multilayer_scores",
-    "ora", "gsea", "gseaScores",
-    "get_omics_contribution", "classify_omics_pattern",
-    "get_mnsea_contribution", "extract_mnsea_subnetwork",
-    "as_enrichResult", "as_gseaResult",
-    "EXTID2NAME",    "msigdbr",
-}
-for name in EXTRA_ENRICHIT:
-    if name in records:
-        continue
-    params = THIRD_PARTY_PARAMS.get(name)
-    if not params:
-        continue
-    records[name] = {
-        "name": name, "pkg": "enrichit", "kind": "reexport",
-        "def": None, "file": None, "line": None,
-        "args": [{"name": a, "default": None} for a in params if a != "..."],
+    # S3 method dispatch 参数并入 generic
+    def merge_args(lists):
+        idx, out = {}, []
+        for al in lists:
+            for a in al:
+                n = a["name"]
+                if n == "...":
+                    continue
+                if n not in idx:
+                    idx[n] = dict(a); out.append(n)
+                elif idx[n].get("default") is None and a.get("default") is not None:
+                    idx[n] = dict(a)
+        if any(any(a["name"] == "..." for a in al) for al in lists):
+            idx["..."] = {"name": "...", "default": None}
+            out.append("...")
+        return [idx[n] for n in out]
+
+    def collect_generic_args(table):
+        g = {}
+        for fname, d in table.items():
+            if "." not in fname:
+                continue
+            gen, cls = fname.rsplit(".", 1)
+            if not gen or not cls:
+                continue
+            g.setdefault(gen, {})[cls] = d["args"]
+        return g
+
+    gen_from = collect_generic_args(fns)
+    s3_generics = sorted({x["generic"] for x in s3})
+
+    for gen, variants in gen_from.items():
+        if gen not in records:
+            if gen not in s3_generics:
+                continue
+            records[gen] = {"name": gen, "pkg": pkg, "kind": "generic",
+                            "def": None, "file": None, "line": None, "args": []}
+        chosen = None
+        for pref in ("default", "enrichResult", "compareClusterResult",
+                     "gseaResult", "groupGOResult"):
+            if pref in variants and variants[pref]:
+                chosen = variants[pref]; break
+        if chosen is None:
+            chosen = merge_args(list(variants.values()))
+        merged = merge_args([chosen] + list(variants.values()))
+        if merged:
+            r = records[gen]
+            if len(merged) > len(r["args"]):
+                r["args"] = merged
+                r["variants"] = sorted(variants.keys())
+
+    # 4d. exportMethods(...) 暴露的 S4 method（用户写 simplify(x) 合法）
+    for mname in exported_methods:
+        if mname in records:
+            continue
+        records[mname] = {
+            "name": mname, "pkg": pkg, "kind": "s4method",
+            "def": None, "file": None, "line": None, "args": [],
+        }
+
+    # 4e. importFrom 的所有函数（re-export）
+    # 用 THIRD_PARTY_PARAMS（手工核对过的 formals）填充 args。
+    # 跨包 re-export（如 clusterProfiler::dotplot 来自 enrichplot::dotplot）的关键。
+    for p, fns_in in imports.items():
+        for fn in fns_in:
+            name = fn.strip().strip('"')
+            if not name:
+                continue
+            params = THIRD_PARTY_PARAMS.get(name)
+            arg_records = (
+                [{"name": a, "default": None} for a in params if a != "..."]
+                if params else []
+            )
+            if name in records:
+                r = records[name]
+                if not r.get("args") and arg_records:
+                    r["args"] = arg_records
+                r["pkg"] = p
+                r["kind"] = "reexport"
+            else:
+                records[name] = {
+                    "name": name, "pkg": p, "kind": "reexport",
+                    "def": None, "file": None, "line": None,
+                    "args": arg_records,
+                }
+
+    # version
+    def read_ver(p):
+        if not os.path.exists(p):
+            return "?"
+        d = io.open(p, encoding="utf-8", errors="replace").read()
+        m = re.search(r"^Version:\s*(\S+)", d, re.M)
+        return m.group(1) if m else "?"
+
+    ver = read_ver(desc)
+
+    s4methods = [{"generic": d["generic"], "class": d["class"], "key": fname}
+                 for fname, d in fns.items() if d.get("s4method")]
+
+    return records, ver, {
+        "s3methods": s3, "s4classes": s4cls, "s4methods": s4methods,
+        "imports": {k: sorted(set(v)) for k, v in imports.items()},
+        "internal_functions": sorted(fns.keys()),
     }
 
 
-# ================ 5. S4 method ================
-s4methods = []
-for fname, d in cp_fns.items():
-    if d.get("s4method"):
-        s4methods.append({
-            "generic": d["generic"],
-            "class": d["class"],
-            "key": fname,
-        })
-
-
-# ================ 6. 弃用参数扫描 ================
-DEPRE_RE = re.compile(r"deprecated\s*\(\s*[\"']([^\"']+)[\"']\s*\)")
-deprecated = {}
-for n, d in cp_fns.items():
+def build_one(pkg, write_pkg_raw=True):
+    """解析单个包，输出 raw/<pkg>/api_full.json"""
+    print("=== [%s] ===" % pkg)
     try:
-        src = io.open(os.path.join(rdir, d["file"]), encoding="utf-8",
-                      errors="replace").read()
-    except Exception:
-        continue
-    hits = {}
-    for a in d["args"]:
-        arg_name = a["name"]
-        # 在该函数定义附近找 deprecated() 标记
-        for m in DEPRE_RE.finditer(src):
-            if m.group(1) == arg_name:
-                hits[arg_name] = "该参数已弃用"
-    if hits:
-        deprecated[n] = hits
+        recs, ver, raw = parse_pkg(pkg)
+    except Exception as e:
+        print("  !! 解析失败：%s" % str(e)[:120])
+        return None
+
+    pkg_raw = os.path.join(BUILD_DIR, pkg, "raw")
+    os.makedirs(pkg_raw, exist_ok=True)
+    if write_pkg_raw:
+        data = {
+            "package": pkg, "version": ver,
+            "functions": recs,
+            "s3methods": raw["s3methods"],
+            "s4classes": raw["s4classes"],
+            "s4methods": raw["s4methods"],
+            "imports": raw["imports"],
+            "internal_functions": raw["internal_functions"],
+        }
+        with io.open(os.path.join(pkg_raw, "api_full.json"), "wb") as f:
+            f.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+
+    # 统计
+    n_sig = sum(1 for r in recs.values() if r["args"])
+    n_pkg = {}
+    for r in recs.values():
+        n_pkg[r.get("pkg", "?")] = n_pkg.get(r.get("pkg", "?"), 0) + 1
+    print("  version: %s, total symbols: %d, with formals: %d" % (ver, len(recs), n_sig))
+    for k, v in sorted(n_pkg.items(), key=lambda x: -x[1]):
+        print("    %-25s %d" % (k, v))
+    return recs, ver, raw
 
 
-# ================ 7. 版本 ================
-def read_ver(p):
-    d = io.open(p, encoding="utf-8", errors="replace").read()
-    m = re.search(r"^Version:\s*(\S+)", d, re.M)
-    return m.group(1) if m else "?"
+def _inject_third_party(all_symbols):
+    """把 THIRD_PARTY_PARAMS 里所有函数注入 all_symbols。
+
+    一些函数（如 msigdbr / build_kegg_graph / ggplot2::geom_point）虽然不在
+    clusterProfiler 的 importFrom 里，但用户脚本里照样会调用。手动归好类。
+    """
+    added = 0
+    for name, params in THIRD_PARTY_PARAMS.items():
+        # 已有更完整的版本就不覆盖
+        if name in all_symbols and len(all_symbols[name].get("args", [])) >= len(params):
+            continue
+        if name.startswith("msigdbr"):
+            ecosystem_pkg, module = "msigdbr", "util"
+        elif name in ("layout_with_kk", "layout_nicely", "layout_in_circle"):
+            ecosystem_pkg, module = "igraph", "viz"
+        elif name.startswith("build_") or name.startswith("prepare_"):
+            ecosystem_pkg, module = "enrichit", "gsea"
+        elif name in ("Agent", "ChatSession", "generate_object", "z_string",
+                     "z_enum", "z_array", "z_object"):
+            ecosystem_pkg, module = "aisdk", "llm"
+        elif name in ("%>%", "%<>%"):
+            ecosystem_pkg, module = "magrittr", "dplyr"
+        elif name == "%||%":
+            ecosystem_pkg, module = "rlang", "dplyr"
+        elif name in ("ggplot", "aes", "geom_point", "geom_label", "scale_color_manual",
+                     "theme", "theme_void") or name.startswith("scale_"):
+            ecosystem_pkg, module = "ggplot2", "viz"
+        elif name in ("head", "tail", "read.table", "read.csv", "write.table",
+                     "installed.packages", "browseURL", "citation", "packageDescription"):
+            ecosystem_pkg, module = "utils", "util"
+        elif name in ("Ontology", "keys", "keytypes", "toTable", "mappedkeys", "mget"):
+            ecosystem_pkg, module = "AnnotationDbi", "id"
+        elif name in ("godata", "mgoSim", "buildGOmap", "get_organism", "read.blast2go",
+                     "read.gaf"):
+            ecosystem_pkg, module = "GOSemSim", "semantic"
+        elif name in ("gson", "read.gmt", "read.gmt.wp"):
+            ecosystem_pkg, module = "gson", "db"
+        elif name in ("yread", "yread_tsv", "get_cache", "get_cache_item",
+                     "download_yulab_file", "get_fun_from_pkg", "is.installed",
+                     "load_OrgDb", "user_dir"):
+            ecosystem_pkg, module = "yulab.utils", "util"
+        elif name.startswith("dotplot") or name in ("cnetplot", "emapplot",
+                                                    "gseaplot", "goplot",
+                                                    "heatplot", "ridgeplot"):
+            ecosystem_pkg, module = "enrichplot", "viz"
+        else:
+            ecosystem_pkg, module = "third_party", "reexport"
+        arg_names = [a for a in params if a != "..."] if params else []
+        rec = {
+            "name": name, "pkg": ecosystem_pkg, "kind": "reexport",
+            "def": None, "file": None, "line": None,
+            "args": arg_names,
+            "ecosystem_pkg": ecosystem_pkg,
+            "ecosystem_module": module,
+            "module": module,
+        }
+        all_symbols[name] = rec
+        full_name = "%s::%s" % (ecosystem_pkg, name)
+        if full_name not in all_symbols:
+            all_symbols[full_name] = dict(rec)
+        added += 1
+    return added
 
 
-ver = read_ver(os.path.join(CP, "DESCRIPTION"))
+def merge_all_whitelist():
+    """合并所有 pkg 的 raw/<pkg>/api_full.json 到 tools/whitelist.json"""
+    # 复用 fetch_sources.py 的 PACKAGES 字典
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import fetch_sources as fs
 
-data = {
-    "clusterprofiler_version": ver,
-    "functions": records,
-    "s3methods": s3,
-    "s4classes": s4cls,
-    "s4methods": s4methods,
-    "imports": {k: sorted(set(v)) for k, v in imports.items()},
-    "internal_functions": sorted(cp_fns.keys()),
+    all_symbols = {}
+    pkg_versions = {}
+    all_s3, all_s4classes, all_s4methods = [], [], []
+
+    # 把 THIRD_PARTY_PARAMS 里所有函数注入 all_symbols
+    third_party_added = _inject_third_party(all_symbols)
+    for pkg in fs.PACKAGES:
+        p = os.path.join(BUILD_DIR, pkg, "raw", "api_full.json")
+        if not os.path.exists(p):
+            print("  skip %s (no raw)" % pkg)
+            continue
+        d = json.loads(io.open(p, encoding="utf-8").read())
+        pkg_versions[pkg] = d.get("version", "?")
+        for sym, rec in d.get("functions", {}).items():
+            # 用包名 + sym 作为唯一键（不同包可能有同名函数）
+            full_name = "%s::%s" % (pkg, sym)
+            r = dict(rec)
+            r["ecosystem_pkg"] = pkg
+            r["ecosystem_module"] = guess_module(pkg, sym, rec)
+            r["module"] = r["ecosystem_module"]   # 兼容旧字段
+            # args 统一为 list of str（cp_lint 期望）
+            if isinstance(r.get("args"), list) and r["args"] and isinstance(r["args"][0], dict):
+                r["args"] = [a.get("name") for a in r["args"]]
+            # 也保留原 list of dict 用于 references/docs 生成
+            r["args_full"] = d["functions"][sym].get("args", [])
+            all_symbols[full_name] = r
+            # 短名：优先选 args 最多的版本（避免某包只有空 args 占位）
+            n_args = len(r["args"])
+            if sym not in all_symbols:
+                all_symbols[sym] = dict(r)
+            elif len(all_symbols[sym].get("args", [])) < n_args:
+                # 现存短名 args 更少，用这个更完整的替换
+                # 注意：保留原 short_name 其它字段，args 用新的
+                all_symbols[sym]["args"] = r["args"]
+                all_symbols[sym]["ecosystem_pkg"] = pkg
+                all_symbols[sym]["ecosystem_module"] = r["ecosystem_module"]
+        all_s3 += d.get("s3methods", [])
+        all_s4classes += d.get("s4classes", [])
+        all_s4methods += d.get("s4methods", [])
+
+    wl = {
+        "generated_from": {
+            "format_version": "ecosystem-1.0",
+            "generated_at": __import__("datetime").datetime.now().isoformat(),
+            "source": "github.com/YuLab-SMU/<多个包>@devel",
+            "packages": pkg_versions,
+        },
+        "symbols": all_symbols,
+        "deprecated_args": {},
+        "s3_generics": sorted({x["generic"] for x in all_s3}),
+        "s4_generics": sorted({x["generic"] for x in all_s4methods}),
+        "s3methods": all_s3,
+        "s4methods": all_s4methods,
+        "s4classes": list(set(all_s4classes)),
+    }
+    with io.open(WHITELIST_PATH, "wb") as f:
+        f.write(json.dumps(wl, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+    print("\n合并 whitelist.json: %d 符号 (含包前缀: %d, 单名: %d)" %
+          (len(all_symbols), sum(1 for k in all_symbols if "::" in k),
+           sum(1 for k in all_symbols if "::" not in k)))
+    print("  写入 %s" % WHITELIST_PATH)
+
+
+# 把生态包映射到 module（用于 gen_docs.py 输出分组）
+ECOSYSTEM_MODULE = {
+    "clusterProfiler":    "ora",
+    "enrichit":           "gsea",
+    "enrichplot":         "viz",
+    "gson":               "db",
+    "DOSE":               "disease",
+    "ReactomePA":         "reactome",
+    "meshes":             "mesh",
+    "GOSemSim":           "semantic",
+    "ChIPseeker":         "chippeak",
+    "MicrobiomeProfiler": "microbiome",
+    "HDO":                "disease",
+    "aPEAR":              "viz",
+    "aisdk":              "llm",
+    "yulab.utils":        "util",
+    "ggtree":             "phylo",
+    "treeio":             "phylo",
+    "ggtreeExtra":        "phylo",
+    "tidytree":           "phylo",
+    "MicrobiotaProcess":  "microbiome",
+    "SVP":                "spatial",
+    "sclet":              "singlecell",
+    "scMSGNN":            "singlecell",
+    "ggsc":               "spatial",
+    "createKEGGdb":      "db",
+    "CNEr":                "chippeak",
+    "aplot":              "viz",
+    "ggimage":            "viz",
+    "ggtangle":           "viz",
+    "ggbreak":            "viz",
+    "ggmsa":              "viz",
+    "ivolcano":           "viz",
+    "tigeR":              "disease",
+    "wikiprofiler":       "wiki",
+    "epiSeeker":          "epigenomic",
+    "scholar":            "util",
+    "seqmagick":          "util",
+    "TCMDATA":            "tcm",
 }
 
-with io.open(os.path.join(RAW, "api_full.json"), "wb") as f:
-    f.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+
+def guess_module(pkg, sym, rec):
+    """Guess a module tag."""
+    return ECOSYSTEM_MODULE.get(pkg, "misc")
 
 
-# ================ 8. 统计 ================
-n_sig = sum(1 for r in records.values() if r["args"])
-n_pkg = {}
-for r in records.values():
-    n_pkg[r.get("pkg", "?")] = n_pkg.get(r.get("pkg", "?"), 0) + 1
-print("clusterProfiler version:", ver)
-print("total known symbols:", len(records))
-print("  with real formals:   ", n_sig)
-print("  S3 method entries:   ", len(s3))
-print("  S4 method entries:   ", len(s4methods))
-print("  S4 classes:          ", len(s4cls))
-print("  internal fns parsed: ", len(cp_fns))
-print("  by package:")
-for k, v in sorted(n_pkg.items(), key=lambda x: -x[1]):
-    print("    %-20s %d" % (k, v))
-no_sig = sorted(n for n, r in records.items() if not r["args"])
-print("  no formals (%d): %s" % (len(no_sig), ", ".join(no_sig[:60])))
-print("  deprecated params in", len(deprecated), "fns")
+def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--pkg", action="append", default=[],
+                    help="要解析的包名（可多次）。缺省: clusterProfiler")
+    ap.add_argument("--all", action="store_true", help="全部 PACKAGES")
+    ap.add_argument("--merge", action="store_true",
+                    help="把 raw/<pkg>/api_full.json 合并到 tools/whitelist.json")
+    ap.add_argument("--list", action="store_true", help="列出 PACKAGES")
+    a = ap.parse_args()
+
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import fetch_sources as fs
+
+    if a.list:
+        for k, v in fs.PACKAGES.items():
+            print("%-22s %s" % (k, v))
+        return 0
+
+    targets = []
+    if a.all:
+        targets = list(fs.PACKAGES)
+    elif a.pkg:
+        for k in a.pkg:
+            if k in fs.PACKAGES:
+                targets.append(k)
+            else:
+                print("WARN: 未知包 `%s`" % k)
+    else:
+        targets = ["clusterProfiler"]
+
+    n_ok = 0
+    for pkg in targets:
+        if build_one(pkg) is not None:
+            n_ok += 1
+
+    print("\n===== 解析 %d/%d 包成功 =====" % (n_ok, len(targets)))
+
+    if a.merge or a.all:
+        merge_all_whitelist()
+
+
+if __name__ == "__main__":
+    sys.exit(main())

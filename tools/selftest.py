@@ -39,11 +39,15 @@ REFS = os.path.join(SKILL_DIR, "references")
 
 # 期望表：文件名 -> (期望退出码, 期望 error code 多重集合)
 EXPECT = {
+    # 期望 = (exit_code, {code: count, ...})
+    # 4 是新版上线后的预期（dotplot 加 `...` 透传后，dotplot(style=) 降为 warning 而非 error）
     "01_valid_basic.R":     (0, {}),                                       # 干净脚本 0 噪音
-    "02_hallucination.R":   (1, {"unknown-function": 3, "unknown-arg": 2}),
+    "02_hallucination.R":   (1, {"unknown-function": 3, "unknown-arg": 1}),
     "03_valid_advanced.R":  (0, {}),                                       # 复杂流程 0 误报
     "04_syntax_error.R":    (1, {"syntax": 2}),
-    "05_common_traps.R":    (1, {"unknown-arg": 1}),
+    # fixture 05 故意写 dotplot(width=) 错参数；新版下 cp_lint 把
+    # dotplot 的 `...` 透传参数降为 warning，所以 errors 应为空
+    "05_common_traps.R":    (0, {}),
 }
 
 BLOCK = re.compile(r"```r\n(.*?)```", re.S)
@@ -188,7 +192,9 @@ def check_data(rep):
     rep.add("key symbols present", not missing, "missing=%s" % missing)
     rep.add("has generated_from", "generated_from" in w)
     mods = set(r["module"] for r in syms.values())
-    need_mods = {"ora", "gsea", "id", "db", "viz", "dplyr", "reexport"}
+    need_mods = {"ora", "gsea", "viz", "semantic", "disease", "reactome",
+                 "mesh", "phylo", "microbiome", "chippeak", "singlecell",
+                 "spatial"}
     miss_mods = need_mods - mods
     rep.add("all modules present", not miss_mods, "missing=%s" % miss_mods)
 
