@@ -2,6 +2,58 @@
 
 所有重要变更都会记录在这里。本项目遵循 [Semantic Versioning](https://semver.org/)。
 
+## [2.0.0] - 2026-10-01
+
+### 重大变更（Ecosystem Expansion）
+
+复刻 Y 叔（YuLab-SMU）全套 R 包生态：**37 个生态包 / 2458 个符号 / 987 个带 formals**。
+
+#### 新增（Added）
+
+- **覆盖包清单**（37 个，按用途分类）：
+  - P0 富集核心：clusterProfiler / enrichit / enrichplot / gson / DOSE / ReactomePA / meshes / GOSemSim / ChIPseeker / MicrobiomeProfiler / HDO / aPEAR / aisdk
+  - P1 系统发育：ggtree / treeio / ggtreeExtra / tidytree
+  - P1 微/单细胞/空间：MicrobiotaProcess / SVP / sclet / scMSGNN / ggsc
+  - P1 数据库/工具：createKEGGdb / CNEr / yulab.utils
+  - P2 科研绘图：aplot / ggimage / ggtangle / ggbreak / ggmsa / ivolcano
+  - P2 疾病/表观：tigeR / wikiprofiler / epiSeeker
+  - P2 工具：scholar / seqmagick
+- **etl 链路重写**：
+  - `tools/etl/fetch_sources.py`：支持 `--all` / `--pkg X` / per-package ref（含 main / master / devel 自适应）
+  - `tools/etl/build_api.py`：通用 R 解析器（每个包独立 build）+ `merge_all_whitelist` 合并多包 + THIRD_PARTY_PARAMS 注入（覆盖 msigdbr / build_kegg_graph / simplify 等无 importFrom 的常用函数）
+  - `tools/etl/gen_docs.py`：按生态包分组生成 `references/api-signatures.md`（110KB）+ `references/function-index.md`（27KB）+ `references/ecosystem/<pkg>.md`（37 份 mini 速查）
+- **新增生态专属文档**：37 份 `references/ecosystem/<pkg>.md`（每个包一份函数列表 + 触发场景）
+- **SKILL.md 扩展**：
+  - description 关键词扩展到所有 37 个包
+  - 新增「生态包路由」章节（37 包按场景映射：用户场景 → 包 → 函数）
+- **whitelist.json 扩容**：从 145 → 2458 符号（1325 带 `pkg::sym` 前缀 + 1133 单名）
+- **fixtures 适应新 cp_lint**：`...` 透传降级为 warning 后，EXPECT 表更新（fixture 02: unknown-arg 减 1；fixture 05: 改 0 errors）
+
+#### 修复（Fixed）
+
+- `cp_lint` 兼容 `datacharacter` 为 dict 时崩溃（args 现在统一为 list of str）
+- `cp_lint` 换行处不 flush ident 的 bug（之前会拼出 `log2fcnames` 这种鬼函数名）
+- `cp_lint` 把 `compareCluster(OrgDb=, ont=)` 错误地当 unknown-arg；现在 `...` 透传降级为 warning
+- `cnetplot(categorySize=)`（兼容别名）以前补进 NOTES_PARAMS
+- merge_all_whitelist 短名优先选 args 最完整的版本（避免 clusterProfiler 包先跑占位空 args 覆盖 enrichit 的完整 args）
+- build_api.py FN_RE 支持 `<-` 和 `=` 两种赋值风格（修复 gson_KEGG_mapper 等的解析）
+- build_api.py 处理 exportMethods(...)、alias 赋值（name <- alias）、S4 method dispatch
+
+#### 技术细节
+
+- `tools/whitelist.json` 格式：`{generated_from: {format_version: "ecosystem-1.0"}, symbols: {pkg::sym 或 sym: {pkg, args, ecosystem_pkg, ecosystem_module, ...}}}`
+- `references/api-signatures.md` 110KB，按生态包分组（37 个 section），可 grep `^### <func-name>` 定位
+- `references/function-index.md` 27KB，含跨包同名函数索引（同符号被多包 re-export 时提示）
+- `references/ecosystem/<pkg>.md` 37 份，每份列该包 export 列表 + 函数签名速查
+
+#### 自检状态
+
+- **fixtures 5/5 PASS**：01_valid_basic / 02_hallucination / 03_valid_advanced / 04_syntax_error / 05_common_traps
+- **文档代码块**：44 个 block，0 bad
+- **工具冒烟 5/5**：cp_api / cp_plan / 拒识别 / --search / --list
+- **数据完整性 4/4**：size >= 140 / 关键符号 / generated_from / 12 modules (ora/gsea/viz/semantic/disease/reactome/mesh/phylo/microbiome/chippeak/singlecell/spatial)
+- **总计 15/15 全绿**
+
 ## [1.0.0] - 2026-10-01
 
 ### 新增（Added）
