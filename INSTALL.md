@@ -113,7 +113,7 @@ Rscript scripts/preflight.R --json  # 机器可读
 ## 三、验证技能本身
 
 ```bash
-python3 tools/selftest.py        # 全绿（15/15），退出码 0
+python3 tools/selftest.py        # 全绿（19/19），退出码 0
 ```
 
 它会跑四类检查：fixtures 回归、文档代码块、工具冒烟、数据完整性。
