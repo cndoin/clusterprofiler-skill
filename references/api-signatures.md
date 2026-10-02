@@ -1,16 +1,214 @@
 # clusterprofiler-skill · 全量函数签名（按生态包分组）
 
-> 数据源：github.com/YuLab-SMU/<生态包>@devel
+> 数据源：各包上游仓库源码（逐包见下文各节的数据源行）
 > 每条签名由 `R/` 源码的真实 `formals` 解析得到；第三方包 re-export 函数用 THIRD_PARTY_PARAMS 手工核对。
 > 用法：`grep -n "^### <函数名>"` 精确查，不要整篇读。
 
-涵盖 37 个 Y 叔生态包，1284 个已知符号（其中 987 个解析到真实参数表）。
+涵盖 38 个 Y 叔生态包，3731 个已知符号（其中 1659 个解析到真实参数表）。
 
-## CNEr (?) — 0 symbols
+## CBNplot (0.99.2) — 42 symbols
 
-## ChIPseeker (1.49.2) — 48 symbols
+### Function (10)
+- `bngeneplot(results, exp, expSample=NULL, algo="hc", R=20, returnNet=FALSE, algorithm.args=NULL, pathNum=NULL, convertSymbol=TRUE, expRow="ENSEMBL", interactive=FALSE, cexCategory=1, cl=NULL, showDir=FALSE, chooseDir=FALSE, scoreType="bic-g", labelSize=4, layout="nicely", clusterAlpha=0.2, strType="normal", delZeroDegree=TRUE, otherVar=NULL, otherVarName=NULL, onlyDf=FALSE, disc=FALSE, tr=NULL, remainCont=NULL, sp="hsapiens", compareRef=FALSE, compareRefType="intersection", pathDb="reactome", dep=NULL, depMeta=NULL, sizeDep=FALSE, showDepHist=TRUE, cellLineName="5637_URINARY_TRACT", showLineage=FALSE, orgDb=org.Hs.eg.db, shadowText=TRUE, bgColor="white", textColor="black", strengthPlot=FALSE, nStrength=10, strThresh=NULL, hub=NULL, seed=1)` — pkg=CBNplot
+- `bngeneplotCustom(results, exp, expSample=NULL, algo="hc", R=20, pathNum=NULL, convertSymbol=TRUE, expRow="ENSEMBL", interactive=FALSE, cexCategory=1, cl=NULL, showDir=FALSE, chooseDir=FALSE, algorithm.args=NULL, labelSize=4, layout="nicely", strType="normal", returnNet=FALSE, otherVar=NULL, otherVarName=NULL, onlyDf=FALSE, disc=FALSE, tr=NULL, remainCont=NULL, dep=NULL, sizeDep=FALSE, orgDb=org.Hs.eg.db, cellLineName="5637_URINARY_TRACT", fontFamily="sans", strengthPlot=FALSE, nStrength=10, strThresh=NULL, hub=NULL, glowEdgeNum=NULL, nodePal=c("blue","red"), edgePal=c("blue","red"), textCol="black", titleCol="black", backCol="white", barTextCol="black", barPal=c("red","blue"), barBackCol="white", scoreType="bic-g", barLegendKeyCol="white", barAxisCol="black", barPanelGridCol="black", titleSize=24, seed=1)` — pkg=CBNplot
+- `bngenetest(results, exp, expSample=NULL, algo="hc", Rrange=seq(2,40,2), cl=NULL, algorithm.args=NULL, pathNum=NULL, convertSymbol=TRUE, expRow="ENSEMBL", scoreType="aic-g")` — pkg=CBNplot
+- `bnpathplot(results, exp, expSample=NULL, algo="hc", algorithm.args=NULL, expRow="ENSEMBL", cl=NULL, returnNet=FALSE, otherVar=NULL, otherVarName=NULL, qvalueCutOff=0.05, adjpCutOff=0.05, nCategory=15, R=20, interactive=FALSE, color="p.adjust", cexCategory=1, cexLine=0.5, chooseDir=FALSE, showDir=FALSE, delZeroDegree=TRUE, labelSize=4, layout="nicely", onlyDf=FALSE, disc=FALSE, tr=NULL, remainCont=NULL, shadowText=TRUE, bgColor="white", textColor="black", compareRef=FALSE, strThresh=NULL, strType="normal", hub=NULL, scoreType="bic-g", databasePal="Set2", dep=NULL, sizeDep=FALSE, orgDb=org.Hs.eg.db, edgeLink=TRUE, cellLineName="5637_URINARY_TRACT", strengthPlot=FALSE, nStrength=10, seed=1)` — pkg=CBNplot
+- `bnpathplotCustom(results, exp, expSample=NULL, algo="hc", R=20, expRow="ENSEMBL", color="p.adjust", cexCategory=1, cl=NULL, showDir=FALSE, chooseDir=FALSE, labelSize=4, layout="nicely", strType="normal", compareRef=FALSE, disc=FALSE, tr=NULL, remainCont=NULL, qvalueCutOff=0.05, adjpCutOff=0.05, nCategory=15, cexLine=1, returnNet=FALSE, dep=NULL, sizeDep=FALSE, cellLineName="5637_URINARY_TRACT", fontFamily="sans", otherVar=NULL, otherVarName=NULL, onlyDf=FALSE, algorithm.args=NULL, strengthPlot=FALSE, nStrength=10, strThresh=NULL, hub=NULL, glowEdgeNum=NULL, nodePal=c("blue","red"), edgePal=c("blue","red"), textCol="black", backCol="white", barTextCol="black", barPal=c("red","blue"), barBackCol="white", scoreType="bic-g", barLegendKeyCol="white", orgDb=org.Hs.eg.db, barAxisCol="black", barPanelGridCol="black", seed=1)` — pkg=CBNplot
+- `bnpathtest(results, exp, expSample=NULL, algo="hc", algorithm.args=NULL, expRow="ENSEMBL", cl=NULL, qvalueCutOff=0.05, adjpCutOff=0.05, nCategory=15, Rrange=seq(2,40,2), scoreType="aic-g")` — pkg=CBNplot
+- `compareBNs(listOfNets)` — pkg=CBNplot
+- `obtainPath(res, geneSymbol)` — pkg=CBNplot
+- `queryCpDistLs(fitted, candidate, evidences, discPalette="Set2", ...)` — pkg=CBNplot
+- `queryCpDistLw(fitted, candidate, evidence, level, point=FALSE, pointSize=5, alpha=TRUE, ...)` — pkg=CBNplot
 
-### Function (40)
+### Reexport (32)
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `arrange(?)` — pkg=dplyr
+- `averaged.network(?)` — pkg=bnlearn
+- `boot.strength(?)` — pkg=bnlearn
+- `cextend(?)` — pkg=bnlearn
+- `choose.direction(?)` — pkg=bnlearn
+- `combn(?)` — pkg=utils
+- `convertIdentifiers(?)` — pkg=graphite
+- `cpdist(?)` — pkg=bnlearn
+- `filter(?)` — pkg=dplyr
+- `geom_dots(?)` — pkg=ggdist
+- `group_by(?)` — pkg=dplyr
+- `group_by_at(?)` — pkg=dplyr
+- `inclusion.threshold(?)` — pkg=bnlearn
+- `map(?)` — pkg=purrr
+- `melt(?)` — pkg=reshape2
+- `msfit(?)` — pkg=pvclust
+- `mutate(?)` — pkg=dplyr
+- `n(?)` — pkg=dplyr
+- `packageVersion(?)` — pkg=utils
+- `pathwayGraph(?)` — pkg=graphite
+- `pathways(?)` — pkg=graphite
+- `read.csv(?)` — pkg=utils
+- `reduce(?)` — pkg=purrr
+- `scale_fill_ramp_continuous(?)` — pkg=ggdist
+- `score(?)` — pkg=bnlearn
+- `select(?)` — pkg=dplyr
+- `setReadable(?)` — pkg=clusterProfiler
+- `str_starts(?)` — pkg=stringr
+- `summarise(?)` — pkg=dplyr
+- `summarize(?)` — pkg=dplyr
+- `undirected.arcs(?)` — pkg=bnlearn
+
+## CNEr (1.49.1) — 144 symbols
+
+### Function (38)
+- `Axt(targetRanges=GRanges(), targetSeqs=DNAStringSet(), queryRanges=GRanges(), querySeqs=DNAStringSet(), score=integer(0), symCount=integer(0), names=NULL)` — pkg=CNEr
+- `axtChain(psls, chains=sub("\\.psl$", ".chain", psls, ignore..., assemblyTarget, assemblyQuery, distance=c("far", "medium", "near"), removePsl=TRUE, binary="axtChain")` — pkg=CNEr
+- `axtInfo(axtFiles)` — pkg=CNEr
+- `binFromCoordRange(starts, ends)` — pkg=CNEr
+- `binRangesFromCoordRange(start, end)` — pkg=CNEr
+- `binRestrictionString(start, end, field="bin")` — pkg=CNEr
+- `blatCNE(cne, blatOptions=NULL, cutIdentity=90)` — pkg=CNEr
+- `chainMergeSort(chains, assemblyTarget, assemblyQuery, allChain=paste0(sub("\\.2bit$", "", basename(a..., removeChains=TRUE, binary="chainMergeSort")` — pkg=CNEr
+- `chainNetSyntenic(allPreChain, assemblyTarget, assemblyQuery, netSyntenicFile=paste0( sub("\\.2bit$", "", basename(..., binaryChainNet="chainNet", binaryNetSyntenic="netSyntenic")` — pkg=CNEr
+- `chainPreNet(allChain, assemblyTarget, assemblyQuery, allPreChain=paste0(sub("\\.2bit$", "", basename(a..., removeAllChain=TRUE, binary="chainPreNet")` — pkg=CNEr
+- `CNE(assembly1Fn=character(1), assembly2Fn=character(1), axt12Fn=character(), axt21Fn=character(), window=50L, identity=50L, CNE12=GRangePairs(), CNE21=GRangePairs(), CNEMerged=GRangePairs(), CNEFinal=GRangePairs(), aligner="blat", cutoffs1=4L, cutoffs2=4L)` — pkg=CNEr
+- `CNEDensity(dbName, tableName, chr, start, end, whichAssembly=c("first", "second"), windowSize=300, minLength=NULL)` — pkg=CNEr
+- `fetchChromSizes(assembly)` — pkg=CNEr
+- `GRangePairs(first=GRanges(), second=GRanges(), ..., names=NULL, hits=NULL)` — pkg=CNEr
+- `lastal(db, queryFn, outputFn=sub("\\.(fa|fasta)$", ".maf", paste(b..., distance=c("far", "medium", "near"), binary="lastal", mc.cores=getOption("mc.cores", 2L), echoCommand=FALSE)` — pkg=CNEr
+- `lastz(assemblyTarget, assemblyQuery, outputDir=".", chrsTarget=NULL, chrsQuery=NULL, distance=c("far", "medium", "near"), binary="lastz", mc.cores=getOption("mc.cores", 2L), echoCommand=FALSE)` — pkg=CNEr
+- `lavToPsl(lavs, psls=sub("\\.lav$", ".psl", lavs, ignore.c..., removeLav=TRUE, binary="lavToPsl")` — pkg=CNEr
+- `makeAncoraFiles(cne, outputDir=".", genomeFirst="first", genomeSecond="second", threshold="50_50")` — pkg=CNEr
+- `makeAxtTracks(x)` — pkg=CNEr
+- `makeCNEDensity(x, outputDir=".", genomeFirst="first", genomeSecond="second", threshold="50_50", windowSizeFirst=300, windowSizeSecond=300)` — pkg=CNEr
+- `makeGRBs(x, winSize=NULL, genes=NULL, ratio=1, background=c("chromosome", "genome"), minCNEs=1L)` — pkg=CNEr
+- `N50(fn)` — pkg=CNEr
+- `N90(fn)` — pkg=CNEr
+- `netToAxt(in.net, in.chain, assemblyTarget, assemblyQuery, axtFile=paste0(sub("\\.2bit$", "", basename(a..., removeFiles=FALSE, binaryNetToAxt="netToAxt", binaryAxtSort="axtSort")` — pkg=CNEr
+- `plotCNEDistribution(x, chrs=NULL, chrScale=c("Mb", "Kb"))` — pkg=CNEr
+- `plotCNEWidth(x, ...)` — pkg=CNEr
+- `psubAxt(x, targetSearch, querySearch)` — pkg=CNEr
+- `read.rmMask.GRanges(fn)` — pkg=CNEr
+- `read.rmskFasta(fn)` — pkg=CNEr
+- `readAncora(fn, assembly=NULL, tAssemblyFn=NULL, qAssemblyFn=NULL)` — pkg=CNEr
+- `readAncoraIntoSQLite(cneFns, dbName, overwrite=FALSE)` — pkg=CNEr
+- `readAxt(axtFiles, tAssemblyFn=NULL, qAssemblyFn=NULL)` — pkg=CNEr
+- `readBed(bedFile, assemblyFn=NULL)` — pkg=CNEr
+- `readCNERangesFromSQLite(dbName, tableName, chr=NULL, start=NULL, end=NULL, whichAssembly=c("first", "second"), minLength=NULL, tAssemblyFn=NULL, qAssemblyFn=NULL)` — pkg=CNEr
+- `reverseCigar(cigar, ops=CIGAR_OPS)` — pkg=CNEr
+- `saveCNEToSQLite(x, dbName, tableName=NULL, overwrite=FALSE)` — pkg=CNEr
+- `scoringMatrix(distance=c("far", "medium", "near"))` — pkg=CNEr
+- `writeAxt(axt, con)` — pkg=CNEr
+
+### S4method (28)
+- `c(?)` — pkg=CNEr
+- `ceScan(?)` — pkg=CNEr
+- `CNE12(?)` — pkg=CNEr
+- `CNE21(?)` — pkg=CNEr
+- `CNEFinal(?)` — pkg=CNEr
+- `cneMerge(?)` — pkg=CNEr
+- `CNEMerged(?)` — pkg=CNEr
+- `first(?)` — pkg=CNEr
+- `fixCoordinates(?)` — pkg=CNEr
+- `grglist(?)` — pkg=CNEr
+- `last(?)` — pkg=CNEr
+- `matchDistribution(?)` — pkg=CNEr
+- `queryRanges(?)` — pkg=CNEr
+- `querySeqs(?)` — pkg=CNEr
+- `score(?)` — pkg=CNEr
+- `second(?)` — pkg=CNEr
+- `seqinfo(?)` — pkg=CNEr
+- `seqnames(?)` — pkg=CNEr
+- `strand(?)` — pkg=CNEr
+- `subAxt(?)` — pkg=CNEr
+- `summary(?)` — pkg=CNEr
+- `swap(?)` — pkg=CNEr
+- `symCount(?)` — pkg=CNEr
+- `syntenicDotplot(?)` — pkg=CNEr
+- `targetRanges(?)` — pkg=CNEr
+- `targetSeqs(?)` — pkg=CNEr
+- `thresholds(?)` — pkg=CNEr
+- `unique(?)` — pkg=CNEr
+
+### Reexport (78)
+- `.Call2(?)` — pkg=S4Vectors
+- `aes(x, y)` — pkg=ggplot2
+- `aes_q(?)` — pkg=ggplot2
+- `aes_string(?)` — pkg=ggplot2
+- `as(?)` — pkg=methods
+- `CIGAR_OPS(?)` — pkg=cigarillo
+- `DataFrame(?)` — pkg=S4Vectors
+- `DNA_BASES(?)` — pkg=Biostrings
+- `DNAStringSet(?)` — pkg=Biostrings
+- `download.file(?)` — pkg=utils
+- `estimate_pars(?)` — pkg=poweRlaw
+- `estimate_xmin(?)` — pkg=poweRlaw
+- `explode_cigar_oplens(?)` — pkg=cigarillo
+- `explode_cigar_ops(?)` — pkg=cigarillo
+- `extends(?)` — pkg=methods
+- `facet_wrap(?)` — pkg=ggplot2
+- `fasta.seqlengths(?)` — pkg=Biostrings
+- `file_ext(?)` — pkg=tools
+- `geom_point(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_tile(?)` — pkg=ggplot2
+- `getGOTerm(?)` — pkg=annotate
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggtitle(?)` — pkg=ggplot2
+- `GOBPANCESTOR(?)` — pkg=GO.db
+- `GOBPCHILDREN(?)` — pkg=GO.db
+- `GOBPOFFSPRING(?)` — pkg=GO.db
+- `GOCCANCESTOR(?)` — pkg=GO.db
+- `GOCCCHILDREN(?)` — pkg=GO.db
+- `GOCCOFFSPRING(?)` — pkg=GO.db
+- `GOMFANCESTOR(?)` — pkg=GO.db
+- `GOMFCHILDREN(?)` — pkg=GO.db
+- `GOMFOFFSPRING(?)` — pkg=GO.db
+- `GRanges(?)` — pkg=GenomicRanges
+- `gunzip(?)` — pkg=R.utils
+- `gzip(?)` — pkg=R.utils
+- `IntegerList(?)` — pkg=IRanges
+- `IRanges(?)` — pkg=IRanges
+- `is(?)` — pkg=methods
+- `isSingleString(?)` — pkg=S4Vectors
+- `isTRUEorFALSE(?)` — pkg=S4Vectors
+- `jpeg(?)` — pkg=grDevices
+- `keggGet(?)` — pkg=KEGGREST
+- `lines(?)` — pkg=graphics
+- `mcmapply(?)` — pkg=parallel
+- `melt(?)` — pkg=reshape2
+- `new(?)` — pkg=methods
+- `normalizeDoubleBracketSubscript(?)` — pkg=S4Vectors
+- `normalizeSingleBracketSubscript(?)` — pkg=S4Vectors
+- `par(?)` — pkg=graphics
+- `pdf(?)` — pkg=grDevices
+- `plot(?)` — pkg=graphics
+- `png(?)` — pkg=grDevices
+- `postscript(?)` — pkg=grDevices
+- `queryHits(?)` — pkg=S4Vectors
+- `queryLength(?)` — pkg=S4Vectors
+- `read.delim(?)` — pkg=utils
+- `read.table(?)` — pkg=utils
+- `read_tsv(?)` — pkg=readr
+- `readBStringSet(?)` — pkg=Biostrings
+- `RleViewsList(?)` — pkg=IRanges
+- `scale_colour_manual(?)` — pkg=ggplot2
+- `scale_fill_continuous(?)` — pkg=ggplot2
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `Seqinfo(?)` — pkg=Seqinfo
+- `setNames(?)` — pkg=stats
+- `SQLite(?)` — pkg=RSQLite
+- `subjectHits(?)` — pkg=S4Vectors
+- `subjectLength(?)` — pkg=S4Vectors
+- `text(?)` — pkg=graphics
+- `theme_bw(?)` — pkg=ggplot2
+- `TwoBitFile(?)` — pkg=rtracklayer
+- `validObject(?)` — pkg=methods
+- `write.table(?)` — pkg=utils
+- `xlab(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
+
+## ChIPseeker (1.49.2) — 136 symbols
+
+### Function (38)
 - `.(..., .env=parent.frame())` — pkg=ChIPseeker
 - `annotatePeak(peak, tssRegion=c(-3000, 3000), TxDb=NULL, level="transcript", assignGenomicAnnotation=TRUE, genomicAnnotationPriority=c("Promoter", "5UTR", "3UTR", "Exon",..., annoDb=NULL, addFlankGeneInfo=FALSE, flankDistance=5000, sameStrand=FALSE, ignoreOverlap=FALSE, ignoreUpstream=FALSE, ignoreDownstream=FALSE, overlap="TSS", verbose=TRUE, columns=c("ENTREZID", "ENSEMBL", "SYMBOL", "G...)` — pkg=ChIPseeker
 - `as.GRanges(x)` — pkg=ChIPseeker
@@ -29,7 +227,6 @@
 - `getPromoters(TxDb=NULL, upstream=1000, downstream=1000, by="gene")` — pkg=ChIPseeker
 - `getSampleFiles(?)` — pkg=ChIPseeker
 - `getTagMatrix(peak, upstream, downstream, windows, type, by, TxDb=NULL, weightCol=NULL, nbin=NULL, verbose=TRUE, ignore_strand=FALSE)` — pkg=ChIPseeker
-- `GRangesList(?)` — pkg=ChIPseeker
 - `makeBioRegionFromGranges(gr, by, type, upstream=1000, downstream=1000)` — pkg=ChIPseeker
 - `overlap(Sets)` — pkg=ChIPseeker
 - `peak_Profile_Heatmap(peak, weightCol=NULL, TxDb=NULL, upstream=1000, downstream=1000, xlab="", ylab="", title=NULL, palette=NULL, verbose=TRUE, by="gene", type="start_site", nbin=NULL, ignore_strand=FALSE, windows_name=NULL, ncol=NULL, nrow=NULL, facet_label_text_size=12, conf, facet="row", free_y=TRUE, height_proportion=4)` — pkg=ChIPseeker
@@ -44,7 +241,6 @@
 - `plotPeakProf(tagMatrix=NULL, peak, upstream, downstream, conf, by, type, windows_name=NULL, weightCol=NULL, TxDb=NULL, xlab="Genomic Region (5'->3')", ylab="Peak Count Frequency", facet="row", free_y=TRUE, verbose=TRUE, nbin=NULL, ignore_strand=FALSE, ...)` — pkg=ChIPseeker
 - `plotPeakProf2(peak, upstream, downstream, conf, by, type, weightCol=NULL, TxDb=NULL, xlab="Genomic Region (5'->3')", ylab="Peak Count Frequency", facet="none", free_y=TRUE, verbose=TRUE, nbin=NULL, ignore_strand=FALSE, ...)` — pkg=ChIPseeker
 - `readPeakFile(peakfile, as="GRanges", ...)` — pkg=ChIPseeker
-- `rel(?)` — pkg=ChIPseeker
 - `seq2gene(seq, tssRegion, flankDistance, TxDb, sameStrand=FALSE)` — pkg=ChIPseeker
 - `shuffle(peak.gr, TxDb)` — pkg=ChIPseeker
 - `tagHeatmap(tagMatrix, xlab="", ylab="", title=NULL, palette="RdBu", nrow=NULL, ncol=NULL)` — pkg=ChIPseeker
@@ -52,21 +248,111 @@
 - `vennplot(Sets, by="gplots", ...)` — pkg=ChIPseeker
 - `vennplot.peakfile(files, labels=NULL)` — pkg=ChIPseeker
 
-### Generic (6)
-- `arrange(.data, .by_group=FALSE, ...)` — pkg=ChIPseeker
+### Generic (2)
 - `as.data.frame(x, row.names=NULL, optional=FALSE, ...)` — pkg=ChIPseeker
-- `filter(.data, .by=NULL, .preserve=FALSE, ...)` — pkg=ChIPseeker
-- `mutate(.data, .by=NULL, .keep=c("all", "used", "unused", "none"), .before=NULL, .after=NULL, ...)` — pkg=ChIPseeker
 - `rename(x, ...)` — pkg=ChIPseeker
-- `subset(x, ...)` — pkg=ChIPseeker
 
-### S4method (2)
-- `show(?)` — pkg=ChIPseeker
-- `upsetplot(?)` — pkg=ChIPseeker
+### Reexport (96)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `.data(?)` — pkg=rlang
+- `aes(x, y)` — pkg=ggplot2
+- `aes_(?)` — pkg=ggplot2
+- `arrange(.data, .by_group=FALSE, ...)` — pkg=dplyr
+- `as(?)` — pkg=methods
+- `boot(?)` — pkg=boot
+- `boot.ci(?)` — pkg=boot
+- `colorRampPalette(?)` — pkg=grDevices
+- `coord_fixed(?)` — pkg=ggplot2
+- `coord_flip(?)` — pkg=ggplot2
+- `detectCores(?)` — pkg=parallel
+- `download.file(?)` — pkg=utils
+- `element_blank(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `end(?)` — pkg=BiocGenerics
+- `exonsBy(?)` — pkg=GenomicFeatures
+- `facet_grid(?)` — pkg=ggplot2
+- `filter(.data, .by=NULL, .preserve=FALSE, ...)` — pkg=dplyr
+- `fiveUTRsByTranscript(?)` — pkg=GenomicFeatures
+- `floating.pie(?)` — pkg=plotrix
+- `genes(?)` — pkg=GenomicFeatures
+- `geom_bar(?)` — pkg=ggplot2
+- `geom_blank(?)` — pkg=ggplot2
+- `geom_hline(?)` — pkg=ggplot2
+- `geom_line(?)` — pkg=ggplot2
+- `geom_rect(?)` — pkg=ggplot2
+- `geom_ribbon(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_tile(?)` — pkg=ggplot2
+- `geom_vline(?)` — pkg=ggplot2
+- `get(?)` — pkg=AnnotationDbi
+- `get_cache_element(?)` — pkg=yulab.utils
+- `get_cache_item(key)` — pkg=yulab.utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggtitle(?)` — pkg=ggplot2
+- `GRangesList(?)` — pkg=GenomicRanges
+- `group_by(?)` — pkg=dplyr
+- `guide_legend(?)` — pkg=ggplot2
+- `import.chain(?)` — pkg=rtracklayer
+- `initial_cache_item(?)` — pkg=yulab.utils
+- `insert_bottom(?)` — pkg=aplot
+- `intronsByTranscript(?)` — pkg=GenomicFeatures
+- `is(?)` — pkg=methods
+- `labs(?)` — pkg=ggplot2
+- `layout(?)` — pkg=graphics
+- `legend(?)` — pkg=graphics
+- `liftOver(?)` — pkg=rtracklayer
+- `mat2df(?)` — pkg=yulab.utils
+- `mclapply(?)` — pkg=parallel
+- `metadata(?)` — pkg=S4Vectors
+- `missingArg(?)` — pkg=methods
+- `mutate(.data, .by=NULL, .keep=c("all", "used", "unused", "none"), .before=NULL, .after=NULL, ...)` — pkg=dplyr
+- `new(?)` — pkg=methods
+- `p.adjust(?)` — pkg=stats
+- `par(?)` — pkg=graphics
+- `permutations(?)` — pkg=gtools
+- `phyper(?)` — pkg=stats
+- `pie(?)` — pkg=graphics
+- `plot.new(?)` — pkg=graphics
+- `plot.venn(?)` — pkg=gplots
+- `plot_list(?)` — pkg=aplot
+- `quos(?)` — pkg=rlang
+- `read.delim(?)` — pkg=utils
+- `rel(?)` — pkg=ggplot2
+- `rm_cache_item(?)` — pkg=yulab.utils
+- `scale_color_manual(values)` — pkg=ggplot2
+- `scale_fill_brewer(?)` — pkg=ggplot2
+- `scale_fill_distiller(?)` — pkg=ggplot2
+- `scale_fill_hue(?)` — pkg=ggplot2
+- `scale_fill_manual(?)` — pkg=ggplot2
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `select(?)` — pkg=AnnotationDbi
+- `setTxtProgressBar(?)` — pkg=utils
+- `show(?)` — pkg=methods
+- `start(?)` — pkg=BiocGenerics
+- `subset(x, ...)` — pkg=S4Vectors
+- `summarise(?)` — pkg=dplyr
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `theme_classic(?)` — pkg=ggplot2
+- `theme_minimal(?)` — pkg=ggplot2
+- `threeUTRsByTranscript(?)` — pkg=GenomicFeatures
+- `transcripts(?)` — pkg=GenomicFeatures
+- `transcriptsBy(?)` — pkg=GenomicFeatures
+- `TxDb.Hsapiens.UCSC.hg19.knownGene(?)` — pkg=TxDb.Hsapiens.UCSC.hg19.knownGene
+- `txtProgressBar(?)` — pkg=utils
+- `update_cache_item(?)` — pkg=yulab.utils
+- `upsetplot(?)` — pkg=enrichplot
+- `xlab(?)` — pkg=ggplot2
+- `xlim(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
+- `yulab_msg(?)` — pkg=yulab.utils
 
-## DOSE (4.7.3) — 23 symbols
+## DOSE (4.7.3) — 49 symbols
 
-### Function (20)
+### Function (17)
 - `clusterSim(cluster1, cluster2, ont="HDO", organism=NULL, measure="Wang", combine="BMA")` — pkg=DOSE
 - `doseInterpretResult(result=NULL, evidence=NULL, query=NULL, sources=NULL, parameters=list(), explanation=list())` — pkg=DOSE
 - `doseSim(DOID1, DOID2, measure="Wang", ont="HDO")` — pkg=DOSE
@@ -75,27 +361,55 @@
 - `enrichNCG(gene, pvalueCutoff=0.05, pAdjustMethod="BH", universe, minGSSize=10, maxGSSize=500, qvalueCutoff=0.2, readable=FALSE)` — pkg=DOSE
 - `evidence(x, target_id=NULL, type=NULL, source=NULL, direction=NULL)` — pkg=DOSE
 - `explainDisease(x, method=c("template", "llm"), max_features=3L, provider=NULL, model=NULL, language=c("en", "zh"), style=c("brief", "research", "cautious"), generation_params=list(), llm_adapter=NULL)` — pkg=DOSE
-- `facet_grid(?)` — pkg=DOSE
 - `gene2DO(gene, organism=NULL, ont="HDO")` — pkg=DOSE
 - `geneSim(geneID1, geneID2=NULL, ont="HDO", organism=NULL, measure="Wang", combine="BMA")` — pkg=DOSE
-- `get_organism(?)` — pkg=DOSE
 - `gseDO(geneList, ont="HDO", organism=NULL, exponent=1, nPerm=1000, minGSSize=10, maxGSSize=500, pvalueCutoff=0.05, pAdjustMethod="BH", verbose=TRUE, method="multilevel", adaptive=FALSE, minPerm=1000, maxPerm=10000, seed=FALSE, ...)` — pkg=DOSE
 - `gseNCG(geneList, exponent=1, nPerm=1000, minGSSize=10, maxGSSize=500, pvalueCutoff=0.05, pAdjustMethod="BH", verbose=TRUE, method="multilevel", adaptive=FALSE, minPerm=1000, maxPerm=10000, seed=FALSE, ...)` — pkg=DOSE
 - `interpretDisease(x, input=c("auto", "gene", "ranked_gene", "gen..., organism=c("human", "mouse"), target=c("disease", "mouse_model", "both"), ontology="auto", id_type="auto", orthology=c("one_to_one", "all"), explain=c("none", "template", "llm"), top=50, ...)` — pkg=DOSE
 - `mclusterSim(clusters, ont="HDO", organism=NULL, measure="Wang", combine="BMA")` — pkg=DOSE
 - `rankMouseModels(gene, disease_model_file, homology_file, gene_pheno_file, top=50)` — pkg=DOSE
-- `set_auto_update(?)` — pkg=DOSE
 - `simplot(sim, xlab="", ylab="", color.low="white", color.high="red", labs=TRUE, digits=2, labs.size=3, font.size=14)` — pkg=DOSE
 - `theme_dose(font.size=14)` — pkg=DOSE
 
-### S4method (3)
+### S4method (2)
 - `as.data.frame(?)` — pkg=DOSE
-- `show(?)` — pkg=DOSE
 - `summary(?)` — pkg=DOSE
 
-## GOSemSim (2.39.3) — 18 symbols
+### Reexport (30)
+- `aes(x, y)` — pkg=ggplot2
+- `combineScores(?)` — pkg=GOSemSim
+- `element_blank(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `facet_grid(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_tile(?)` — pkg=ggplot2
+- `get_organism(db)` — pkg=GOSemSim
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `gsea_gson(?)` — pkg=enrichit
+- `is(?)` — pkg=methods
+- `load_OrgDb(OrgDb)` — pkg=yulab.utils
+- `margin(?)` — pkg=ggplot2
+- `melt(?)` — pkg=reshape2
+- `memoise(?)` — pkg=memoise
+- `new(?)` — pkg=methods
+- `ora_gson(?)` — pkg=enrichit
+- `scale_fill_gradient(?)` — pkg=ggplot2
+- `scale_x_discrete(?)` — pkg=ggplot2
+- `scale_y_discrete(?)` — pkg=ggplot2
+- `set_auto_update(?)` — pkg=GOSemSim
+- `setReadable(?)` — pkg=enrichit
+- `show(?)` — pkg=methods
+- `stack(?)` — pkg=utils
+- `termSim(?)` — pkg=GOSemSim
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `xlab(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
+- `yulab_msg(?)` — pkg=yulab.utils
 
-### Function (18)
+## GOSemSim (2.39.3) — 51 symbols
+
+### Function (17)
 - `buildGOmap(TERM2GENE)` — pkg=GOSemSim
 - `clusterSim(cluster1, cluster2, semData, measure="Wang", drop="IEA", combine="BMA")` — pkg=GOSemSim
 - `combineScores(SimScores, combine)` — pkg=GOSemSim
@@ -103,7 +417,6 @@
 - `get_organism(object)` — pkg=GOSemSim
 - `godata(OrgDb=NULL, annoDb=NULL, keytype="ENTREZID", ont, computeIC=TRUE, processTCSS=FALSE, cutoff=NULL)` — pkg=GOSemSim
 - `goSim(GOID1, GOID2, semData, measure="Wang")` — pkg=GOSemSim
-- `load_OrgDb(?)` — pkg=GOSemSim
 - `mclusterSim(clusters, semData, measure="Wang", drop="IEA", combine="BMA", BPPARAM=NULL)` — pkg=GOSemSim
 - `mgeneSim(genes, semData, measure="Wang", drop="IEA", combine="BMA", verbose=TRUE, BPPARAM=NULL)` — pkg=GOSemSim
 - `mgoSim(GO1, GO2, semData, measure="Wang", combine="BMA")` — pkg=GOSemSim
@@ -115,9 +428,43 @@
 - `termSim(t1, t2, semData, method=c("Wang", "Resnik", "Rel", "Jiang", "...)` — pkg=GOSemSim
 - `wangMethod_internal(ID1, ID2, ont="BP")` — pkg=GOSemSim
 
-## HDO (?) — 0 symbols
+### Reexport (34)
+- `check_installed(?)` — pkg=rlang
+- `columns(?)` — pkg=AnnotationDbi
+- `dbReadTable(?)` — pkg=DBI
+- `digest(?)` — pkg=digest
+- `download_yulab_file(url, destfile)` — pkg=yulab.utils
+- `evalCpp(?)` — pkg=Rcpp
+- `GO.db(?)` — pkg=GO.db
+- `GOBPANCESTOR(?)` — pkg=GO.db
+- `GOBPOFFSPRING(?)` — pkg=GO.db
+- `GOBPPARENTS(?)` — pkg=GO.db
+- `GOCCANCESTOR(?)` — pkg=GO.db
+- `GOCCOFFSPRING(?)` — pkg=GO.db
+- `GOCCPARENTS(?)` — pkg=GO.db
+- `GOMFANCESTOR(?)` — pkg=GO.db
+- `GOMFOFFSPRING(?)` — pkg=GO.db
+- `GOMFPARENTS(?)` — pkg=GO.db
+- `GOTERM(?)` — pkg=GO.db
+- `load_OrgDb(OrgDb)` — pkg=yulab.utils
+- `loadDb(?)` — pkg=AnnotationDbi
+- `ls2df(?)` — pkg=yulab.utils
+- `na.omit(?)` — pkg=stats
+- `new(?)` — pkg=methods
+- `read.delim(?)` — pkg=utils
+- `setClass(?)` — pkg=methods
+- `setMethod(?)` — pkg=methods
+- `setNames(?)` — pkg=stats
+- `setRefClass(?)` — pkg=methods
+- `setTxtProgressBar(?)` — pkg=utils
+- `slot(?)` — pkg=methods
+- `stack(?)` — pkg=utils
+- `toTable(x)` — pkg=AnnotationDbi
+- `txtProgressBar(?)` — pkg=utils
+- `user_dir(appname)` — pkg=yulab.utils
+- `yulab_msg(?)` — pkg=yulab.utils
 
-## MicrobiomeProfiler (1.19.2) — 22 symbols
+## MicrobiomeProfiler (1.19.2) — 58 symbols
 
 ### Function (22)
 - `available_datasets(include_remote=FALSE)` — pkg=MicrobiomeProfiler
@@ -143,30 +490,57 @@
 - `gseSMPDB(metabo_list, nPerm=1000, exponent=1, minGSSize=10, maxGSSize=500, pvalueCutoff=0.05, pAdjustMethod="BH", method="multilevel", adaptive=FALSE, minPerm=101, maxPerm=100000, pvalThreshold=0.1, verbose=TRUE, seed=FALSE)` — pkg=MicrobiomeProfiler
 - `run_MicrobiomeProfiler(onStart=NULL, options=list(), enableBookmarking=NULL, uiPattern="/", ...)` — pkg=MicrobiomeProfiler
 
-## MicrobiotaProcess (1.25.0) — 156 symbols
+### Reexport (36)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `activate_js(?)` — pkg=golem
+- `add_resource_path(?)` — pkg=golem
+- `barplot(?)` — pkg=graphics
+- `bundle_resources(?)` — pkg=golem
+- `colorPickr(?)` — pkg=shinyWidgets
+- `data(?)` — pkg=utils
+- `datatable(?)` — pkg=DT
+- `dotplot(object, x, color, showCategory, size, split, font.size, title, label_format, orderBy, decreasing, xlim, ylim)` — pkg=enrichplot
+- `download.file(?)` — pkg=utils
+- `DTOutput(?)` — pkg=DT
+- `favicon(?)` — pkg=golem
+- `ggsave(?)` — pkg=ggplot2
+- `gsea_gson(?)` — pkg=enrichit
+- `gson(gsid2gene, gsid2name)` — pkg=gson
+- `guide_colorbar(?)` — pkg=ggplot2
+- `guides(?)` — pkg=ggplot2
+- `JS(?)` — pkg=DT
+- `na.omit(?)` — pkg=stats
+- `NS(?)` — pkg=shiny
+- `ora_gson(?)` — pkg=enrichit
+- `read.csv(?)` — pkg=utils
+- `read.delim(?)` — pkg=utils
+- `renderDT(?)` — pkg=DT
+- `scale_color_gradient(?)` — pkg=ggplot2
+- `scale_fill_gradient(?)` — pkg=ggplot2
+- `setNames(?)` — pkg=stats
+- `shinyApp(?)` — pkg=shiny
+- `slot(?)` — pkg=methods
+- `slotNames(?)` — pkg=methods
+- `tagList(?)` — pkg=shiny
+- `unzip(?)` — pkg=utils
+- `with_golem_options(?)` — pkg=golem
+- `withLoader(?)` — pkg=shinycustomloader
+- `xlab(?)` — pkg=ggplot2
+- `yread(file)` — pkg=yulab.utils
 
-### Function (147)
-- `%<>%(?)` — pkg=MicrobiotaProcess
-- `%>%(?)` — pkg=MicrobiotaProcess
-- `arrange(.data, ..., by_group=FALSE, keep.mpse=FALSE)` — pkg=MicrobiotaProcess
+## MicrobiotaProcess (1.25.0) — 272 symbols
+
+### Function (118)
 - `as.MPSE(.data, ...)` — pkg=MicrobiotaProcess
 - `as.mpse(.data, ...)` — pkg=MicrobiotaProcess
 - `as.phyloseq(x, .abundance, ...)` — pkg=MicrobiotaProcess
-- `as.treedata(tree, include.rownames=FALSE, use_taxatree=TRUE, tiplevel="OTU", ...)` — pkg=MicrobiotaProcess
 - `as_phyloseq(x, .abundance, ...)` — pkg=MicrobiotaProcess
-- `as_tibble(x, ...)` — pkg=MicrobiotaProcess
 - `build_tree(seqs, ...)` — pkg=MicrobiotaProcess
-- `colData(?)` — pkg=MicrobiotaProcess
-- `colData<-(?)` — pkg=MicrobiotaProcess
 - `convert_to_treedata(data, type="species", include.rownames=FALSE, ...)` — pkg=MicrobiotaProcess
 - `diff_analysis(obj, ...)` — pkg=MicrobiotaProcess
-- `distinct(.data, ..., .keep_all=FALSE)` — pkg=MicrobiotaProcess
 - `dr_extract(name, .f=NULL)` — pkg=MicrobiotaProcess
 - `drop_taxa(obj, ...)` — pkg=MicrobiotaProcess
-- `extract(?)` — pkg=MicrobiotaProcess
 - `extract_binary_offspring(.data, .node, type='tips', ...)` — pkg=MicrobiotaProcess
-- `filter(.data, ..., .preserve=FALSE, keep.mpse=TRUE)` — pkg=MicrobiotaProcess
-- `fortify(model, data, .slot="colData", ...)` — pkg=MicrobiotaProcess
 - `generalizedFC(x, y, base=10, steps=0.05, pseudo=0.00001, data, subset, na.action, ...)` — pkg=MicrobiotaProcess
 - `get_alltaxadf(obj, method=NULL, type="species", include.rownames=FALSE, ...)` — pkg=MicrobiotaProcess
 - `get_alphaindex(obj, mindepth, sampleda, force=FALSE, ...)` — pkg=MicrobiotaProcess
@@ -197,10 +571,8 @@
 - `ggeffectsize(obj, removeUnknown=TRUE, setFacet=TRUE, ...)` — pkg=MicrobiotaProcess
 - `ggordpoint(obj, pc=c(1,2), mapping=NULL, sampleda=NULL, factorNames=NULL, factorLevels=NULL, poinsize=2, linesize=0.3, arrowsize=1.5, arrowlinecolour="grey", ellipse=FALSE, showsample=FALSE, ellipse_pro=0.9, ellipse_alpha=0.2, ellipse_linewd=0.5, ellipse_lty=3, biplot=FALSE, topn=5, settheme=TRUE, speciesannot=FALSE, fontsize=2.5, labelfactor=NULL, stroke=0.1, fontface="bold.italic", fontfamily="sans", textlinesize=0.02, ...)` — pkg=MicrobiotaProcess
 - `ggrarecurve(obj, chunks=400, factorLevels=NULL, indexNames="Observe", linesize=0.5, facetnrow=1, shadow=TRUE, factorNames, se=FALSE, method="lm", formula=y ~ log(x), ...)` — pkg=MicrobiotaProcess
-- `group_by(.data, ..., .add=FALSE, .drop=group_by_drop_default(.data))` — pkg=MicrobiotaProcess
 - `import_dada2(seqtab, taxatab=NULL, reftree=NULL, sampleda=NULL, ...)` — pkg=MicrobiotaProcess
 - `import_qiime2(otuqza, taxaqza=NULL, mapfilename=NULL, refseqqza=NULL, treeqza=NULL, parallel=FALSE, ...)` — pkg=MicrobiotaProcess
-- `left_join(x, y, by=NULL, copy=FALSE, suffix=c("", ".y"), ...)` — pkg=MicrobiotaProcess
 - `mp_adonis(?)` — pkg=MicrobiotaProcess
 - `mp_aggregate(?)` — pkg=MicrobiotaProcess
 - `mp_aggregate_clade(?)` — pkg=MicrobiotaProcess
@@ -265,93 +637,246 @@
 - `mp_stat_taxa(?)` — pkg=MicrobiotaProcess
 - `MPSE(assays, colData=NULL, otutree=NULL, taxatree=NULL, refseq=NULL, ...)` — pkg=MicrobiotaProcess
 - `multi_compare(fun=wilcox.test, data, feature, factorNames, subgroup=NULL, ...)` — pkg=MicrobiotaProcess
-- `mutate(.data, keep.mpse=TRUE, ...)` — pkg=MicrobiotaProcess
-- `nest(.data, ..., .names_sep=NULL)` — pkg=MicrobiotaProcess
 - `otutree(x, ...)` — pkg=MicrobiotaProcess
-- `otutree<-(?)` — pkg=MicrobiotaProcess
-- `pull(.data, var=-1, name=NULL, ...)` — pkg=MicrobiotaProcess
 - `read_qza(qzafile, parallel=FALSE)` — pkg=MicrobiotaProcess
 - `refsequence(x, ...)` — pkg=MicrobiotaProcess
-- `refsequence<-(?)` — pkg=MicrobiotaProcess
-- `remove_missing(?)` — pkg=MicrobiotaProcess
-- `rename(.data, ..., keep.mpse=TRUE)` — pkg=MicrobiotaProcess
-- `rowData(?)` — pkg=MicrobiotaProcess
 - `scale_fill_diff_cladogram(values, breaks=waiver(), na.value='grey50', ...)` — pkg=MicrobiotaProcess
-- `select(.data, ..., keep.mpse=FALSE)` — pkg=MicrobiotaProcess
 - `set_diff_boxplot_color(.data, values, ...)` — pkg=MicrobiotaProcess
 - `set_scale_theme(.data, x, aes_var)` — pkg=MicrobiotaProcess
-- `slice(.data, ..., .preserve=FALSE)` — pkg=MicrobiotaProcess
 - `split_data(x, nums, chunks=NULL, random=FALSE)` — pkg=MicrobiotaProcess
 - `split_str_to_list(strdataframe, prefix="tax", sep="; ", extra="drop", fill="right", ...)` — pkg=MicrobiotaProcess
 - `tax_table(?)` — pkg=MicrobiotaProcess
 - `taxatree(x, ...)` — pkg=MicrobiotaProcess
-- `taxatree<-(?)` — pkg=MicrobiotaProcess
 - `taxonomy(?)` — pkg=MicrobiotaProcess
-- `taxonomy<-(?)` — pkg=MicrobiotaProcess
-- `td_filter(?)` — pkg=MicrobiotaProcess
-- `td_unnest(?)` — pkg=MicrobiotaProcess
 - `theme_taxbar(axis.text.x=element_text(angle = -45, hjust = 0, ..., legend.position="bottom", legend.box="horizontal", legend.text=element_text(size = 8), legend.title=element_blank(), strip.text.x=element_text(size=12, face="bold"), strip.background=element_rect(colour="white", fill="gr..., ...)` — pkg=MicrobiotaProcess
-- `ungroup(x, ...)` — pkg=MicrobiotaProcess
-- `unnest(data, cols, ..., keep_empty=FALSE, ptype=NULL, names_sep=NULL, names_repair="check_unique")` — pkg=MicrobiotaProcess
 
-### Generic (6)
+### Generic (3)
 - `as.data.frame(x, ...)` — pkg=MicrobiotaProcess
 - `dim(x)` — pkg=MicrobiotaProcess
-- `ggplot_add(object, plot, object_name, ...)` — pkg=MicrobiotaProcess
-- `head(x, n=6L, ...)` — pkg=MicrobiotaProcess
 - `print(object, x, n=NULL, width=NULL, max_extra_cols=NULL, max_footer_lines=NULL, ...)` — pkg=MicrobiotaProcess
-- `tail(x, n=6L, ...)` — pkg=MicrobiotaProcess
 
-### S4method (3)
+### S4method (1)
 - `[(?)` — pkg=MicrobiotaProcess
-- `rownames<-(?)` — pkg=MicrobiotaProcess
-- `show(?)` — pkg=MicrobiotaProcess
 
-## ReactomePA (1.99.2) — 15 symbols
+### Reexport (150)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `%dopar%(?)` — pkg=foreach
+- `.data(?)` — pkg=rlang
+- `across(?)` — pkg=dplyr
+- `aes(x, y)` — pkg=ggplot2
+- `aes_(?)` — pkg=ggplot2
+- `aes_string(?)` — pkg=ggplot2
+- `aggregate(?)` — pkg=stats
+- `all_of(?)` — pkg=dplyr
+- `anova(?)` — pkg=stats
+- `arrange(.data, ..., by_group=FALSE, keep.mpse=FALSE)` — pkg=dplyr
+- `arrow(?)` — pkg=ggplot2
+- `as(?)` — pkg=methods
+- `as.formula(?)` — pkg=stats
+- `as.phylo(?)` — pkg=ape
+- `as.treedata(tree, include.rownames=FALSE, use_taxatree=TRUE, tiplevel="OTU", ...)` — pkg=tidytree
+- `as_name(?)` — pkg=rlang
+- `as_tibble(x, ...)` — pkg=tibble
+- `bind_rows(?)` — pkg=dplyr
+- `check_installed(?)` — pkg=rlang
+- `chull(?)` — pkg=grDevices
+- `cli_inform(?)` — pkg=cli
+- `colData(?)` — pkg=SummarizedExperiment
+- `colorRampPalette(?)` — pkg=grDevices
+- `column_to_rownames(?)` — pkg=tibble
+- `coord_cartesian(?)` — pkg=ggplot2
+- `coord_flip(?)` — pkg=ggplot2
+- `cov(?)` — pkg=stats
+- `ddply(?)` — pkg=plyr
+- `decostand(?)` — pkg=vegan
+- `distinct(.data, ..., .keep_all=FALSE)` — pkg=dplyr
+- `diversity(?)` — pkg=vegan
+- `drop.tip(?)` — pkg=treeio
+- `element_blank(?)` — pkg=ggplot2
+- `element_line(?)` — pkg=ggplot2
+- `element_rect(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `estimateR(?)` — pkg=vegan
+- `eval_select(?)` — pkg=tidyselect
+- `expr(?)` — pkg=rlang
+- `extract(?)` — pkg=magrittr
+- `facet_grid(?)` — pkg=ggplot2
+- `facet_wrap(?)` — pkg=ggplot2
+- `filter(.data, ..., .preserve=FALSE, keep.mpse=TRUE)` — pkg=dplyr
+- `fortify(model, data, .slot="colData", ...)` — pkg=ggplot2
+- `geom_bar(?)` — pkg=ggplot2
+- `geom_boxplot(?)` — pkg=ggplot2
+- `geom_col(?)` — pkg=ggplot2
+- `geom_errorbar(?)` — pkg=ggplot2
+- `geom_errorbarh(?)` — pkg=ggplot2
+- `geom_fruit(?)` — pkg=ggtreeExtra
+- `geom_hline(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggtree
+- `geom_rect(?)` — pkg=ggplot2
+- `geom_ribbon(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_signif(?)` — pkg=ggsignif
+- `geom_smooth(?)` — pkg=ggplot2
+- `geom_star(?)` — pkg=ggstar
+- `geom_text(?)` — pkg=ggplot2
+- `geom_text_repel(?)` — pkg=ggrepel
+- `geom_tiplab(?)` — pkg=ggtree
+- `geom_tippoint(?)` — pkg=ggtree
+- `geom_violin(?)` — pkg=ggplot2
+- `geom_vline(?)` — pkg=ggplot2
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(object, plot, object_name, ...)` — pkg=ggplot2
+- `ggproto(?)` — pkg=ggplot2
+- `ggsave(?)` — pkg=ggplot2
+- `ggtree(?)` — pkg=ggtree
+- `group_by(.data, ..., .add=FALSE, .drop=group_by_drop_default(.data))` — pkg=dplyr
+- `group_by_drop_default(?)` — pkg=dplyr
+- `guide_axis(?)` — pkg=ggplot2
+- `guide_legend(?)` — pkg=ggplot2
+- `hclust(?)` — pkg=stats
+- `head(x, n=6L, ...)` — pkg=utils
+- `labs(?)` — pkg=ggplot2
+- `layer(?)` — pkg=ggplot2
+- `lda(?)` — pkg=MASS
+- `left_join(x, y, by=NULL, copy=FALSE, suffix=c("", ".y"), ...)` — pkg=dplyr
+- `make_ansi_style(?)` — pkg=cli
+- `margin(?)` — pkg=ggplot2
+- `median(?)` — pkg=stats
+- `modifyList(?)` — pkg=utils
+- `mutate(.data, keep.mpse=TRUE, ...)` — pkg=dplyr
+- `na.locf(?)` — pkg=zoo
+- `na.omit(?)` — pkg=stats
+- `nest(.data, ..., .names_sep=NULL)` — pkg=tidyr
+- `new(?)` — pkg=methods
+- `new_formula(?)` — pkg=rlang
+- `p.adjust(?)` — pkg=stats
+- `packageDescription(?)` — pkg=utils
+- `packageVersion(?)` — pkg=utils
+- `pcoa(?)` — pkg=ape
+- `pivot_longer(?)` — pkg=tidyr
+- `plot_layout(?)` — pkg=patchwork
+- `pnorm(?)` — pkg=stats
+- `position_dodge(?)` — pkg=ggplot2
+- `prcomp(?)` — pkg=stats
+- `pull(.data, var=-1, name=NULL, ...)` — pkg=dplyr
+- `pvalue(?)` — pkg=coin
+- `qt(?)` — pkg=stats
+- `quantile(?)` — pkg=stats
+- `quos(?)` — pkg=rlang
+- `read.table(?)` — pkg=utils
+- `read.tree(?)` — pkg=ape
+- `remove_missing(?)` — pkg=ggplot2
+- `rename(.data, ..., keep.mpse=TRUE)` — pkg=dplyr
+- `rowData(?)` — pkg=SummarizedExperiment
+- `rownames_to_column(?)` — pkg=tibble
+- `scale_color_manual(values)` — pkg=ggplot2
+- `scale_fill_manual(?)` — pkg=ggplot2
+- `scale_linetype_manual(?)` — pkg=ggplot2
+- `scale_size_continuous(?)` — pkg=ggplot2
+- `scale_starshape_manual(?)` — pkg=ggstar
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_x_discrete(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `sd(?)` — pkg=stats
+- `select(.data, ..., keep.mpse=FALSE)` — pkg=dplyr
+- `separate(?)` — pkg=tidyr
+- `setDT(?)` — pkg=data.table
+- `setNames(?)` — pkg=stats
+- `show(?)` — pkg=methods
+- `slice(.data, ..., .preserve=FALSE)` — pkg=dplyr
+- `specnumber(?)` — pkg=vegan
+- `Stat(?)` — pkg=ggplot2
+- `sym(?)` — pkg=rlang
+- `tail(x, n=6L, ...)` — pkg=utils
+- `tbl_format_setup(?)` — pkg=pillar
+- `td_filter(?)` — pkg=ggtree
+- `td_mutate(?)` — pkg=ggtree
+- `td_unnest(?)` — pkg=ggtree
+- `terms(?)` — pkg=stats
+- `theme(?)` — pkg=ggplot2
+- `theme_blinds(?)` — pkg=ggfun
+- `theme_bw(?)` — pkg=ggplot2
+- `treedata(?)` — pkg=tidytree
+- `ungroup(x, ...)` — pkg=dplyr
+- `unit(?)` — pkg=ggplot2
+- `unnest(data, cols, ..., keep_empty=FALSE, ptype=NULL, names_sep=NULL, names_repair="check_unique")` — pkg=tidyr
+- `unzip(?)` — pkg=utils
+- `update(?)` — pkg=stats
+- `var(?)` — pkg=stats
+- `waiver(?)` — pkg=ggplot2
+- `wilcox.test(?)` — pkg=stats
+- `xlab(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
 
-### Function (15)
+## ReactomePA (1.99.2) — 44 symbols
+
+### Function (7)
 - `bayes_reactome(x, candidate=c("top", "significant", "all"), n_terms=200, by="p.adjust", prior=0.1, false_positive=0.01, false_negative=0.1, n_iter=5000, burnin=1000, thin=1, posterior_cutoff=0.5, seed=NULL, verbose=FALSE)` — pkg=ReactomePA
-- `cnetplot(?)` — pkg=ReactomePA
-- `dotplot(?)` — pkg=ReactomePA
-- `emapplot(?)` — pkg=ReactomePA
 - `enrichPathway(gene, pvalueCutoff=0.05, pAdjustMethod="BH", universe=NULL, weight=NULL, minGSSize=10, maxGSSize=500, qvalueCutoff=0.2, organism="human", readable=FALSE)` — pkg=ReactomePA
-- `geneID(?)` — pkg=ReactomePA
-- `geneInCategory(?)` — pkg=ReactomePA
-- `gseaplot(?)` — pkg=ReactomePA
 - `gsePathway(geneList, organism="human", exponent=1, weight=NULL, minGSSize=10, maxGSSize=500, eps=1e-10, pvalueCutoff=0.05, pAdjustMethod="BH", verbose=TRUE, nPerm=1000, method="multilevel", adaptive=FALSE, minPerm=101, maxPerm=1e5, pvalThreshold=0.1, seed=FALSE, ...)` — pkg=ReactomePA
 - `gson_Reactome(organism="human")` — pkg=ReactomePA
-- `heatplot(?)` — pkg=ReactomePA
 - `nsePathway(geneList, organism="human", mode=c("evidence", "signed"), network=NULL, restart_prob=0.5, specific_weight=FALSE, minGSSize=10, maxGSSize=500, threshold=1e-9, maxIter=100, nPerm=1000, seed=NULL, verbose=TRUE, ...)` — pkg=ReactomePA
 - `prepareReactomeNetwork(organism="human", directed=FALSE, cores=getOption("mc.cores", 1L))` — pkg=ReactomePA
-- `ridgeplot(?)` — pkg=ReactomePA
 - `viewPathway(pathName, organism="human", readable=TRUE, foldChange=NULL, keyType="ENTREZID", layout="kk")` — pkg=ReactomePA
 
-## SVP (1.5.1) — 49 symbols
+### Reexport (37)
+- `aes(x, y)` — pkg=ggplot2
+- `as.undirected(?)` — pkg=igraph
+- `cnetplot(x, layout, showCategory, color_category, size_category, color_item, size_item, color_edge, size_edge, categorySizeBy, node_label, node_label_size, foldChange, fc_threshold, hilight, hilight_alpha, categorySize, colorEdge, circular, pie, split, includeAll)` — pkg=enrichplot
+- `columns(?)` — pkg=AnnotationDbi
+- `convertIdentifiers(?)` — pkg=graphite
+- `dotplot(object, x, color, showCategory, size, split, font.size, title, label_format, orderBy, decreasing, xlim, ylim)` — pkg=enrichplot
+- `E(?)` — pkg=igraph
+- `emapplot(x, showCategory, color, layout, cex_category, cex_line, min_edge, group_category)` — pkg=enrichplot
+- `EXTID2NAME(?)` — pkg=enrichit
+- `geneID(?)` — pkg=enrichit
+- `geneInCategory(?)` — pkg=enrichit
+- `geom_edge_link(?)` — pkg=ggraph
+- `geom_node_point(?)` — pkg=ggraph
+- `geom_node_text(?)` — pkg=ggraph
+- `getFromNamespace(?)` — pkg=utils
+- `ggraph(?)` — pkg=ggraph
+- `graph_from_graphnel(?)` — pkg=igraph
+- `gseaplot(x, geneSetID, by, type, color, title)` — pkg=enrichplot
+- `gson(gsid2gene, gsid2name)` — pkg=gson
+- `heatplot(x, showCategory, foldChange)` — pkg=enrichplot
+- `mapIds(?)` — pkg=AnnotationDbi
+- `nsea_gson(?)` — pkg=enrichit
+- `pathwayGraph(?)` — pkg=graphite
+- `prepare_network(graph)` — pkg=enrichit
+- `reactomeEXTID2PATHID(?)` — pkg=reactome.db
+- `reactomePATHID2EXTID(?)` — pkg=reactome.db
+- `reactomePATHID2NAME(?)` — pkg=reactome.db
+- `ridgeplot(x, showCategory, label_format)` — pkg=enrichplot
+- `scale_color_continuous(?)` — pkg=ggplot2
+- `scale_size(?)` — pkg=ggplot2
+- `setReadable(?)` — pkg=enrichit
+- `sparseMatrix(?)` — pkg=Matrix
+- `stack(?)` — pkg=utils
+- `theme_void(?)` — pkg=ggplot2
+- `V(?)` — pkg=igraph
+- `with_cache(?)` — pkg=yulab.utils
+- `yulab_msg(?)` — pkg=yulab.utils
 
-### Function (47)
+## SVP (1.5.1) — 120 symbols
+
+### Function (31)
 - `as_tbl_df(x, listn=NULL, diag=TRUE, rmrd=TRUE, flag.clust=FALSE, dist.method='euclidean', hclust.method='average')` — pkg=SVP
 - `cal_lisa_f1(data, lisa.res, type='High', group.by, rm.group.nm=NULL, ...)` — pkg=SVP
 - `cluster.assign(?)` — pkg=SVP
 - `extract_weight_adj(?)` — pkg=SVP
 - `fast_cor(x, y=NULL, combine=FALSE, method=c('pearson', 'spearman', 'bicorr'), alternative=c("two.sided", "less", "greater"), add.pvalue=FALSE, p.adjust.method='BH')` — pkg=SVP
 - `fscoreDf(?)` — pkg=SVP
-- `fscoreDf<-(?)` — pkg=SVP
 - `fscoreDfNames(?)` — pkg=SVP
-- `fscoreDfNames<-(?)` — pkg=SVP
 - `fscoreDfs(x)` — pkg=SVP
-- `fscoreDfs<-(?)` — pkg=SVP
 - `gsvaExp(?)` — pkg=SVP
-- `gsvaExp<-(?)` — pkg=SVP
 - `gsvaExpNames(?)` — pkg=SVP
-- `gsvaExpNames<-(?)` — pkg=SVP
 - `gsvaExps(?)` — pkg=SVP
-- `gsvaExps<-(?)` — pkg=SVP
-- `imgData(?)` — pkg=SVP
-- `imgData<-(?)` — pkg=SVP
 - `LISAResult(x, type=NULL, features=NULL, ...)` — pkg=SVP
 - `LISAsce(data, lisa.res, gsvaexp.name="LISA", ...)` — pkg=SVP
 - `mainGsvaExpName(x)` — pkg=SVP
-- `mainGsvaExpName<-(?)` — pkg=SVP
 - `plot_heatmap_globalbv(globalbv, moran.t=NULL, moran.l=NULL, lisa.t=NULL, lisa.l=NULL, max.point.size=4.5, font.size=2.5, limits.size=NULL, limits.colour=NULL, dist.method="euclidean", hclust.method="average", threshold=0.05)` — pkg=SVP
 - `pred.cell.signature(?)` — pkg=SVP
 - `runCORR(data, features1=NULL, features2=NULL, assay.type="logcounts", method=c("spearman", "pearson", "bicorr")` — pkg=SVP
@@ -365,31 +890,811 @@
 - `runMCA(?)` — pkg=SVP
 - `runSGSA(?)` — pkg=SVP
 - `runWKDE(?)` — pkg=SVP
-- `spatialCoords(?)` — pkg=SVP
-- `spatialCoords<-(?)` — pkg=SVP
-- `spatialCoordsNames(?)` — pkg=SVP
-- `spatialCoordsNames<-(?)` — pkg=SVP
 - `svDf(?)` — pkg=SVP
-- `svDf<-(?)` — pkg=SVP
 - `svDfNames(?)` — pkg=SVP
-- `svDfNames<-(?)` — pkg=SVP
 - `svDfs(x)` — pkg=SVP
-- `svDfs<-(?)` — pkg=SVP
 - `SVPExperiment(..., gsvaExps=list())` — pkg=SVP
 
-### S4method (2)
+### S4method (1)
 - `coerce(?)` — pkg=SVP
-- `show(?)` — pkg=SVP
 
-## TCMDATA (?) — 0 symbols
+### Reexport (88)
+- `%fin%(?)` — pkg=fastmatch
+- `.data(?)` — pkg=rlang
+- `aes(x, y)` — pkg=ggplot2
+- `as(?)` — pkg=methods
+- `assay(?)` — pkg=SummarizedExperiment
+- `assayNames(?)` — pkg=SummarizedExperiment
+- `bplapply(?)` — pkg=BiocParallel
+- `callNextMethod(?)` — pkg=methods
+- `case_when(?)` — pkg=dplyr
+- `cli_abort(?)` — pkg=cli
+- `colData(?)` — pkg=SummarizedExperiment
+- `combn(?)` — pkg=utils
+- `coolcat(?)` — pkg=S4Vectors
+- `coord_cartesian(?)` — pkg=ggplot2
+- `DataFrame(?)` — pkg=S4Vectors
+- `deldir(?)` — pkg=deldir
+- `dist(?)` — pkg=stats
+- `element_blank(?)` — pkg=ggplot2
+- `element_line(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `endoapply(?)` — pkg=S4Vectors
+- `evalCpp(?)` — pkg=Rcpp
+- `expansion(?)` — pkg=ggplot2
+- `findKNN(?)` — pkg=BiocNeighbors
+- `geom_col(?)` — pkg=ggplot2
+- `geom_star(?)` — pkg=ggstar
+- `geom_text(?)` — pkg=ggplot2
+- `geom_tile(?)` — pkg=ggplot2
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggtree(?)` — pkg=ggtree
+- `guide_axis(?)` — pkg=ggplot2
+- `guide_colorbar(?)` — pkg=ggplot2
+- `guide_legend(?)` — pkg=ggplot2
+- `guides(?)` — pkg=ggplot2
+- `hclust(?)` — pkg=stats
+- `imgData(?)` — pkg=SpatialExperiment
+- `initialize(?)` — pkg=methods
+- `int_colData(?)` — pkg=SingleCellExperiment
+- `int_elementMetadata(?)` — pkg=SingleCellExperiment
+- `int_metadata(?)` — pkg=SingleCellExperiment
+- `is(?)` — pkg=methods
+- `isEmpty(?)` — pkg=S4Vectors
+- `layout_dendrogram(?)` — pkg=ggtree
+- `List(?)` — pkg=S4Vectors
+- `margin(?)` — pkg=ggplot2
+- `Matrix(?)` — pkg=Matrix
+- `mcols(?)` — pkg=S4Vectors
+- `metadata(?)` — pkg=S4Vectors
+- `new(?)` — pkg=methods
+- `p.adjust(?)` — pkg=stats
+- `phyper(?)` — pkg=stats
+- `pnorm(?)` — pkg=stats
+- `pt(?)` — pkg=stats
+- `RcppParallelLibs(?)` — pkg=RcppParallel
+- `reducedDim(?)` — pkg=SingleCellExperiment
+- `reducedDimNames(?)` — pkg=SingleCellExperiment
+- `reducedDims(?)` — pkg=SingleCellExperiment
+- `rowData(?)` — pkg=SummarizedExperiment
+- `rowVars(?)` — pkg=DelayedMatrixStats
+- `scale_fill_gradient2(?)` — pkg=ggplot2
+- `scale_size_continuous(?)` — pkg=ggplot2
+- `scale_starshape_manual(?)` — pkg=ggstar
+- `scale_x_reverse(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `SerialParam(?)` — pkg=BiocParallel
+- `setClass(?)` — pkg=methods
+- `setClassUnion(?)` — pkg=methods
+- `setNames(?)` — pkg=stats
+- `show(?)` — pkg=methods
+- `SimpleList(?)` — pkg=S4Vectors
+- `SingleCellExperiment(?)` — pkg=SingleCellExperiment
+- `sourceCpp(?)` — pkg=Rcpp
+- `sparseMatrix(?)` — pkg=Matrix
+- `spatialCoords(?)` — pkg=SpatialExperiment
+- `spatialCoordsNames(?)` — pkg=SpatialExperiment
+- `SpatialExperiment(?)` — pkg=SpatialExperiment
+- `sym(?)` — pkg=rlang
+- `td_filter(?)` — pkg=ggtree
+- `theme(?)` — pkg=ggplot2
+- `theme_blinds(?)` — pkg=ggfun
+- `theme_bw(?)` — pkg=ggplot2
+- `tic(?)` — pkg=pracma
+- `toc(?)` — pkg=pracma
+- `unit(?)` — pkg=ggplot2
+- `updateObject(?)` — pkg=BiocGenerics
+- `with_seed(?)` — pkg=withr
+- `xlab(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
 
-## aPEAR (?) — 0 symbols
+## TCMDATA (1.0.0) — 309 symbols
 
-## aisdk (?) — 0 symbols
+### Function (127)
+- `add_cluster_score(g, cluster_attr="louvain_cluster", min_size=3)` — pkg=TCMDATA
+- `Addclusterscore(...)` — pkg=TCMDATA
+- `artifact_exists(artifact_id)` — pkg=TCMDATA
+- `calculate_metric_weights(g, metrics=c( "degree", "betweenness", "closenes..., use_weight=TRUE, correlation_method=c("spearman", "pearson"), correlation_threshold=0.8, clustering_method=c("complete", "average", "single"))` — pkg=TCMDATA
+- `clear_tcm_artifacts(?)` — pkg=TCMDATA
+- `compound_similarity(query, from=c("smiles","cid","inchikey","name"), threshold=90, topn=10, fetch_factor=3, compute_score=TRUE, ...)` — pkg=TCMDATA
+- `compute_nodeinfo(g, weight_attr="score", normalize=FALSE, seed=42)` — pkg=TCMDATA
+- `convert_structure(input_file, output_file=NULL, input_type=NULL, output_type="pdb", add_hydrogens=FALSE, gen3d=FALSE, overwrite=FALSE, quiet=FALSE)` — pkg=TCMDATA
+- `create_tcm_agent(name, description, system_prompt)` — pkg=TCMDATA
+- `create_tcm_ml_list(?)` — pkg=TCMDATA
+- `create_tcm_task_agent(tools=NULL, system_prompt=NULL, skills=NULL)` — pkg=TCMDATA
+- `create_tcm_tools(task_type=NULL, tool_names=NULL)` — pkg=TCMDATA
+- `create_tcm_workflow(name, steps)` — pkg=TCMDATA
+- `download_ligand_structure(cid, type=c("auto", "3d", "2d"), destdir=".", filename=NULL, overwrite=FALSE, quiet=FALSE)` — pkg=TCMDATA
+- `download_receptor_structure(pdb_id, format=c("pdb", "cif"), destdir=".", filename=NULL, overwrite=FALSE, quiet=FALSE)` — pkg=TCMDATA
+- `draft_result_paragraph(x, type=c("enrichment", "ppi", "table"), language=c("zh", "en"), prompt=NULL, model=NULL)` — pkg=TCMDATA
+- `edit_ggnetwork_layout(graph, layout="fr", physics=FALSE, seed=42L, width=1000, height=750, viewer=NULL, ...)` — pkg=TCMDATA
+- `evaluate_ml_nested_cv(ml_data, methods=c("lasso", "rf", "svm_rfe", "xgboost"), outer_folds=5L, outer_repeats=1L, inner_folds=5L, inner_repeats=1L, balance_method=c("none", "auto", "weights", "down"), metric="ROC", seed=2025L, keep_fold_models=FALSE, model_args=list())` — pkg=TCMDATA
+- `evaluate_tcm_target_sets_by_ppi(target_sets, disease_targets, ppi=NULL, ppi_path=NULL, set_col=NULL, target_col="target", disease_gene_col="symbol", disease_weight_col="disease_weight", weight_attr="score", distance_attr="distance", n_perm=1000L, degree_bins=20L, seed=42L, warn_coverage=0.5)` — pkg=TCMDATA
+- `get_disease_targets(efo_id, size=200, score_threshold=0)` — pkg=TCMDATA
+- `get_enet_coefs(?)` — pkg=TCMDATA
+- `get_gene_auc(genes, ml_data=NULL, expr_mat=NULL, group=NULL, use=c("auto", "train", "test"), ci=TRUE, p_adjust_method="BH", ci_method=c("delong", "bootstrap"), conf_level=0.95, boot_n=2000L, seed=2025L)` — pkg=TCMDATA
+- `get_mcode_res(g, only_clusters=FALSE)` — pkg=TCMDATA
+- `get_ml_consensus(?)` — pkg=TCMDATA
+- `get_ml_gene_sets(..., set_names=NULL)` — pkg=TCMDATA
+- `get_node_profile(tab, node_name, metrics=c("degree", "betweenness", "closeness...)` — pkg=TCMDATA
+- `get_ppi(x, taxID="auto", ...)` — pkg=TCMDATA
+- `get_pubmed_data(tcm_name, disease_name, year_range=NULL, email=NULL, retmax=1000, ...)` — pkg=TCMDATA
+- `get_pubmed_table(x, n=NULL, file=NULL)` — pkg=TCMDATA
+- `get_wgcna_module_genes(x, module, min_module_membership=NULL, trait=NULL, min_gene_significance=NULL)` — pkg=TCMDATA
+- `getcid(compound, from=c("name", "smiles", "inchi"), match=c("first", "best", "all"), pause=0.25, quiet=TRUE, ...)` — pkg=TCMDATA
+- `getGores(x, up_genes=NULL, down_genes=NULL, top=10)` — pkg=TCMDATA
+- `getMCODE_res(...)` — pkg=TCMDATA
+- `getprops(cid, properties=c( "MolecularFormula", "MolecularWeig..., ...)` — pkg=TCMDATA
+- `getvenndata(..., set_names=NULL)` — pkg=TCMDATA
+- `getvennresult(venn_df, col_names=NULL, drop_empty=TRUE)` — pkg=TCMDATA
+- `ggdock(dock_data, order=NULL, type="dot", point_size=3, base_size=7, base_family="Arial", angle=50, hjust=1, vjust=1, palette=NULL, label=FALSE, label_digits=2, label_size=3, label_color="black", label_family=base_family, label_fontface="plain", ...)` — pkg=TCMDATA
+- `ggdot_sankey(enrich_obj, n=10, axis_order=c("Pathway","Gene"), id_colors=c("#8DD3C7", "#FFFFB3", "#BEBADA", "#..., desc_colors=c("#E64B35", "#4DBBD5", "#00A087", "#..., id_y_pos=1.1, desc_y_pos=1.0, pathway_wrap=50, sankey_text_size=2.5, bubble_size_range=c(3, 8), dot_palette="RdBu", dot_x_var=c("GeneRatio", "RichFactor", "FoldEnr..., bubble_p_label="p.adjust", sankey_width=2, dot_width=1, font_family="Arial", font_face="plain", gene_fontface="plain", base_size=7, sankey_lab="Gene-Pathway", seed=2025, ...)` — pkg=TCMDATA
+- `gglollipop(enrich_obj, x="RichFactor", top_n=10, orderBy=NULL, text.col="black", text.size=7, font.family="Arial", text.width=35, palette="RdBu", line.col="grey60", line.type="solid", line.size=0.9, plot_title=NULL, show_count=TRUE, ...)` — pkg=TCMDATA
+- `ggppi_network(graph, metric="degree", size_metric=metric, cluster=NULL, candidate=NULL, score=NULL, layout="nicely", show_text=TRUE, label_top=10L, seed=42L, size_range=c(2.5, 8), colour_low="#FEE8C8", colour_high="#D7301F", edge_color="#B8B8B8", edge_alpha=0.55, edge_width=0.35, edge_width_range=c(0.15, 1.2), base_size=7, base_family="Arial", title=NULL, ...)` — pkg=TCMDATA
+- `ggtcm_network(x, herb_col="herb", compound_col="molecule", target_col="target", layout="concentric", node_size="degree", show_text=TRUE, label_top=c(Herb = Inf, Molecule = 12, Target =..., highlight=NULL, colors=c( Herb = "#D94B2B", Molecule = "#F07..., shapes=c(Herb = 21, Molecule = 21, Target = 21), type_sizes=c(Herb = 11, Molecule = 6, Target = 4), ring_radii=c(Herb = 0.22, Molecule = 1.05, Targe..., show_rings=TRUE, size_range=c(3, 8), edge_color="#C8C8C8", edge_alpha=0.35, edge_width=0.3, seed=42L, base_size=7, base_family="Arial", title=NULL, ...)` — pkg=TCMDATA
+- `ggvenn_plot(venn_df, col_names=NULL, set.color=c("#4E79A7", "#B85C5C", "#59A14F", "#..., set.name.color="black", use.color.as.text=TRUE, name.size=3.2, text.size=2.8, font.family="Arial", font.face="plain", base_size=7, stroke.color="grey25", stroke.size=0.35, show.percentage=FALSE, show.elements=FALSE, digits=1, expand_ratio=0.2)` — pkg=TCMDATA
+- `go_barplot(enrich_obj, x="Count", order=TRUE, top_n=10, colors=NULL, label.size=3.2, show_count=TRUE, label.bold=FALSE, base_size=7, base_family="Arial", x.angle=60, legend.position="top", plot_title=NULL, ...)` — pkg=TCMDATA
+- `gocircle_plot(x, top, up_genes=NULL, down_genes=NULL, cat_col=c(BP = "#E64B35", CC = "#4DBBD5", MF ..., up_col="#AE2A8A", down_col="#7B87BF", padjust_col=c("#FF906F", "#861D30"), bg.col="gray95", max_width=2.5, fontsize=7, fontface="plain", fontfamily="Arial", ...)` — pkg=TCMDATA
+- `herb_enricher(genes, bg_universe=NULL, type=c("Herb_pinyin_name","Herb_cn_name","..., pvalueCutoff=0.05, qvalueCutoff=0.2, pAdjustMethod="BH", minGSSize=10, maxGSSize=5000)` — pkg=TCMDATA
+- `interpret_enrichment(x, top_n=10, max_genes=5L, audience="researcher", language=c("zh", "en"), role=NULL, system=NULL, prompt=NULL, model=NULL)` — pkg=TCMDATA
+- `interpret_ppi(x, top_n=10, audience="researcher", language=c("zh", "en"), role=NULL, system=NULL, prompt=NULL, model=NULL)` — pkg=TCMDATA
+- `interpret_table(x, top_n=20, audience="researcher", language=c("zh", "en"), role=NULL, system=NULL, prompt=NULL, model=NULL)` — pkg=TCMDATA
+- `list_tcm_artifacts(?)` — pkg=TCMDATA
+- `load_tcm_artifact(artifact_id)` — pkg=TCMDATA
+- `make_tcm_function(instruction, name="CustomFn")` — pkg=TCMDATA
+- `ml_enet(?)` — pkg=TCMDATA
+- `ml_lasso(?)` — pkg=TCMDATA
+- `ml_rf(?)` — pkg=TCMDATA
+- `ml_ridge(?)` — pkg=TCMDATA
+- `ml_svm_rfe(?)` — pkg=TCMDATA
+- `ml_xgboost(?)` — pkg=TCMDATA
+- `plot_enet_coefs(result, top_n=20)` — pkg=TCMDATA
+- `plot_enet_cv(result, ...)` — pkg=TCMDATA
+- `plot_enet_path(result, top_n=20, xvar="lambda", ...)` — pkg=TCMDATA
+- `plot_gene_boxplot(genes, ml_data=NULL, expr_mat=NULL, group=NULL, use=c("auto", "train", "test"), test_method=c("wilcox", "t.test"), palette=.pal_tcm_groups()[1:2], show_points=TRUE, point_alpha=0.35, violin=FALSE, ncol=NULL, scales="free_y", p_label=c("p.format", "p.signif", "p.adj"), p_adjust_method="BH", base_size=7, base_family="Arial")` — pkg=TCMDATA
+- `plot_gene_roc(genes, ml_data=NULL, expr_mat=NULL, group=NULL, use=c("auto", "train", "test"), combine=TRUE, palette=NULL, show_ci=FALSE, ncol=NULL, label_size=6.2, p_adjust_method="BH")` — pkg=TCMDATA
+- `plot_ml_roc(ml_list)` — pkg=TCMDATA
+- `plot_ml_venn(..., set_names=NULL)` — pkg=TCMDATA
+- `plot_node_heatmap(data, id_col="name", select_cols=NULL, colors=c("#4E79A7", "white", "#B85C5C"), cluster_rows=TRUE, cluster_cols=FALSE, row_fontsize=7, row_fontface="plain", col_fontsize=7, col_fontface="plain", fontfamily="Arial", col_rotation=45, show_row_names=TRUE, show_column_names=TRUE, legend_title="Z-score", border_color=NA, border_width=0.3, ...)` — pkg=TCMDATA
+- `plot_rf_boruta(result, top_n=20)` — pkg=TCMDATA
+- `plot_rf_importance(result, top_n=20)` — pkg=TCMDATA
+- `plot_svm_rfe_curve(result)` — pkg=TCMDATA
+- `plot_wgcna_eigengenes(x, show_heatmap=FALSE, linewidth=0.4, label_size=2.5, base_size=7, base_family="Arial")` — pkg=TCMDATA
+- `plot_wgcna_modules(x, block=1L, linewidth=0.25, base_size=7, base_family="Arial")` — pkg=TCMDATA
+- `plot_wgcna_traits(x, show_labels=TRUE, digits=2, label_size=2.4, base_size=7, base_family="Arial")` — pkg=TCMDATA
+- `plot_xgb_importance(result, top_n=20)` — pkg=TCMDATA
+- `PlotNodeHeatmap(...)` — pkg=TCMDATA
+- `ppi_knock(g, targets, n_perm=1000L, metrics=c("ASPL", "AD", "DC", "CC"), weight_attr="score", rewire_niter=10L, seed=42L, p_method=c("empirical", "normal"), p_adjust_method="BH")` — pkg=TCMDATA
+- `ppi_knock_impact(g, targets, metrics=c("ASPL", "AD", "DC", "CC"), n_perm=1000L, weight_attr="score", rewire_niter=10L, seed=42L, p_adjust_method="BH", alpha=0.05, p_method=c("empirical", "normal"))` — pkg=TCMDATA
+- `ppi_subset(ppi_obj, n=NULL, score_cutoff=0.7, edge_attr="score", rm_isolates=TRUE)` — pkg=TCMDATA
+- `prepare_disease_weights(..., source_weights=c( OpenTargets = 1.0, OTP = 1.0, Gene..., gene_col=NULL, score_col=NULL, source_col="source", deg_score=FALSE, deg_score_method=c("effect_significance", "wald_stat"), require_score=TRUE, method=c("noisy_or", "weighted_mean", "max"), score_normalization=c("auto", "none", "minmax"))` — pkg=TCMDATA
+- `prepare_herb_graph(df, n=NULL, herb_col="herb", molecule_col="molecule", target_col="target", compute_metrics=TRUE)` — pkg=TCMDATA
+- `prepare_herb_target_weights(herb_df, target_col="target", molecule_col="molecule", herb_col="herb", method=c("binary", "record_count", "compound...)` — pkg=TCMDATA
+- `prepare_ml_data(expr_mat, group, positive_class=NULL, genes=NULL, split=FALSE, train_ratio=0.7, train_idx=NULL, test_expr=NULL, test_group=NULL, seed=2025, imbalance_threshold=0.25, imbalance_action=c("warn", "message", "none"))` — pkg=TCMDATA
+- `query_disease_targets(disease_name, size=200, score_threshold=0, efo_index=1)` — pkg=TCMDATA
+- `radar_plot(profile_df, category_col="metric", value_col="value", fill_color="#A0CBE8", line_color="#4E79A7", title=NULL, base_size=7, base_family="Arial")` — pkg=TCMDATA
+- `rank_ppi_nodes(g, metrics=c( "degree", "betweenness", "closenes..., weights=NULL, use_weight=TRUE, na_rm=TRUE)` — pkg=TCMDATA
+- `rank_tcm_targets_by_ppi(herb_targets, disease_targets, ppi=NULL, ppi_path=NULL, target_col="target", disease_gene_col="symbol", disease_weight_col="disease_weight", weight_attr="score", distance_attr="distance", n_perm=1000L, degree_bins=20L, seed=42L, eps=1e-8, warn_coverage=0.5)` — pkg=TCMDATA
+- `resolve_cid(x, from=c("cid","smiles","inchi","inchikey","...)` — pkg=TCMDATA
+- `route_tcm_task(task, use_llm=FALSE, model=NULL)` — pkg=TCMDATA
+- `run_fastgreedy(g, weights=NULL)` — pkg=TCMDATA
+- `run_louvain(g, resolution=1.0, weights=NULL)` — pkg=TCMDATA
+- `run_MCL(g, inflation=2.5, max_iter=100, pruning=1e-5, allow1=FALSE)` — pkg=TCMDATA
+- `run_mcode(g, vwp=0.2, degree_cutoff=2, k_core_threshold=2, haircut=TRUE, fluff=FALSE, fdt=0.1, loops=FALSE, max_depth=100)` — pkg=TCMDATA
+- `run_ml_screening(?)` — pkg=TCMDATA
+- `run_tcm_agent(agent, query, model=NULL, verbose=TRUE)` — pkg=TCMDATA
+- `run_tcm_task(agent, task, model=NULL, verbose=TRUE)` — pkg=TCMDATA
+- `run_tcm_workflow(workflow, ..., verbose=TRUE)` — pkg=TCMDATA
+- `run_wgcna(expr_mat, traits=NULL, power=NULL, powers=c(1:10, seq(12, 20, by = 2)), scale_free_R2=0.85, top_n=NULL, network_type=c("unsigned", "signed"), tom_type=NULL, cor_type=c("pearson", "bicor"), max_block_size=5000, min_module_size=30, merge_cut_height=0.25, deep_split=2, reassign_threshold=0, pam_respects_dendro=FALSE, seed=2025, n_threads=1, verbose=1)` — pkg=TCMDATA
+- `runMCODE(...)` — pkg=TCMDATA
+- `save_tcm_artifact(object, artifact_type, artifact_id=NULL, summary=NULL, provenance=NULL)` — pkg=TCMDATA
+- `sdf_to_pdb(sdf_file, pdb_file=NULL, add_hydrogens=TRUE, gen3d=FALSE, overwrite=FALSE, quiet=FALSE)` — pkg=TCMDATA
+- `search_disease(disease, readable=TRUE)` — pkg=TCMDATA
+- `search_disease_efo(disease_name, size=10)` — pkg=TCMDATA
+- `search_gene_disease(gene, readable=TRUE)` — pkg=TCMDATA
+- `search_geo_datasets(query, organism="Homo sapiens", dataset_type=NULL, email=NULL, retmax=20L)` — pkg=TCMDATA
+- `search_herb(herb, type)` — pkg=TCMDATA
+- `search_target(gene_list)` — pkg=TCMDATA
+- `select_features(ml_obj, top_n)` — pkg=TCMDATA
+- `select_tcm_targets(x, top_n=50L, min_score=NULL, min_z=NULL, max_p=NULL, max_p_adjust=NULL, direct_overlap=NULL, return=c("table", "targets"), p_variant=c("final", "no_self", "raw"))` — pkg=TCMDATA
+- `summarize_tcm_artifact(artifact_id, max_lines=5L)` — pkg=TCMDATA
+- `tcm_agent(task, model=NULL, verbose=TRUE, use_router=TRUE)` — pkg=TCMDATA
+- `tcm_aisdk_skill(name="skill-creator")` — pkg=TCMDATA
+- `tcm_chat(model=NULL, verbose=TRUE, stream=TRUE, skills=NULL)` — pkg=TCMDATA
+- `tcm_config(provider, api_key, model, base_url=NULL, path=".env", api_format=NULL, supports_native_tools=NULL, disable_stream_options=NULL, responses_state_mode=NULL)` — pkg=TCMDATA
+- `tcm_field_array(description="")` — pkg=TCMDATA
+- `tcm_field_boolean(description="")` — pkg=TCMDATA
+- `tcm_field_enum(choices, description="")` — pkg=TCMDATA
+- `tcm_field_number(description="")` — pkg=TCMDATA
+- `tcm_field_string(description="")` — pkg=TCMDATA
+- `tcm_init_skills(path="tcm_skills", overwrite=FALSE)` — pkg=TCMDATA
+- `tcm_interpret(x, type=NULL, top_n=NULL, max_genes=5L, audience="researcher", language=c("zh", "en"), role=NULL, system=NULL, prompt=NULL, model=NULL, verbose=TRUE)` — pkg=TCMDATA
+- `tcm_interpret_schema(x, schema, type=NULL, top_n=NULL, max_genes=5L, audience="researcher", language=c("zh", "en"), role=NULL, system=NULL, prompt=NULL, model=NULL)` — pkg=TCMDATA
+- `tcm_reset_skills(?)` — pkg=TCMDATA
+- `TCM_sankey(...)` — pkg=TCMDATA
+- `tcm_sankey(data, axis_order=c("herb", "molecule", "target"), herb_cols=c("#4E79A7", "#59A14F", "#B07AA1", "#..., mol_cols=c("#D8A24A", "#86BCB6", "#A0CBE8", "#..., target_cols=c("#C49C94", "#D7A1B8", "#C9C982", "#..., plot_font="Arial", font_face="plain", target_fontface="plain", font_size=2.5, width=0.05, alpha=0.3, knot.pos=0.3)` — pkg=TCMDATA
+- `tcm_schema(...)` — pkg=TCMDATA
+- `tcm_setup(provider=NULL, api_key=NULL, model=NULL, base_url=NULL, .env=TRUE, save=FALSE, test=FALSE, force_json_schema=TRUE, skip_internet_check=TRUE, api_format=NULL, supports_native_tools=NULL, disable_stream_options=NULL, responses_state_mode=NULL)` — pkg=TCMDATA
+- `tcm_skill_dir(?)` — pkg=TCMDATA
+- `tcm_use_skills(path)` — pkg=TCMDATA
+- `upsetplot(list, nintersects=NULL, order.intersect.by=c("size", "name"), order.set.by=c("size", "name"), color.intersect.by="none", color.set.by="none", remove_empty_intersects=TRUE, base_size=7, base_family="Arial")` — pkg=TCMDATA
 
-## aplot (?) — 0 symbols
+### Generic (3)
+- `as.character(x, ...)` — pkg=TCMDATA
+- `print(x, ...)` — pkg=TCMDATA
+- `summary(object, ...)` — pkg=TCMDATA
 
-## clusterprofiler (4.21.2) — 155 symbols
+### Reexport (179)
+- `.data(?)` — pkg=rlang
+- `abline(?)` — pkg=graphics
+- `aes(x, y)` — pkg=ggplot2
+- `aggregate(?)` — pkg=stats
+- `all_of(?)` — pkg=dplyr
+- `annotate(?)` — pkg=ggplot2
+- `arrange(?)` — pkg=dplyr
+- `articulation_points(?)` — pkg=igraph
+- `as_adj_list(?)` — pkg=igraph
+- `as_adjacency_matrix(?)` — pkg=igraph
+- `as_data_frame(?)` — pkg=igraph
+- `as_tibble(?)` — pkg=tibble
+- `as_undirected(?)` — pkg=igraph
+- `ave(?)` — pkg=stats
+- `barplot(?)` — pkg=graphics
+- `betweenness(?)` — pkg=igraph
+- `bfs(?)` — pkg=igraph
+- `bind_rows(?)` — pkg=dplyr
+- `case_when(?)` — pkg=dplyr
+- `centr_degree(?)` — pkg=igraph
+- `closeness(?)` — pkg=igraph
+- `cluster_fast_greedy(?)` — pkg=igraph
+- `cluster_louvain(?)` — pkg=igraph
+- `coef(?)` — pkg=stats
+- `colorRampPalette(?)` — pkg=grDevices
+- `combn(?)` — pkg=utils
+- `complete.cases(?)` — pkg=stats
+- `components(?)` — pkg=igraph
+- `coord_equal(?)` — pkg=ggplot2
+- `coord_fixed(?)` — pkg=ggplot2
+- `coord_flip(?)` — pkg=ggplot2
+- `coreness(?)` — pkg=igraph
+- `count(?)` — pkg=dplyr
+- `data(?)` — pkg=utils
+- `degree(?)` — pkg=igraph
+- `delete_vertices(?)` — pkg=igraph
+- `desc(?)` — pkg=dplyr
+- `diameter(?)` — pkg=igraph
+- `distances(?)` — pkg=igraph
+- `distinct(?)` — pkg=dplyr
+- `dotplot(object, x, color, showCategory, size, split, font.size, title, label_format, orderBy, decreasing, xlim, ylim)` — pkg=enrichplot
+- `drop_na(?)` — pkg=tidyr
+- `E(?)` — pkg=igraph
+- `eccentricity(?)` — pkg=igraph
+- `ecount(?)` — pkg=igraph
+- `edge_attr(?)` — pkg=igraph
+- `edge_attr_names(?)` — pkg=igraph
+- `edge_density(?)` — pkg=igraph
+- `eigen_centrality(?)` — pkg=igraph
+- `element_blank(?)` — pkg=ggplot2
+- `element_line(?)` — pkg=ggplot2
+- `element_rect(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `enricher(?)` — pkg=clusterProfiler
+- `expansion(?)` — pkg=ggplot2
+- `facet_wrap(?)` — pkg=ggplot2
+- `filter(?)` — pkg=dplyr
+- `geom_abline(?)` — pkg=ggplot2
+- `geom_boxplot(?)` — pkg=ggplot2
+- `geom_col(?)` — pkg=ggplot2
+- `geom_edge(?)` — pkg=ggtangle
+- `geom_hline(?)` — pkg=ggplot2
+- `geom_jitter(?)` — pkg=ggplot2
+- `geom_line(?)` — pkg=ggplot2
+- `geom_path(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggplot2
+- `geom_polygon(?)` — pkg=ggplot2
+- `geom_ribbon(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_text_repel(?)` — pkg=ggrepel
+- `geom_tile(?)` — pkg=ggplot2
+- `geom_tiplab(?)` — pkg=ggtree
+- `geom_violin(?)` — pkg=ggplot2
+- `geom_vline(?)` — pkg=ggplot2
+- `get_legend(?)` — pkg=ggfun
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggtitle(?)` — pkg=ggplot2
+- `ggtree(?)` — pkg=ggtree
+- `gpar(?)` — pkg=grid
+- `graph_from_data_frame(?)` — pkg=igraph
+- `group_by(?)` — pkg=dplyr
+- `guide_legend(?)` — pkg=ggplot2
+- `guides(?)` — pkg=ggplot2
+- `head(x)` — pkg=utils
+- `induced_subgraph(?)` — pkg=igraph
+- `insert_top(?)` — pkg=aplot
+- `insistently(?)` — pkg=purrr
+- `is(?)` — pkg=methods
+- `is_directed(?)` — pkg=igraph
+- `is_igraph(?)` — pkg=igraph
+- `keeping_degseq(?)` — pkg=igraph
+- `labs(?)` — pkg=ggplot2
+- `layout_with_sugiyama(?)` — pkg=igraph
+- `lead(?)` — pkg=dplyr
+- `left_join(?)` — pkg=dplyr
+- `map(?)` — pkg=purrr
+- `map_chr(?)` — pkg=purrr
+- `map_df(?)` — pkg=purrr
+- `margin(?)` — pkg=ggplot2
+- `max_cliques(?)` — pkg=igraph
+- `mean_distance(?)` — pkg=igraph
+- `median(?)` — pkg=stats
+- `membership(?)` — pkg=igraph
+- `mutate(?)` — pkg=dplyr
+- `n(?)` — pkg=dplyr
+- `na.omit(?)` — pkg=stats
+- `neighbors(?)` — pkg=igraph
+- `p.adjust(?)` — pkg=stats
+- `page_rank(?)` — pkg=igraph
+- `par(?)` — pkg=graphics
+- `pivot_longer(?)` — pkg=tidyr
+- `plot(x, type=c("trend", "journal"), N=10, bar_col="#4E79A7", line_col="#2F4858", point_col="#B85C5C", ...)` — pkg=graphics
+- `pnorm(?)` — pkg=stats
+- `possibly(?)` — pkg=purrr
+- `predict(?)` — pkg=stats
+- `pretty_breaks(?)` — pkg=scales
+- `pull(?)` — pkg=dplyr
+- `qnorm(?)` — pkg=stats
+- `quantile(?)` — pkg=stats
+- `rate_backoff(?)` — pkg=purrr
+- `rate_delay(?)` — pkg=purrr
+- `reorder(?)` — pkg=stats
+- `rewire(?)` — pkg=igraph
+- `rownames_to_column(?)` — pkg=tibble
+- `runif(?)` — pkg=stats
+- `scale_color_gradient2(?)` — pkg=ggplot2
+- `scale_colour_manual(?)` — pkg=ggplot2
+- `scale_fill_gradient(?)` — pkg=ggplot2
+- `scale_fill_gradient2(?)` — pkg=ggplot2
+- `scale_fill_identity(?)` — pkg=ggplot2
+- `scale_fill_manual(?)` — pkg=ggplot2
+- `scale_linewidth_continuous(?)` — pkg=ggplot2
+- `scale_shape_manual(?)` — pkg=ggplot2
+- `scale_size_continuous(?)` — pkg=ggplot2
+- `scale_size_identity(?)` — pkg=ggplot2
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `sd(?)` — pkg=stats
+- `select(?)` — pkg=dplyr
+- `separate_rows(?)` — pkg=tidyr
+- `set_edge_attr(?)` — pkg=igraph
+- `set_vertex_attr(?)` — pkg=igraph
+- `setdiff(?)` — pkg=dplyr
+- `setNames(?)` — pkg=stats
+- `setTxtProgressBar(?)` — pkg=utils
+- `simplify(object, cutoff, by, select_fun, measure, semData)` — pkg=igraph
+- `slice(?)` — pkg=dplyr
+- `slice_head(?)` — pkg=dplyr
+- `slice_max(?)` — pkg=dplyr
+- `slowly(?)` — pkg=purrr
+- `str_wrap(?)` — pkg=yulab.utils
+- `strength(?)` — pkg=igraph
+- `subgraph.edges(?)` — pkg=igraph
+- `subgraph_from_edges(?)` — pkg=igraph
+- `summarise(?)` — pkg=dplyr
+- `sym(?)` — pkg=rlang
+- `t.test(?)` — pkg=stats
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `theme_classic(?)` — pkg=ggplot2
+- `theme_minimal(?)` — pkg=ggplot2
+- `theme_noxaxis(?)` — pkg=ggfun
+- `theme_void(?)` — pkg=ggplot2
+- `tibble(?)` — pkg=tibble
+- `transitivity(?)` — pkg=igraph
+- `txtProgressBar(?)` — pkg=utils
+- `ungroup(?)` — pkg=dplyr
+- `unit(?)` — pkg=grid
+- `unnest_wider(?)` — pkg=tidyr
+- `V(?)` — pkg=igraph
+- `var(?)` — pkg=stats
+- `vcount(?)` — pkg=igraph
+- `vertex_attr(?)` — pkg=igraph
+- `vertex_attr_names(?)` — pkg=igraph
+- `weighted.mean(?)` — pkg=stats
+- `wilcox.test(?)` — pkg=stats
+- `write.csv(?)` — pkg=utils
+
+## aPEAR (1.0) — 11 symbols
+
+### Function (5)
+- `enrichmentNetwork(enrichment, clusters, params, dt, sim, clust, innerCutoff=0.1, outerCutoff=0.5, colorType=c('nes', 'pval'), pCutoff=-10, drawEllipses=FALSE, fontSize=5, repelLabels=FALSE, plot, pathways, c, a, b, alpha, bigger=0)` — pkg=aPEAR
+- `findClusters(sim, minClusterSize=2, method=c('markov', 'hier', 'spectral'), nameMethod=c('pagerank', 'hits', 'none'), verbose=FALSE)` — pkg=aPEAR
+- `getGenes(enrichment, geneCol, pathCol='Description')` — pkg=aPEAR
+- `pathwaySimilarity(enrichment, geneCol, pathCol='Description', method=c('jaccard', 'cosine', 'cor'))` — pkg=aPEAR
+- `validateEnrichment(enrichment, colorBy=NULL, nodeSize=NULL, verbose=TRUE)` — pkg=aPEAR
+
+### Reexport (6)
+- `%>%(lhs, rhs)` — pkg=dplyr
+- `cosine(?)` — pkg=lsa
+- `deframe(?)` — pkg=tibble
+- `hits(?)` — pkg=arules
+- `jaccardSets(?)` — pkg=bayesbio
+- `mcl(?)` — pkg=MCL
+
+## aisdk (1.5.0) — 300 symbols
+
+### Function (272)
+- `Agent(?)` — pkg=aisdk
+- `agent_runtime_text(value, width=800)` — pkg=aisdk
+- `AgentRegistry(?)` — pkg=aisdk
+- `analyze_image(model, image, prompt, system=NULL, registry=NULL, ...)` — pkg=aisdk
+- `AnthropicProvider(?)` — pkg=aisdk
+- `api_endpoint_urls(config, path)` — pkg=aisdk
+- `as_preview_text(x, max_items=5)` — pkg=aisdk
+- `ask_ai(prompt=NULL, model=NULL, skills="auto", skill=NULL, context=NULL, startup_dir=getwd(), working_dir=tempdir(), sandbox_mode="permissive", stream=TRUE, verbose=FALSE, show_context=FALSE, max_context_chars=Inf, max_error_age_secs=300, confirm_stale_errors=TRUE, ...)` — pkg=aisdk
+- `auto_fix(expr, model=NULL, max_attempts=3, context=NULL, verbose=TRUE, memory=NULL)` — pkg=aisdk
+- `cache_tool(tool, cache=NULL)` — pkg=aisdk
+- `call_object_accessor(obj, fun_names, default=NULL, package=NULL, args=list())` — pkg=aisdk
+- `capability_model_label(model)` — pkg=aisdk
+- `capture_r_execution(expr, envir=parent.frame(), auto_print_value=FALSE)` — pkg=aisdk
+- `CaptureRenderer(?)` — pkg=aisdk
+- `ChatSession(?)` — pkg=aisdk
+- `check_api(model=NULL, url=NULL, registry=NULL)` — pkg=aisdk
+- `check_ast_safety(code_str)` — pkg=aisdk
+- `check_sdk_compatibility(code_version)` — pkg=aisdk
+- `clear_capability_model(capability=NULL)` — pkg=aisdk
+- `clear_error_context(?)` — pkg=aisdk
+- `coerce_skill_registry(skills, recursive=TRUE, project_dir=getwd())` — pkg=aisdk
+- `collect_ai_context(script=NULL, error=NULL, traceback=NULL, warnings=NULL, include=c("error", "traceback", "warnings", "..., max_context_chars=Inf, max_error_age_secs=300, include_history=TRUE, max_history_lines=10)` — pkg=aisdk
+- `compact_text_preview(text, width=60)` — pkg=aisdk
+- `compact_tool_result_label(name, result, success=TRUE, display_status=NULL)` — pkg=aisdk
+- `compact_tool_start_label(name, arguments)` — pkg=aisdk
+- `companion_install_hint(suffix)` — pkg=aisdk
+- `companion_pkg_available(suffix)` — pkg=aisdk
+- `companion_pkg_get(suffix, name)` — pkg=aisdk
+- `companion_pkg_name(suffix)` — pkg=aisdk
+- `Computer(?)` — pkg=aisdk
+- `console_confirm(question)` — pkg=aisdk
+- `console_input(prompt, default=NULL)` — pkg=aisdk
+- `console_menu(title, choices)` — pkg=aisdk
+- `content_image(image_path, media_type="auto", detail="auto")` — pkg=aisdk
+- `content_text(text)` — pkg=aisdk
+- `context_get(session, handle_id, detail=c("summary", "full"))` — pkg=aisdk
+- `context_message_content_text(content)` — pkg=aisdk
+- `context_search(session, query, kinds=NULL, limit=5L)` — pkg=aisdk
+- `count_tokens(params)` — pkg=aisdk
+- `create_agent(name, description, system_prompt=NULL, tools=NULL, skills=NULL, model=NULL, capability_models=NULL)` — pkg=aisdk
+- `create_agent_registry(agents=NULL)` — pkg=aisdk
+- `create_anthropic(api_key=NULL, base_url=NULL, api_version=NULL, headers=NULL, name=NULL, timeout_seconds=NULL, total_timeout_seconds=NULL, first_byte_timeout_seconds=NULL, connect_timeout_seconds=NULL, idle_timeout_seconds=NULL)` — pkg=aisdk
+- `create_ask_user_tool(?)` — pkg=aisdk
+- `create_auto_skill_registry(project_dir=getwd(), recursive=TRUE)` — pkg=aisdk
+- `create_capture_renderer(?)` — pkg=aisdk
+- `create_chat_session(model=NULL, system_prompt=NULL, tools=NULL, hooks=NULL, max_steps=10, metadata=NULL, agent=NULL)` — pkg=aisdk
+- `create_coder_agent(name="CoderAgent", safe_mode=TRUE, timeout_ms=30000, max_output_lines=200)` — pkg=aisdk
+- `create_computer_tools(computer=NULL, working_dir=tempdir(), sandbox_mode="permissive", approval_fn=NULL, share_credentials=FALSE)` — pkg=aisdk
+- `create_context_management_config(mode=NULL, llm_synthesis=FALSE, synthesis_model=NULL, llm_synthesis_policy=NULL, context_window_override=NULL, max_output_tokens_override=NULL, project_memory_root=NULL, retrieval_providers=NULL, retrieval_provider_order=NULL, retrieval_provider_limits=NULL, retrieval_min_hits=NULL, retrieval_scoring_policy=NULL, retrieval_reranking=FALSE, retrieval_reranking_model=NULL, retrieval_reranking_policy=NULL)` — pkg=aisdk
+- `create_context_query_tools(?)` — pkg=aisdk
+- `create_custom_provider(provider_name, base_url, api_key=NULL, api_format=c("chat_completions", "responses", "a..., use_max_completion_tokens=FALSE, disable_stream_options=TRUE, supports_native_tools=FALSE, responses_state_mode=c("stateless", "server", "auto"))` — pkg=aisdk
+- `create_data_agent(name="DataAgent", safe_mode=TRUE)` — pkg=aisdk
+- `create_default_semantic_adapter_registry(include_workflow_hints=TRUE, extension_registrars=NULL)` — pkg=aisdk
+- `create_embeddings(model, value, ..., registry=NULL)` — pkg=aisdk
+- `create_env_agent(name="EnvAgent", allow_install=FALSE, allowed_repos="https://cloud.r-project.org")` — pkg=aisdk
+- `create_file_agent(name="FileAgent", allowed_dirs=".", allowed_extensions=c( "csv", "tsv", "txt", "json", "rds"...)` — pkg=aisdk
+- `create_gemini(api_key=NULL, base_url=NULL, headers=NULL, name=NULL, timeout_seconds=NULL, total_timeout_seconds=NULL, first_byte_timeout_seconds=NULL, connect_timeout_seconds=NULL, idle_timeout_seconds=NULL)` — pkg=aisdk
+- `create_hooks(...)` — pkg=aisdk
+- `create_markdown_stream_renderer(?)` — pkg=aisdk
+- `create_null_renderer(?)` — pkg=aisdk
+- `create_openai(api_key=NULL, base_url=NULL, organization=NULL, project=NULL, headers=NULL, name=NULL, timeout_seconds=NULL, total_timeout_seconds=NULL, first_byte_timeout_seconds=NULL, connect_timeout_seconds=NULL, idle_timeout_seconds=NULL, disable_stream_options=FALSE, api_format=c("auto", "chat", "responses"), responses_state_mode=c("auto", "stateless", "server"))` — pkg=aisdk
+- `create_permission_hook(mode=c("implicit", "explicit", "escalate"), allowlist=c("search_web", "read_resource", "rea...)` — pkg=aisdk
+- `create_planner_agent(name="PlannerAgent")` — pkg=aisdk
+- `create_r_code_tool(sandbox)` — pkg=aisdk
+- `create_r_context_tools(?)` — pkg=aisdk
+- `create_r_introspect_tools(?)` — pkg=aisdk
+- `create_sandbox_system_prompt(sandbox)` — pkg=aisdk
+- `create_schema_from_func(func, include_args=NULL, exclude_args=NULL, params=NULL, func_name=NULL, type_mode=c("infer", "any"))` — pkg=aisdk
+- `create_semantic_adapter(name, supports, capabilities=character(0), priority=0, describe_identity=NULL, describe_schema=NULL, describe_semantics=NULL, peek=NULL, slice=NULL, list_accessors=NULL, estimate_cost=NULL, provenance=NULL, validate_action=NULL, render_summary=NULL, render_inspection=NULL)` — pkg=aisdk
+- `create_semantic_adapter_registry(adapters=list())` — pkg=aisdk
+- `create_session(model=NULL, system_prompt=NULL, tools=NULL, hooks=NULL, max_steps=10, ...)` — pkg=aisdk
+- `create_shared_session(model=NULL, system_prompt=NULL, tools=NULL, hooks=NULL, max_steps=10, sandbox_mode="strict", trace_enabled=TRUE)` — pkg=aisdk
+- `create_skill_architect_agent(name="SkillArchitect", registry=NULL, model=NULL)` — pkg=aisdk
+- `create_skill_registry(path, recursive=FALSE)` — pkg=aisdk
+- `create_skill_tools(registry)` — pkg=aisdk
+- `create_standard_registry(include_data=TRUE, include_file=TRUE, include_env=TRUE, include_coder=TRUE, include_visualizer=TRUE, include_planner=TRUE, file_allowed_dirs=".", env_allow_install=FALSE)` — pkg=aisdk
+- `create_telemetry(trace_id=NULL, emit=TRUE)` — pkg=aisdk
+- `create_visualizer_agent(name="VisualizerAgent", output_dir=NULL, default_theme="theme_minimal", default_width=8, default_height=6)` — pkg=aisdk
+- `create_z_ggtree(func, layer=NULL)` — pkg=aisdk
+- `default_console_prompt_hooks(?)` — pkg=aisdk
+- `default_skill_roots(project_dir=getwd(), include_missing=FALSE)` — pkg=aisdk
+- `describe_semantic_object(obj, name=NULL, registry=NULL, session=NULL, envir=NULL, budget=NULL)` — pkg=aisdk
+- `detect_subscription_proxies(timeout=2)` — pkg=aisdk
+- `edit_image(...)` — pkg=aisdk
+- `EmbeddingModelV1(?)` — pkg=aisdk
+- `enable_api_tests(?)` — pkg=aisdk
+- `ensure_companion_package(suffix, reason=NULL)` — pkg=aisdk
+- `estimate_cost(obj)` — pkg=aisdk
+- `estimate_prompt_cost(model=NULL, prompt=NULL, system=NULL, messages=NULL, tools=NULL, max_output_tokens=0, registry=NULL, ...)` — pkg=aisdk
+- `eval_task(name, prompt, check, system=NULL, ...)` — pkg=aisdk
+- `execute_tool_calls(tool_calls, tools, hooks=NULL, envir=NULL, repair_enabled=TRUE)` — pkg=aisdk
+- `expect_llm_pass(response, criteria, model=NULL, threshold=0.7, info=NULL)` — pkg=aisdk
+- `expect_no_hallucination(response, ground_truth, model=NULL, tolerance=0.1, info=NULL)` — pkg=aisdk
+- `expect_run_within(result, max_tokens=NULL, max_steps=NULL, max_tool_calls=NULL, info=NULL)` — pkg=aisdk
+- `expect_tool_args(result, tool, args, info=NULL)` — pkg=aisdk
+- `expect_tool_selection(result, expected_tools, exact=FALSE, info=NULL)` — pkg=aisdk
+- `expect_tool_trajectory(result, names, exact=FALSE, ordered=FALSE, info=NULL)` — pkg=aisdk
+- `extract_from_image(model, image, schema, prompt="Extract the requested structured inf..., system=NULL, registry=NULL, ...)` — pkg=aisdk
+- `fetch_api_models(provider, api_key=NULL, base_url=NULL)` — pkg=aisdk
+- `finalize_image_artifacts(images, output_dir=tempdir(), prefix="image")` — pkg=aisdk
+- `find_tool(tools, name)` — pkg=aisdk
+- `fix_json(json_str)` — pkg=aisdk
+- `format_captured_execution(captured, empty_message="(Code executed successfully with no ...)` — pkg=aisdk
+- `format_console_token_compact(tokens)` — pkg=aisdk
+- `gemini_create_cache(model, system=NULL, contents=NULL, tools=NULL, ttl="300s", expire_time=NULL, display_name=NULL, registry=NULL)` — pkg=aisdk
+- `gemini_delete_cache(model, cache, registry=NULL)` — pkg=aisdk
+- `gemini_get_cache(model, cache, registry=NULL)` — pkg=aisdk
+- `gemini_list_caches(model, registry=NULL)` — pkg=aisdk
+- `gemini_update_cache(model, cache, ttl=NULL, expire_time=NULL, registry=NULL)` — pkg=aisdk
+- `GeminiProvider(?)` — pkg=aisdk
+- `generate_batch(prompts, model=NULL, concurrency=4L, registry=NULL, ...)` — pkg=aisdk
+- `generate_image(...)` — pkg=aisdk
+- `generate_model_docs(provider, max_items=15)` — pkg=aisdk
+- `generate_object(model=NULL, prompt, schema, schema_name="result", system=NULL, temperature=0.3, max_tokens=NULL, mode=c("json", "tool"), max_retries=1L, registry=NULL, ...)` — pkg=aisdk
+- `generate_stable_id(type, ..., prefix=NULL)` — pkg=aisdk
+- `generate_text(model=NULL, prompt, system=NULL, temperature=0.7, max_tokens=NULL, tools=NULL, max_steps=1, max_tool_result_errors=2, require_post_tool_protocol=FALSE, sandbox=FALSE, skills=NULL, session=NULL, hooks=NULL, registry=NULL, ...)` — pkg=aisdk
+- `generate_text_fallback(prompt, models, ..., on_fallback=NULL)` — pkg=aisdk
+- `GenerateImageResult(?)` — pkg=aisdk
+- `GenerateResult(?)` — pkg=aisdk
+- `get_anthropic_base_url(?)` — pkg=aisdk
+- `get_anthropic_model(?)` — pkg=aisdk
+- `get_anthropic_model_id(?)` — pkg=aisdk
+- `get_capability_model(capability, default=NULL)` — pkg=aisdk
+- `get_console_context_metrics(session)` — pkg=aisdk
+- `get_context_management_config(?)` — pkg=aisdk
+- `get_default_registry(?)` — pkg=aisdk
+- `get_memory(key, default=NULL)` — pkg=aisdk
+- `get_model(?)` — pkg=aisdk
+- `get_model_info(provider, model_id)` — pkg=aisdk
+- `get_model_options(?)` — pkg=aisdk
+- `get_openai_base_url(?)` — pkg=aisdk
+- `get_openai_embedding_model(?)` — pkg=aisdk
+- `get_openai_model(?)` — pkg=aisdk
+- `get_openai_model_id(?)` — pkg=aisdk
+- `get_or_create_semantic_adapter_registry(envir=NULL)` — pkg=aisdk
+- `get_param_docs(func_name, package=NULL)` — pkg=aisdk
+- `get_r_context(vars, envir=parent.frame())` — pkg=aisdk
+- `get_r_documentation(name, package=NULL, section=c("summary", "usage", "arguments", "d..., session=NULL, envir=NULL, max_chars=4000L)` — pkg=aisdk
+- `get_r_source(name, package=NULL, method=NULL, session=NULL, envir=NULL, max_lines=120L)` — pkg=aisdk
+- `get_semantic_adapter_registry(session=NULL, envir=NULL)` — pkg=aisdk
+- `get_semantic_workflow_hint(obj, goal=NULL, registry=NULL, session=NULL, envir=NULL)` — pkg=aisdk
+- `has_api_key(provider)` — pkg=aisdk
+- `HookHandler(?)` — pkg=aisdk
+- `hypothesis_fix_verify(code, model=NULL, test_fn=NULL, max_iterations=5, verbose=TRUE)` — pkg=aisdk
+- `ImageModelV1(?)` — pkg=aisdk
+- `input_file(x, media_type="auto", filename=NULL)` — pkg=aisdk
+- `input_image(x, media_type="auto", detail="auto")` — pkg=aisdk
+- `input_text(text)` — pkg=aisdk
+- `inspect_r_function(name, package=NULL, detail=c("summary", "full"), include_methods=FALSE, session=NULL, envir=NULL)` — pkg=aisdk
+- `inspect_r_object(name, detail=c("summary", "full", "structured"), session=NULL, envir=NULL, head_rows=6L, scope=c("all", "session", "workspace"))` — pkg=aisdk
+- `is_semantic_class(obj, class_name)` — pkg=aisdk
+- `LanguageModelV1(?)` — pkg=aisdk
+- `list_capability_models(?)` — pkg=aisdk
+- `list_context_handles(?)` — pkg=aisdk
+- `list_get_exact(x, name, default=NULL)` — pkg=aisdk
+- `list_models(provider=NULL)` — pkg=aisdk
+- `list_r_objects(session=NULL, envir=NULL, pattern=NULL, include_hidden=FALSE, limit=50L, scope=c("session", "workspace", "all"))` — pkg=aisdk
+- `load_chat_session(path, tools=NULL, hooks=NULL, registry=NULL)` — pkg=aisdk
+- `materialize_image_upload(image, output_dir=tempdir(), prefix="upload")` — pkg=aisdk
+- `merge_call_options(defaults=list(), overrides=list())` — pkg=aisdk
+- `Middleware(?)` — pkg=aisdk
+- `migrate_pattern(pattern)` — pkg=aisdk
+- `model(model_id=Sys.getenv("OPENAI_MODEL", "gpt-4o"))` — pkg=aisdk
+- `model_capability_explicitly_unavailable(model, capability, registry=NULL)` — pkg=aisdk
+- `model_ref_capability_explicitly_unavailable(model, capability)` — pkg=aisdk
+- `new_run_state(status="running", stop_reason=NULL, recoverable=FALSE, failure_summary=NULL, pending_action=NULL, last_tool_results=list(), run_id=NULL, details=list())` — pkg=aisdk
+- `new_tool_protocol_markup_filter(?)` — pkg=aisdk
+- `normalize_capability_model_routes(routes=NULL)` — pkg=aisdk
+- `normalize_content_blocks(content)` — pkg=aisdk
+- `normalize_continue_action(action)` — pkg=aisdk
+- `normalize_image_input_for_json(image)` — pkg=aisdk
+- `normalize_image_input_to_url_like(image)` — pkg=aisdk
+- `object_peek(session, name, detail=c("summary", "structure", "sample", "...)` — pkg=aisdk
+- `ObjectStrategy(?)` — pkg=aisdk
+- `openai_code_interpreter_tool(container=list(type = "auto"))` — pkg=aisdk
+- `openai_computer_use_tool(display_width=NULL, display_height=NULL, environment=c("browser", "mac", "windows", "ubuntu"))` — pkg=aisdk
+- `openai_file_search_tool(vector_store_ids, max_num_results=NULL, ranking_options=NULL)` — pkg=aisdk
+- `openai_hosted_mcp_tool(server_label, server_url=NULL, connector_id=NULL, server_description=NULL, allowed_tools=NULL, require_approval=NULL, authorization=NULL, headers=NULL)` — pkg=aisdk
+- `openai_web_search_tool(allowed_domains=NULL, user_location=NULL, search_context_size=NULL, type=c("web_search", "web_search_preview"))` — pkg=aisdk
+- `OpenAIImageModel(?)` — pkg=aisdk
+- `OpenAILanguageModel(?)` — pkg=aisdk
+- `OpenAIProvider(?)` — pkg=aisdk
+- `OpenAIResponsesLanguageModel(?)` — pkg=aisdk
+- `OutputStrategy(?)` — pkg=aisdk
+- `post_multipart_to_api(url, headers, body, max_retries=2, initial_delay_ms=2000, backoff_factor=2, timeout_seconds=NULL, total_timeout_seconds=NULL, first_byte_timeout_seconds=NULL, connect_timeout_seconds=NULL, idle_timeout_seconds=NULL)` — pkg=aisdk
+- `post_to_api(url, headers, body, max_retries=2, initial_delay_ms=2000, backoff_factor=2, timeout_seconds=NULL, total_timeout_seconds=NULL, first_byte_timeout_seconds=NULL, connect_timeout_seconds=NULL, idle_timeout_seconds=NULL)` — pkg=aisdk
+- `print_migration_guide(verbose=TRUE)` — pkg=aisdk
+- `project_memory(project_root=tempdir(), db_name="memory.sqlite")` — pkg=aisdk
+- `ProjectMemory(?)` — pkg=aisdk
+- `prompt_console_provider_profile(project_path=".Renviron", global_path="~/.Renviron", project_rprofile_path=".Rprofile", global_rprofile_path="~/.Rprofile", project_config_path="aisdk.yaml", global_config_path=default_global_model_config_path(), prompt_hooks=default_console_prompt_hooks())` — pkg=aisdk
+- `ProviderRegistry(?)` — pkg=aisdk
+- `rate_limit_status(?)` — pkg=aisdk
+- `register_json_coercion(predicate, handler, id=NULL)` — pkg=aisdk
+- `register_provider(id, factory)` — pkg=aisdk
+- `register_semantic_adapter(adapter, registry=NULL, session=NULL, envir=NULL)` — pkg=aisdk
+- `register_semantic_workflow_hint(name, supports, hint_fn, priority=0, registry=NULL, session=NULL, envir=NULL)` — pkg=aisdk
+- `reload_env(path=".Renviron")` — pkg=aisdk
+- `render_text(text)` — pkg=aisdk
+- `Renderer(?)` — pkg=aisdk
+- `request_authorization(action, risk_level="YELLOW")` — pkg=aisdk
+- `resolve_console_startup_model(project_path=".Renviron", global_path="~/.Renviron", project_rprofile_path=".Rprofile", global_rprofile_path="~/.Rprofile", apply_profile_fn=apply_console_profile)` — pkg=aisdk
+- `resolve_model_for_capability(capability, explicit_model=NULL, type=c("language", "embedding", "image"), required_model_capabilities=NULL, session=NULL, registry=NULL, fallback_model=NULL, default_model=NULL)` — pkg=aisdk
+- `resolve_model_pricing(model_id)` — pkg=aisdk
+- `resolve_r_binding(name, package=NULL, session=NULL, envir=NULL, scope=c("session", "workspace", "all"), prefer=c("auto", "object", "function"))` — pkg=aisdk
+- `run_eval_suite(tasks, model=NULL, registry=NULL, ...)` — pkg=aisdk
+- `safe_eval(expr, timeout_seconds=30, envir=parent.frame())` — pkg=aisdk
+- `safe_parse_json(text, simplify=TRUE)` — pkg=aisdk
+- `safe_to_json(x, auto_unbox=TRUE, ...)` — pkg=aisdk
+- `SandboxManager(?)` — pkg=aisdk
+- `scan_skills(path, recursive=FALSE, remember=TRUE)` — pkg=aisdk
+- `schema_to_json(schema, pretty=FALSE)` — pkg=aisdk
+- `sdk_clear_protected_vars(?)` — pkg=aisdk
+- `sdk_feature(flag, default=NULL)` — pkg=aisdk
+- `sdk_get_var_metadata(name)` — pkg=aisdk
+- `sdk_is_var_locked(name)` — pkg=aisdk
+- `sdk_list_features(?)` — pkg=aisdk
+- `sdk_protect_var(name, locked=TRUE, cost="High")` — pkg=aisdk
+- `sdk_reset_features(?)` — pkg=aisdk
+- `sdk_set_feature(flag, value)` — pkg=aisdk
+- `sdk_unprotect_var(name)` — pkg=aisdk
+- `semantic_render_inspection(obj, name=NULL, registry=NULL, envir=NULL, head_rows=6)` — pkg=aisdk
+- `semantic_render_summary(obj, name=NULL, registry=NULL, envir=NULL)` — pkg=aisdk
+- `semantic_search(query, documents, model, top_k=5L, registry=NULL)` — pkg=aisdk
+- `session_append_event(session, type, payload=list(), startup_dir=getwd(), visible=FALSE, branch_id=NULL)` — pkg=aisdk
+- `session_branch_tree(session)` — pkg=aisdk
+- `session_checkout_branch(session, branch_id)` — pkg=aisdk
+- `session_event_path(session=NULL, startup_dir=getwd())` — pkg=aisdk
+- `session_event_visible_messages(events)` — pkg=aisdk
+- `session_fork_branch(session, name=NULL)` — pkg=aisdk
+- `session_read_events(session=NULL, path=NULL, startup_dir=getwd())` — pkg=aisdk
+- `session_set_branch_summary(session, summary)` — pkg=aisdk
+- `session_store_id(session=NULL)` — pkg=aisdk
+- `set_capability_model(capability, model, type="auto", required_model_capabilities=NULL)` — pkg=aisdk
+- `set_context_management_config(config=NULL, ...)` — pkg=aisdk
+- `set_model(new=NULL, context_window=NULL, max_output_tokens=NULL, max_tokens=NULL, thinking=NULL, thinking_budget=NULL, reasoning_effort=NULL, reset_options=FALSE)` — pkg=aisdk
+- `set_model_pricing(model_id, input, output, cache_read=NULL, cache_write=NULL)` — pkg=aisdk
+- `set_run_trace_sink(sink=NULL)` — pkg=aisdk
+- `SharedSession(?)` — pkg=aisdk
+- `Skill(?)` — pkg=aisdk
+- `SkillRegistry(?)` — pkg=aisdk
+- `stream_image(callback, ...)` — pkg=aisdk
+- `stream_object(model=NULL, prompt, schema, schema_name="result", on_partial=NULL, system=NULL, temperature=0.3, max_tokens=NULL, registry=NULL, ...)` — pkg=aisdk
+- `stream_text(model=NULL, prompt, callback=NULL, system=NULL, temperature=0.7, max_tokens=NULL, tools=NULL, max_steps=1, max_tool_result_errors=2, require_post_tool_protocol=FALSE, sandbox=FALSE, skills=NULL, session=NULL, hooks=NULL, registry=NULL, renderer=NULL, on_event=NULL, .stream_event_callback=NULL, ...)` — pkg=aisdk
+- `sub_session_query(session, task, context_handles=NULL, max_turns=3L, budget=NULL, timeout=NULL)` — pkg=aisdk
+- `subscription_proxy_status(kind=c("all", "codex", "claude"), base_url=NULL, timeout=2)` — pkg=aisdk
+- `Telemetry(?)` — pkg=aisdk
+- `Tool(?)` — pkg=aisdk
+- `tool(name, description, parameters=NULL, execute=NULL, layer="llm", meta=NULL)` — pkg=aisdk
+- `tool_result_failed(result, success=TRUE)` — pkg=aisdk
+- `tool_result_message(tool_call_id, result, is_error=FALSE)` — pkg=aisdk
+- `translate_message_content(content, target=c("openai_chat", "openai_responses", ...)` — pkg=aisdk
+- `trim_context_preview(text, max_chars=160L)` — pkg=aisdk
+- `update_provider_models(provider)` — pkg=aisdk
+- `update_renviron(updates, path=".Renviron")` — pkg=aisdk
+- `use_claude_subscription(name="claude", base_url=NULL, port=NULL, model=NULL, api_key="unused", supports_native_tools=TRUE, set_as_default=FALSE, check=TRUE, quiet=FALSE)` — pkg=aisdk
+- `use_codex_subscription(name="codex", base_url=NULL, port=NULL, model=NULL, api_format=c("chat_completions", "responses"), api_key="unused", supports_native_tools=TRUE, set_as_default=FALSE, check=TRUE, quiet=FALSE)` — pkg=aisdk
+- `validate_model_messages(model, messages)` — pkg=aisdk
+- `validate_semantic_action(obj, action, registry=NULL, session=NULL, envir=NULL, collector=NULL, object_name=NULL, metadata=list())` — pkg=aisdk
+- `walk_ast(expr, visitor)` — pkg=aisdk
+- `wrap_language_model(model, middleware, model_id=NULL, provider_id=NULL)` — pkg=aisdk
+- `z_any(description=NULL, nullable=TRUE, default=NULL)` — pkg=aisdk
+- `z_any_object(description=NULL)` — pkg=aisdk
+- `z_array(items, description=NULL, nullable=FALSE, default=NULL, min_items=NULL, max_items=NULL)` — pkg=aisdk
+- `z_boolean(description=NULL, nullable=FALSE, default=NULL)` — pkg=aisdk
+- `z_dataframe(..., .description=NULL, .nullable=FALSE, .default=NULL, .min_rows=NULL, .max_rows=NULL)` — pkg=aisdk
+- `z_describe(schema, description)` — pkg=aisdk
+- `z_empty_object(description=NULL)` — pkg=aisdk
+- `z_enum(values, description=NULL, nullable=FALSE, default=NULL)` — pkg=aisdk
+- `z_integer(description=NULL, nullable=FALSE, default=NULL, minimum=NULL, maximum=NULL)` — pkg=aisdk
+- `z_number(description=NULL, nullable=FALSE, default=NULL, minimum=NULL, maximum=NULL)` — pkg=aisdk
+- `z_object(..., .description=NULL, .required=NULL, .additional_properties=FALSE)` — pkg=aisdk
+- `z_string(description=NULL, nullable=FALSE, default=NULL, min_length=NULL, max_length=NULL)` — pkg=aisdk
+
+### Generic (1)
+- `print(x, ...)` — pkg=aisdk
+
+### Reexport (27)
+- `%||%(lhs, rhs)` — pkg=rlang
+- `abort(?)` — pkg=rlang
+- `capture.output(?)` — pkg=utils
+- `digest(?)` — pkg=digest
+- `flush.console(?)` — pkg=utils
+- `fromJSON(?)` — pkg=jsonlite
+- `head(x)` — pkg=utils
+- `median(?)` — pkg=stats
+- `process(?)` — pkg=processx
+- `r(?)` — pkg=callr
+- `Rd2txt(?)` — pkg=tools
+- `Rd_db(?)` — pkg=tools
+- `req_body_json(?)` — pkg=httr2
+- `req_headers(?)` — pkg=httr2
+- `req_perform(?)` — pkg=httr2
+- `req_perform_stream(?)` — pkg=httr2
+- `request(?)` — pkg=httr2
+- `resp_body_json(?)` — pkg=httr2
+- `resp_body_string(?)` — pkg=httr2
+- `resp_header(?)` — pkg=httr2
+- `resp_status(?)` — pkg=httr2
+- `setNames(?)` — pkg=stats
+- `str(?)` — pkg=utils
+- `tail(x)` — pkg=utils
+- `toJSON(?)` — pkg=jsonlite
+- `warn(?)` — pkg=rlang
+- `yaml.load(?)` — pkg=yaml
+
+## aplot (0.3.2) — 56 symbols
+
+### Function (15)
+- `as.patchwork(x, align=getOption("aplot_align", default = "xy"))` — pkg=aplot
+- `gglist(gglist, ...)` — pkg=aplot
+- `gglistGrob(x)` — pkg=aplot
+- `insert_bottom(.data, plot, height=1)` — pkg=aplot
+- `insert_left(.data, plot, width=1)` — pkg=aplot
+- `insert_right(.data, plot, width=1)` — pkg=aplot
+- `insert_top(.data, plot, height=1)` — pkg=aplot
+- `plot_list(..., gglist=NULL, ncol=NULL, nrow=NULL, byrow=NULL, widths=NULL, heights=NULL, guides=NULL, labels=NULL, tag_levels=NULL, tag_size=14, design=NULL, output="patchwork")` — pkg=aplot
+- `set_guide_area(x, position=c( "top-right", "top-left", "bottom-r...)` — pkg=aplot
+- `set_guide_layout(x, legend_ncol=NULL, legend_byrow=FALSE, legend_title_position=NULL, legend_direction=NULL, legend_keywidth=NULL, legend_keyheight=NULL, legend_spacing_x=NULL, legend_spacing_y=NULL, guides_ncol=NULL, guides_byrow=FALSE, guides_direction=NULL)` — pkg=aplot
+- `set_panel_spacing(x, spacing=0)` — pkg=aplot
+- `xlab2(label, fontsize=11, ...)` — pkg=aplot
+- `xlim2(gg, limits=NULL)` — pkg=aplot
+- `ylab2(label, fontsize=11, ...)` — pkg=aplot
+- `ylim2(gg, limits=NULL)` — pkg=aplot
+
+### Generic (1)
+- `print(x, ...)` — pkg=aplot
+
+### Reexport (40)
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `aes(x, y)` — pkg=ggplot2
+- `annotation_custom(?)` — pkg=ggplot2
+- `as.ggplot(?)` — pkg=ggplotify
+- `coord_cartesian(?)` — pkg=ggplot2
+- `coord_fixed(?)` — pkg=ggplot2
+- `element_blank(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `getFromNamespace(?)` — pkg=utils
+- `ggbreak2ggplot(?)` — pkg=ggfun
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(object, plot, object_name, ...)` — pkg=ggplot2
+- `ggplot_build(?)` — pkg=ggplot2
+- `ggplotGrob(?)` — pkg=ggplot2
+- `ggrange(?)` — pkg=ggfun
+- `ggsave(?)` — pkg=ggplot2
+- `grid.draw(x, recording=TRUE)` — pkg=grid
+- `is(?)` — pkg=methods
+- `is.ggbreak(?)` — pkg=ggfun
+- `is.ggplot(?)` — pkg=ggplot2
+- `is.ggtree(?)` — pkg=ggfun
+- `labs(?)` — pkg=ggplot2
+- `margin(?)` — pkg=ggplot2
+- `packageDescription(?)` — pkg=utils
+- `patchworkGrob(?)` — pkg=patchwork
+- `plot_annotation(?)` — pkg=patchwork
+- `plot_layout(?)` — pkg=patchwork
+- `plot_spacer(?)` — pkg=patchwork
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_x_discrete(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `scale_y_discrete(?)` — pkg=ggplot2
+- `style_subtle(?)` — pkg=pillar
+- `textGrob(?)` — pkg=grid
+- `theme(?)` — pkg=ggplot2
+- `theme_void(?)` — pkg=ggplot2
+- `xlab(?)` — pkg=ggplot2
+- `xrange(?)` — pkg=ggfun
+- `ylab(?)` — pkg=ggplot2
+- `yrange(?)` — pkg=ggfun
+
+## clusterProfiler (4.21.2) — 155 symbols
 
 ### Function (56)
 - `add_go_level(x)` — pkg=clusterProfiler
@@ -554,9 +1859,36 @@
 - `z_object(fields)` — pkg=aisdk
 - `z_string(?)` — pkg=aisdk
 
-## createKEGGdb (?) — 0 symbols
+## clusterProfiler.dplyr (0.0.2) — 12 symbols
 
-## enrichit (0.2.5) — 36 symbols
+### Reexport (12)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `arrange(.data, ...)` — pkg=dplyr
+- `filter(.data, ..., .preserve=FALSE)` — pkg=dplyr
+- `group_by(.data, ..., add=FALSE, .drop=FALSE)` — pkg=dplyr
+- `mutate(.data, ...)` — pkg=dplyr
+- `n(?)` — pkg=dplyr
+- `quos(?)` — pkg=rlang
+- `rename(.data, ...)` — pkg=dplyr
+- `select(.data, ...)` — pkg=dplyr
+- `slice(.data, ..., .preserve=FALSE)` — pkg=dplyr
+- `summarise(.data, ...)` — pkg=dplyr
+
+## createKEGGdb (0.0.5) — 7 symbols
+
+### Function (2)
+- `create_kegg_db(species, author=NULL, maintainer=NULL)` — pkg=createKEGGdb
+- `create_kegg_db_microbiota(output_dir=".", include=c("bacteria", "archaea", "fungi", "vi..., author=NULL, maintainer=NULL)` — pkg=createKEGGdb
+
+### Reexport (5)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `dbConnect(?)` — pkg=RSQLite
+- `dbDisconnect(?)` — pkg=RSQLite
+- `dbDriver(?)` — pkg=RSQLite
+- `dbWriteTable(?)` — pkg=RSQLite
+
+## enrichit (0.2.5) — 52 symbols
 
 ### Function (30)
 - `aggregate_enrichment(res_list, method=c("brown", "fisher", "stouffer"), ...)` — pkg=enrichit
@@ -590,45 +1922,54 @@
 - `select_features_for_ora(x, cutoff=0.05, by=c("pvalue", "score"), ...)` — pkg=enrichit
 - `setReadable(x, OrgDb, keyType="auto", toType="SYMBOL")` — pkg=enrichit
 
-### Generic (4)
+### Generic (2)
 - `as.data.frame(x, ...)` — pkg=enrichit
 - `dim(x)` — pkg=enrichit
-- `head(x, n=6L, ...)` — pkg=enrichit
-- `tail(x, n=6L, ...)` — pkg=enrichit
 
-### S4method (2)
-- `show(?)` — pkg=enrichit
+### S4method (1)
 - `summary(?)` — pkg=enrichit
 
-## enrichplot (1.99.7) — 51 symbols
+### Reexport (19)
+- `.hasSlot(?)` — pkg=methods
+- `check_installed(?)` — pkg=rlang
+- `colSums(?)` — pkg=Matrix
+- `Diagonal(?)` — pkg=Matrix
+- `head(x, n=6L, ...)` — pkg=utils
+- `is(?)` — pkg=methods
+- `median(?)` — pkg=stats
+- `new(?)` — pkg=methods
+- `p.adjust(?)` — pkg=stats
+- `pchisq(?)` — pkg=stats
+- `pnorm(?)` — pkg=stats
+- `qnorm(?)` — pkg=stats
+- `rowSums(?)` — pkg=Matrix
+- `setNames(?)` — pkg=stats
+- `show(?)` — pkg=methods
+- `sourceCpp(?)` — pkg=Rcpp
+- `sparseMatrix(?)` — pkg=Matrix
+- `str(?)` — pkg=utils
+- `tail(x, n=6L, ...)` — pkg=utils
 
-### Function (45)
-- `as_enrichResult(?)` — pkg=enrichplot
-- `as_gseaResult(?)` — pkg=enrichplot
+## enrichplot (1.99.7) — 168 symbols
+
+### Function (34)
 - `autofacet(by='row', scales="free", levels=NULL)` — pkg=enrichplot
-- `cnetplot(x, layout=igraph::layout_with_kk, showCategory=5, color_category="#E5C494", size_category=1, color_item="#B3B3B3", size_item=1, color_edge="grey", size_edge=.5, categorySizeBy=~itemNum, node_label="all", node_label_size=NULL, foldChange=NULL, fc_threshold=NULL, hilight="none", hilight_alpha=.3, pathway_id=NULL, layer=NULL, include_couplings=TRUE, ...)` — pkg=enrichplot
 - `color_palette(colors)` — pkg=enrichplot
 - `consensusmap(x, fill_var=c("NES", "delta_NES")` — pkg=enrichplot
 - `dotplot(object, x="geneRatio", color="p.adjust", showCategory=10, size=NULL, split=NULL, font.size=12, title="", orderBy="x", label_format=30, decreasing=TRUE, layer=NULL, colorBy="p.adjust", by="geneRatio", includeAll=TRUE, group=FALSE, shape=FALSE, facet=NULL, strip_width=15, ...)` — pkg=enrichplot
 - `dotplot2(object, x="FoldEnrichment", vars=NULL, label="auto", ...)` — pkg=enrichplot
 - `emapplot(x, layout=igraph::layout_with_kk, coords=NULL, showCategory=30, color="p.adjust", size_category=1, min_edge=.2, color_edge="grey", size_edge=.5, group=NULL, group_legend=TRUE, node_label="category", node_label_size=5, pie="equal", layer=NULL, label_format=30, clusterFunction=stats::kmeans, nWords=4, nCluster=NULL, show_category_size_legend=TRUE, edge_filter="threshold", top_k=5, target_density=.1, edge_diagnostic=FALSE, ...)` — pkg=enrichplot
 - `emapplot_edge_density(pair_sim, min_edge=.2, edge_filter="threshold", top_k=5, target_density=.1, dense_threshold=.2)` — pkg=enrichplot
-- `facet_grid(?)` — pkg=enrichplot
 - `fortify_mnsea_contribution(x, level=c("pathway", "feature"), pathway_id=NULL, layer=NULL, ...)` — pkg=enrichplot
 - `fortify_mnsea_subnetwork(x, pathway_id=NULL, layer=NULL, include_couplings=TRUE, include_isolated=FALSE, ...)` — pkg=enrichplot
-- `geneID(?)` — pkg=enrichplot
-- `geneInCategory(?)` — pkg=enrichplot
-- `geom_cnet_label(?)` — pkg=enrichplot
 - `geom_gsea_gene(genes, mapping=NULL, geom=ggplot2::geom_text, ..., geneSet=NULL)` — pkg=enrichplot
 - `get_enrichplot_color(n=2)` — pkg=enrichplot
 - `ggtable(d, p=NULL)` — pkg=enrichplot
-- `ggtitle(?)` — pkg=enrichplot
 - `goplot(x, showCategory=10, color="p.adjust", layout=igraph::layout_with_sugiyama, geom="text", ID="Description", ...)` — pkg=enrichplot
 - `gseadist(x, IDs, type='density')` — pkg=enrichplot
 - `gseaplot(x, geneSetID, by="all", title="", color='black', color.line="green", color.vline="#FA5860", layer=NULL, ...)` — pkg=enrichplot
 - `gseaplot2(x, geneSetID, title="", color="green", base_size=11, rel_heights=c(1.5, .5, 1), subplots=1:3, pvalue_table=FALSE, pvalue_table_columns=c("NES", "p.adjust"), pvalue_table_rownames="Description", ES_geom="line", layer=NULL)` — pkg=enrichplot
 - `gsearank(x, geneSetID, title="", output="plot", layer=NULL)` — pkg=enrichplot
-- `gseaScores(?)` — pkg=enrichplot
 - `heatplot(x, showCategory=30, showTop=NULL, symbol="rect", foldChange=NULL, pvalue=NULL, label_format=30, pathway_id=NULL, layer=NULL, value=c("score", "abs_score", "share", "con...)` — pkg=enrichplot
 - `hplot(x, geneSetID, layer=NULL)` — pkg=enrichplot
 - `import_enrichr(x, db=1, gene=NULL, universe=NULL, ontology="UNKNOWN", organism="UNKNOWN", keytype="UNKNOWN", pAdjustMethod="BH", ...)` — pkg=enrichplot
@@ -638,30 +1979,158 @@
 - `manhattanplot(x, color="p.adjust", showCategory=5, size="Count", split=NULL, font.size=12, title="", label_format=30, colorBy="p.adjust", includeAll=TRUE, facet="Cluster", strip_width=15, ...)` — pkg=enrichplot
 - `mechanismflow(x, reference=NULL, flow_var=c("NES", "delta_NES", "leading_edge_s...)` — pkg=enrichplot
 - `phaseplot(x, reference=NULL, selected_layer=NULL, reference_layer=NULL, x_axis=NULL, size_var=c("leading_edge_size", "leading_edge_...)` — pkg=enrichplot
-- `plot_list(?)` — pkg=enrichplot
 - `pmcplot(query, period, proportion=TRUE, data=NULL)` — pkg=enrichplot
 - `rewireplot(x, ...)` — pkg=enrichplot
 - `ridgeplot(x, showCategory=30, fill="p.adjust", core_enrichment=TRUE, label_format=30, orderBy="NES", decreasing=FALSE, stat="density_ridges", layer=NULL)` — pkg=enrichplot
 - `set_enrichplot_color(colors=get_enrichplot_color(2), type="color", name=NULL, .fun=NULL, reverse=TRUE, transform='identity', ...)` — pkg=enrichplot
 - `ssplot(x, showCategory=30, drfun=NULL, dr.params=list(), node_label="group", min_edge=.2, size_edge=.5, edge_filter="threshold", top_k=5, target_density=.1, edge_diagnostic=FALSE, layer=NULL, pie="equal", ...)` — pkg=enrichplot
-- `theme_dose(?)` — pkg=enrichplot
 - `treeplot(x, ...)` — pkg=enrichplot
 - `upsetplot(x, n=10, type="boxplot", layer=NULL, value=c("score", "abs_score"), core_enrichment=FALSE, ...)` — pkg=enrichplot
 - `volplot(x, color="zScore", xintercept=1, yintercept=2, showCategory=5, label_format=30, font.size=12, size=5)` — pkg=enrichplot
 
-### Generic (5)
+### Generic (2)
 - `as.data.frame(x, ...)` — pkg=enrichplot
-- `barplot(height, x="Count", color="p.adjust", showCategory=8, font.size=12, title="", label_format=30, by="geneRatio", includeAll=TRUE, ...)` — pkg=enrichplot
-- `fortify(model, data, showCategory=5, by="Count", order=FALSE, drop=FALSE, split=NULL, includeAll=TRUE, level=c("result", "pathway"), layer=NULL, ...)` — pkg=enrichplot
-- `ggplot_add(object, plot, ...)` — pkg=enrichplot
 - `gsInfo(object, geneSetID, layer=NULL, ...)` — pkg=enrichplot
 
 ### S4method (1)
 - `pairwise_termsim(?)` — pkg=enrichplot
 
-## epiSeeker (1.1.2) — 49 symbols
+### Reexport (131)
+- `%+%(?)` — pkg=ggplot2
+- `%<+%(?)` — pkg=ggfun
+- `%>%(lhs, rhs)` — pkg=dplyr
+- `.data(?)` — pkg=rlang
+- `add_vertices(?)` — pkg=igraph
+- `aes(x, y)` — pkg=ggplot2
+- `annotation_custom(?)` — pkg=ggplot2
+- `arrange(?)` — pkg=dplyr
+- `arrow(?)` — pkg=grid
+- `as.dist(?)` — pkg=stats
+- `as_enrichResult(?)` — pkg=enrichit
+- `as_gseaResult(?)` — pkg=enrichit
+- `barplot(height, x="Count", color="p.adjust", showCategory=8, font.size=12, title="", label_format=30, by="geneRatio", includeAll=TRUE, ...)` — pkg=graphics
+- `bind_rows(?)` — pkg=dplyr
+- `brewer.pal(?)` — pkg=RColorBrewer
+- `check_input(?)` — pkg=yulab.utils
+- `check_installed(?)` — pkg=rlang
+- `cnetplot(x, layout=igraph::layout_with_kk, showCategory=5, color_category="#E5C494", size_category=1, color_item="#B3B3B3", size_item=1, color_edge="grey", size_edge=.5, categorySizeBy=~itemNum, node_label="all", node_label_size=NULL, foldChange=NULL, fc_threshold=NULL, hilight="none", hilight_alpha=.3, pathway_id=NULL, layer=NULL, include_couplings=TRUE, ...)` — pkg=ggtangle
+- `coord_equal(?)` — pkg=ggplot2
+- `coord_fixed(?)` — pkg=ggplot2
+- `coord_flip(?)` — pkg=ggplot2
+- `cutree(?)` — pkg=stats
+- `data(?)` — pkg=utils
+- `delete.edges(?)` — pkg=igraph
+- `desc(?)` — pkg=dplyr
+- `E(?)` — pkg=igraph
+- `element_blank(?)` — pkg=ggplot2
+- `element_line(?)` — pkg=ggplot2
+- `element_rect(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `extract_mnsea_subnetwork(?)` — pkg=enrichit
+- `facet_grid(?)` — pkg=ggplot2
+- `fortify(model, data, showCategory=5, by="Count", order=FALSE, drop=FALSE, split=NULL, includeAll=TRUE, level=c("result", "pathway"), layer=NULL, ...)` — pkg=ggplot2
+- `geneID(?)` — pkg=enrichit
+- `geneInCategory(?)` — pkg=enrichit
+- `geom_bar(?)` — pkg=ggplot2
+- `geom_blank(?)` — pkg=ggplot2
+- `geom_boxplot(?)` — pkg=ggplot2
+- `geom_cladelab(?)` — pkg=ggtree
+- `geom_cnet_label(?)` — pkg=ggtangle
+- `geom_col(?)` — pkg=ggplot2
+- `geom_density(?)` — pkg=ggplot2
+- `geom_edge(?)` — pkg=ggtangle
+- `geom_hilight(?)` — pkg=ggtree
+- `geom_hline(?)` — pkg=ggplot2
+- `geom_jitter(?)` — pkg=ggplot2
+- `geom_label_repel(?)` — pkg=ggrepel
+- `geom_line(?)` — pkg=ggplot2
+- `geom_linerange(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggplot2
+- `geom_rect(?)` — pkg=ggplot2
+- `geom_scatterpie(?)` — pkg=scatterpie
+- `geom_scatterpie_legend(?)` — pkg=scatterpie
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_text_repel(?)` — pkg=ggrepel
+- `geom_tile(?)` — pkg=ggplot2
+- `geom_tiplab(?)` — pkg=ggtree
+- `geom_tippoint(?)` — pkg=ggtree
+- `geom_violin(?)` — pkg=ggplot2
+- `geom_vline(?)` — pkg=ggplot2
+- `get_cache_item(key)` — pkg=yulab.utils
+- `get_mnsea_contribution(?)` — pkg=enrichit
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(object, plot, ...)` — pkg=ggplot2
+- `ggplot_build(?)` — pkg=ggplot2
+- `ggplot_gtable(?)` — pkg=ggplot2
+- `ggplotGrob(?)` — pkg=ggplot2
+- `ggtitle(?)` — pkg=ggplot2
+- `ggtree(?)` — pkg=ggtree
+- `gheatmap(?)` — pkg=ggtree
+- `gpar(?)` — pkg=grid
+- `graph.empty(?)` — pkg=igraph
+- `graph_from_data_frame(?)` — pkg=igraph
+- `group_by(?)` — pkg=dplyr
+- `groupClade(?)` — pkg=ggtree
+- `gseaScores(?)` — pkg=enrichit
+- `guide_colorbar(?)` — pkg=ggplot2
+- `guide_legend(?)` — pkg=ggplot2
+- `guides(?)` — pkg=ggplot2
+- `hclust(?)` — pkg=stats
+- `head(x)` — pkg=utils
+- `is(?)` — pkg=methods
+- `labs(?)` — pkg=ggplot2
+- `map_df(?)` — pkg=purrr
+- `margin(?)` — pkg=ggplot2
+- `modifyList(?)` — pkg=utils
+- `mutate(?)` — pkg=dplyr
+- `new_scale_colour(?)` — pkg=ggnewscale
+- `new_scale_fill(?)` — pkg=ggnewscale
+- `plot_list(?)` — pkg=aplot
+- `quantile(?)` — pkg=stats
+- `rel(?)` — pkg=ggplot2
+- `scale_color_continuous(?)` — pkg=ggplot2
+- `scale_color_gradient(?)` — pkg=ggplot2
+- `scale_color_gradientn(?)` — pkg=ggplot2
+- `scale_color_manual(values)` — pkg=ggplot2
+- `scale_fill_continuous(?)` — pkg=ggplot2
+- `scale_fill_discrete(?)` — pkg=ggplot2
+- `scale_fill_gradient2(?)` — pkg=ggplot2
+- `scale_fill_gradientn(?)` — pkg=ggplot2
+- `scale_fill_manual(?)` — pkg=ggplot2
+- `scale_size(?)` — pkg=ggplot2
+- `scale_size_continuous(?)` — pkg=ggplot2
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_x_reverse(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `scale_y_discrete(?)` — pkg=ggplot2
+- `setGeneric(?)` — pkg=methods
+- `setNames(?)` — pkg=stats
+- `setOldClass(?)` — pkg=methods
+- `slice_head(?)` — pkg=dplyr
+- `str_wrap(?)` — pkg=yulab.utils
+- `sym(?)` — pkg=rlang
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `theme_classic(?)` — pkg=ggplot2
+- `theme_dose(?)` — pkg=DOSE
+- `theme_dr(?)` — pkg=tidydr
+- `theme_minimal(?)` — pkg=ggplot2
+- `theme_void(?)` — pkg=ggplot2
+- `ungroup(?)` — pkg=dplyr
+- `unit(?)` — pkg=grid
+- `V(?)` — pkg=igraph
+- `xlab(?)` — pkg=ggplot2
+- `xlim(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
+- `yulab_abort(?)` — pkg=yulab.utils
+- `yulab_msg(?)` — pkg=yulab.utils
+- `yulab_warn(?)` — pkg=yulab.utils
 
-### Function (41)
+## epiSeeker (1.1.2) — 185 symbols
+
+### Function (40)
 - `.(..., .env=parent.frame())` — pkg=epiSeeker
 - `annotateSeq(peak, tssRegion=c(-3000, 3000), TxDb=NULL, level="transcript", assignGenomicAnnotation=TRUE, genomicAnnotationPriority=c("Promoter", "5UTR", "3UTR", "Exon",..., annoDb=NULL, addFlankGeneInfo=FALSE, flankDistance=5000, sameStrand=FALSE, ignoreOverlap=FALSE, ignoreUpstream=FALSE, ignoreDownstream=FALSE, overlap="TSS", verbose=TRUE, columns=c("ENTREZID", "ENSEMBL", "SYMBOL", "G...)` — pkg=epiSeeker
 - `as.GRanges(x)` — pkg=epiSeeker
@@ -697,30 +2166,285 @@
 - `plotPeakHeatmap(tagMatrix, plot_prof=TRUE, xlab="", ylab="", palette=NULL, title=NULL, facet_label_text_size=12, nrow=NULL, ncol=NULL, conf=NULL, statistic_method="mean", missingDataAsZero=TRUE, facet="none", free_y=TRUE, height_proportion=4, ...)` — pkg=epiSeeker
 - `plotPeakProf(tagMatrix, xlab="Genomic Region (5'->3')", ylab="Peak Count Frequency", conf=NULL, title="", facet="none", free_y=TRUE, statistic_method="mean", missingDataAsZero=TRUE, ...)` — pkg=epiSeeker
 - `readPeakFile(peakfile, as="GRanges", ...)` — pkg=epiSeeker
-- `rel(?)` — pkg=epiSeeker
 - `seq2gene(seq, tssRegion, flankDistance, TxDb, sameStrand=FALSE)` — pkg=epiSeeker
 - `shuffle(peak.gr, TxDb)` — pkg=epiSeeker
 - `vennpie(x, r=0.2, cex=1.2, col=NULL)` — pkg=epiSeeker
 - `vennplot(Sets, ...)` — pkg=epiSeeker
 - `vennplot.peakfile(files, labels=NULL)` — pkg=epiSeeker
 
-### Generic (6)
-- `arrange(.data, .by_group=FALSE, ...)` — pkg=epiSeeker
+### Generic (2)
 - `as.data.frame(x, row.names=NULL, optional=FALSE, ...)` — pkg=epiSeeker
-- `filter(.data, .by=NULL, .preserve=FALSE, ...)` — pkg=epiSeeker
-- `mutate(.data, .by=NULL, .keep=c("all", "used", "unused", "none"), .before=NULL, .after=NULL, ...)` — pkg=epiSeeker
-- `rename(.data, ...)` — pkg=epiSeeker
 - `subset(x, subset, ...)` — pkg=epiSeeker
 
-### S4method (2)
-- `show(?)` — pkg=epiSeeker
-- `upsetplot(?)` — pkg=epiSeeker
+### Reexport (143)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `.data(?)` — pkg=rlang
+- `aes(x, y)` — pkg=ggplot2
+- `aes_string(?)` — pkg=ggplot2
+- `all_of(?)` — pkg=tidyselect
+- `annotate(?)` — pkg=ggplot2
+- `arrange(.data, .by_group=FALSE, ...)` — pkg=dplyr
+- `as(?)` — pkg=methods
+- `as.formula(?)` — pkg=stats
+- `assayNames(?)` — pkg=SummarizedExperiment
+- `assays(?)` — pkg=SummarizedExperiment
+- `boot(?)` — pkg=boot
+- `boot.ci(?)` — pkg=boot
+- `BSseq(?)` — pkg=bsseq
+- `check_installed(?)` — pkg=rlang
+- `colorRampPalette(?)` — pkg=grDevices
+- `coord_cartesian(?)` — pkg=ggplot2
+- `coord_fixed(?)` — pkg=ggplot2
+- `coord_flip(?)` — pkg=ggplot2
+- `dbConnect(?)` — pkg=RSQLite
+- `dbGetQuery(?)` — pkg=RSQLite
+- `detectCores(?)` — pkg=parallel
+- `dist(?)` — pkg=stats
+- `DNAStringSet(?)` — pkg=Biostrings
+- `download.file(?)` — pkg=utils
+- `element_blank(?)` — pkg=ggplot2
+- `element_line(?)` — pkg=ggplot2
+- `element_rect(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `end(?)` — pkg=BiocGenerics
+- `exonsBy(?)` — pkg=GenomicFeatures
+- `facet_grid(?)` — pkg=ggplot2
+- `file_test(?)` — pkg=utils
+- `filter(.data, .by=NULL, .preserve=FALSE, ...)` — pkg=dplyr
+- `findOverlaps(?)` — pkg=GenomicRanges
+- `fiveUTRsByTranscript(?)` — pkg=GenomicFeatures
+- `floating.pie(?)` — pkg=plotrix
+- `gather(?)` — pkg=tidyr
+- `genes(?)` — pkg=GenomicFeatures
+- `geom_bar(?)` — pkg=ggplot2
+- `geom_blank(?)` — pkg=ggplot2
+- `geom_col(?)` — pkg=ggplot2
+- `geom_curve(?)` — pkg=ggplot2
+- `geom_hline(?)` — pkg=ggplot2
+- `geom_line(?)` — pkg=ggplot2
+- `geom_rect(?)` — pkg=ggplot2
+- `geom_ribbon(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_tile(?)` — pkg=ggplot2
+- `geom_vline(?)` — pkg=ggplot2
+- `get(?)` — pkg=AnnotationDbi
+- `get_cache_element(?)` — pkg=yulab.utils
+- `get_cache_item(key)` — pkg=yulab.utils
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggtitle(?)` — pkg=ggplot2
+- `GRanges(?)` — pkg=GenomicRanges
+- `granges(?)` — pkg=GenomicRanges
+- `GRangesList(?)` — pkg=GenomicRanges
+- `group_by(?)` — pkg=dplyr
+- `guide_legend(?)` — pkg=ggplot2
+- `hclust(?)` — pkg=stats
+- `head(x)` — pkg=S4Vectors
+- `import.chain(?)` — pkg=rtracklayer
+- `initial_cache_item(?)` — pkg=yulab.utils
+- `insert_bottom(?)` — pkg=aplot
+- `intronsByTranscript(?)` — pkg=GenomicFeatures
+- `IRanges(?)` — pkg=IRanges
+- `is(?)` — pkg=methods
+- `labs(?)` — pkg=ggplot2
+- `layout(?)` — pkg=graphics
+- `left_join(?)` — pkg=dplyr
+- `legend(?)` — pkg=graphics
+- `liftOver(?)` — pkg=rtracklayer
+- `makeGRangesFromDataFrame(?)` — pkg=GenomicRanges
+- `mat2df(?)` — pkg=yulab.utils
+- `mclapply(?)` — pkg=parallel
+- `mcols(?)` — pkg=GenomicRanges
+- `metadata(?)` — pkg=S4Vectors
+- `missingArg(?)` — pkg=methods
+- `mutate(.data, .by=NULL, .keep=c("all", "used", "unused", "none"), .before=NULL, .after=NULL, ...)` — pkg=dplyr
+- `new(?)` — pkg=methods
+- `p.adjust(?)` — pkg=stats
+- `par(?)` — pkg=graphics
+- `pData(?)` — pkg=bsseq
+- `phyper(?)` — pkg=stats
+- `pie(?)` — pkg=graphics
+- `plot.new(?)` — pkg=graphics
+- `plot_list(?)` — pkg=aplot
+- `popViewport(?)` — pkg=grid
+- `pushViewport(?)` — pkg=grid
+- `queryHits(?)` — pkg=S4Vectors
+- `quos(?)` — pkg=rlang
+- `read.delim(?)` — pkg=utils
+- `rel(?)` — pkg=ggplot2
+- `rename(.data, ...)` — pkg=dplyr
+- `rescale(?)` — pkg=scales
+- `reshape(?)` — pkg=stats
+- `rm_cache_item(?)` — pkg=yulab.utils
+- `runValue(?)` — pkg=S4Vectors
+- `scale_color_manual(values)` — pkg=ggplot2
+- `scale_fill_brewer(?)` — pkg=ggplot2
+- `scale_fill_distiller(?)` — pkg=ggplot2
+- `scale_fill_gradient2(?)` — pkg=ggplot2
+- `scale_fill_hue(?)` — pkg=ggplot2
+- `scale_fill_manual(?)` — pkg=ggplot2
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `select(?)` — pkg=AnnotationDbi
+- `seqnames(?)` — pkg=GenomicRanges
+- `setClass(?)` — pkg=methods
+- `setGeneric(?)` — pkg=methods
+- `setMethod(?)` — pkg=methods
+- `setTxtProgressBar(?)` — pkg=utils
+- `show(?)` — pkg=methods
+- `SimpleList(?)` — pkg=S4Vectors
+- `start(?)` — pkg=GenomicRanges
+- `strand(?)` — pkg=GenomicRanges
+- `subjectHits(?)` — pkg=S4Vectors
+- `subsetByOverlaps(?)` — pkg=IRanges
+- `summarise(?)` — pkg=dplyr
+- `SummarizedExperiment(?)` — pkg=SummarizedExperiment
+- `sym(?)` — pkg=rlang
+- `tail(x)` — pkg=S4Vectors
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `theme_classic(?)` — pkg=ggplot2
+- `theme_minimal(?)` — pkg=ggplot2
+- `threeUTRsByTranscript(?)` — pkg=GenomicFeatures
+- `transcripts(?)` — pkg=GenomicFeatures
+- `transcriptsBy(?)` — pkg=GenomicFeatures
+- `txtProgressBar(?)` — pkg=utils
+- `unstrand(?)` — pkg=BiocGenerics
+- `update_cache_item(?)` — pkg=yulab.utils
+- `upsetplot(?)` — pkg=enrichplot
+- `viewport(?)` — pkg=grid
+- `xlab(?)` — pkg=ggplot2
+- `xlim(?)` — pkg=ggplot2
+- `xlim2(?)` — pkg=aplot
+- `ylab(?)` — pkg=ggplot2
+- `yulab_msg(?)` — pkg=yulab.utils
 
-## ggbreak (?) — 0 symbols
+## ggbreak (0.2.2) — 29 symbols
 
-## ggimage (?) — 0 symbols
+### Function (5)
+- `scale_wrap(n)` — pkg=ggbreak
+- `scale_x_break(breaks, scales="fixed", ticklabels=NULL, expand=TRUE, space=0.1, symbol=NULL, bridge=FALSE)` — pkg=ggbreak
+- `scale_x_cut(breaks, which=NULL, scales=NULL, expand=FALSE, space=.1)` — pkg=ggbreak
+- `scale_y_break(breaks, scales="fixed", ticklabels=NULL, expand=TRUE, space=.1, symbol=NULL, bridge=FALSE)` — pkg=ggbreak
+- `scale_y_cut(breaks, which=NULL, scales=NULL, expand=FALSE, space=.1)` — pkg=ggbreak
 
-## ggmsa (1.19.2) — 34 symbols
+### Generic (2)
+- `plot(x, y, ...)` — pkg=ggbreak
+- `print(x, ...)` — pkg=ggbreak
+
+### Reexport (22)
+- `abort(?)` — pkg=rlang
+- `as.ggplot(?)` — pkg=ggplotify
+- `coord_cartesian(?)` — pkg=ggplot2
+- `coord_flip(?)` — pkg=ggplot2
+- `element_blank(?)` — pkg=ggplot2
+- `element_grob(element, ...)` — pkg=ggplot2
+- `ggbreak2ggplot(?)` — pkg=ggfun
+- `ggplot_add(object, plot, ...)` — pkg=ggplot2
+- `ggplot_build(plot, ...)` — pkg=ggplot2
+- `ggplot_gtable(data)` — pkg=ggplot2
+- `grid.draw(x, recording=TRUE)` — pkg=grid
+- `is.ggbreak(?)` — pkg=ggfun
+- `labs(?)` — pkg=ggplot2
+- `margin(?)` — pkg=ggplot2
+- `plot_list(?)` — pkg=aplot
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `setNames(?)` — pkg=stats
+- `theme(?)` — pkg=ggplot2
+- `xlab(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
+- `yulab_msg(?)` — pkg=yulab.utils
+
+## ggimage (0.3.6) — 80 symbols
+
+### Function (31)
+- `autocomplete_name(name, ...)` — pkg=ggimage
+- `download_phylopic(id, destdir=".", ..., reuse=TRUE, lock_timeout=getOption( "ggimage.phylopic_lock_tim..., lock_poll=getOption( "ggimage.phylopic_lock_pol...)` — pkg=ggimage
+- `draw_key_image(data, params, size)` — pkg=ggimage
+- `geom_bgimage(image)` — pkg=ggimage
+- `geom_emoji(mapping=NULL, data=NULL, inherit.aes=TRUE, na.rm=FALSE, by="width", ...)` — pkg=ggimage
+- `geom_flag(mapping=NULL, data=NULL, inherit.aes=TRUE, na.rm=FALSE, by="width", ...)` — pkg=ggimage
+- `geom_icon(mapping=NULL, data=NULL, inherit.aes=TRUE, na.rm=FALSE, by="width", ...)` — pkg=ggimage
+- `geom_image(mapping=NULL, data=NULL, stat="identity", position="identity", inherit.aes=TRUE, na.rm=FALSE, by="width", nudge_x=0, nudge_y=0, use_cache=TRUE, width=NULL, height=NULL, ...)` — pkg=ggimage
+- `geom_image_interactive(...)` — pkg=ggimage
+- `geom_image_repel(mapping=NULL, data=NULL, stat="identity", position="identity", inherit.aes=TRUE, na.rm=FALSE, by="width", nudge_x=0, nudge_y=0, use_cache=TRUE, width=NULL, height=NULL, max.iter=100, force=0.1, box.padding=0, direction="both", ...)` — pkg=ggimage
+- `geom_phylopic(mapping=NULL, data=NULL, inherit.aes=TRUE, na.rm=FALSE, by="width", image_fun=function(x)magick::image_background(x..., ...)` — pkg=ggimage
+- `geom_phylopic_interactive(...)` — pkg=ggimage
+- `geom_pokemon(mapping=NULL, data=NULL, inherit.aes=TRUE, na.rm=FALSE, by="width", ...)` — pkg=ggimage
+- `geom_subview(mapping=NULL, data=NULL, width=.1, height=.1, x=NULL, y=NULL, subview=NULL)` — pkg=ggimage
+- `geom_worldcup2018(mapping=NULL, data=NULL, inherit.aes=TRUE, na.rm=FALSE, by="width", ...)` — pkg=ggimage
+- `GeomInteractiveImage(?)` — pkg=ggimage
+- `get_image_cache_diagnostics(?)` — pkg=ggimage
+- `get_image_cache_policy(?)` — pkg=ggimage
+- `get_image_cache_stats(?)` — pkg=ggimage
+- `ggbackground(gg, background, ...)` — pkg=ggimage
+- `ggpreview(filename=NULL, plot=last_plot(), width=NA, height=NA, units='in', ...)` — pkg=ggimage
+- `image_read2(path, ..., cut_empty_space=TRUE)` — pkg=ggimage
+- `list.flag(?)` — pkg=ggimage
+- `list.icon(?)` — pkg=ggimage
+- `list.pokemon(?)` — pkg=ggimage
+- `list.worldcup2018(?)` — pkg=ggimage
+- `phylopic_uid(name, seed=123)` — pkg=ggimage
+- `reset_image_cache_stats(?)` — pkg=ggimage
+- `set_image_cache_policy(capacity=NULL, ttl=NULL, eviction=NULL, base_capacity=NULL, transform_capacity=NULL, base_ttl=NULL, transform_ttl=NULL, bytes=NULL, base_bytes=NULL, transform_bytes=NULL, clock=NULL)` — pkg=ggimage
+- `theme_nothing(base_size=11, base_family="")` — pkg=ggimage
+- `theme_transparent(...)` — pkg=ggimage
+
+### Reexport (49)
+- `%+replace%(?)` — pkg=ggplot2
+- `aes(x, y)` — pkg=ggplot2
+- `aes_(?)` — pkg=ggplot2
+- `alpha(?)` — pkg=scales
+- `annotation_custom(?)` — pkg=ggplot2
+- `as.ggplot(?)` — pkg=ggplotify
+- `as.grob(?)` — pkg=ggplotify
+- `as_tibble(?)` — pkg=tibble
+- `caller_env(?)` — pkg=rlang
+- `col2rgb(?)` — pkg=grDevices
+- `detect_index(?)` — pkg=purrr
+- `digest(?)` — pkg=digest
+- `download.file(?)` — pkg=utils
+- `element_rect(?)` — pkg=ggplot2
+- `file_ext(?)` — pkg=tools
+- `Geom(?)` — pkg=ggplot2
+- `get_aes_var(?)` — pkg=ggfun
+- `get_cache_element(?)` — pkg=yulab.utils
+- `get_cache_item(key)` — pkg=yulab.utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(object, plot, object_name, ...)` — pkg=ggplot2
+- `ggproto(?)` — pkg=ggplot2
+- `ggsave(?)` — pkg=ggplot2
+- `gList(?)` — pkg=grid
+- `gpar(?)` — pkg=grid
+- `grid.draw(?)` — pkg=grid
+- `grid.newpage(?)` — pkg=grid
+- `gTree(?)` — pkg=grid
+- `image_convert(?)` — pkg=magick
+- `image_info(?)` — pkg=magick
+- `image_read(?)` — pkg=magick
+- `image_read_pdf(?)` — pkg=magick
+- `image_read_svg(?)` — pkg=magick
+- `image_rotate(?)` — pkg=magick
+- `image_transparent(?)` — pkg=magick
+- `is(?)` — pkg=methods
+- `last_plot(?)` — pkg=ggplot2
+- `layer(?)` — pkg=ggplot2
+- `pointsGrob(?)` — pkg=grid
+- `rasterGrob(?)` — pkg=grid
+- `rectGrob(?)` — pkg=grid
+- `rgb(?)` — pkg=grDevices
+- `rm_cache_item(?)` — pkg=yulab.utils
+- `theme(?)` — pkg=ggplot2
+- `theme_void(?)` — pkg=ggplot2
+- `tibble(?)` — pkg=tibble
+- `update_cache_item(?)` — pkg=yulab.utils
+- `viewport(?)` — pkg=grid
+- `with_seed(?)` — pkg=withr
+
+## ggmsa (1.19.2) — 122 symbols
 
 ### Function (30)
 - `adjust_ally(tree, node, sub=FALSE, seq_colname="mol_seq")` — pkg=ggmsa
@@ -754,19 +2478,107 @@
 - `tidy_msa(msa, start=NULL, end=NULL)` — pkg=ggmsa
 - `treeMSA_plot(p_tree, tidymsa_df, ancestral_node="none", sub=FALSE, panel="MSA", font=NULL, color="Chemistry_AA", seq_colname=NULL, ...)` — pkg=ggmsa
 
-### Generic (2)
+### Generic (1)
 - `diff(x, ...)` — pkg=ggmsa
-- `ggplot_add(object, plot, ...)` — pkg=ggmsa
 
-### S4method (2)
+### S4method (1)
 - `plot(?)` — pkg=ggmsa
-- `show(?)` — pkg=ggmsa
 
-## ggsc (1.11.2) — 24 symbols
+### Reexport (90)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `AAStringSet(?)` — pkg=Biostrings
+- `aes(x, y)` — pkg=ggplot2
+- `aes_(?)` — pkg=ggplot2
+- `arrow(?)` — pkg=grid
+- `as.helix(?)` — pkg=R4RNA
+- `as.patchwork(?)` — pkg=aplot
+- `brewer.pal(?)` — pkg=RColorBrewer
+- `collapseHelix(?)` — pkg=R4RNA
+- `colorRampPalette(?)` — pkg=grDevices
+- `coord_cartesian(?)` — pkg=ggplot2
+- `coord_fixed(?)` — pkg=ggplot2
+- `DNAStringSet(?)` — pkg=Biostrings
+- `draw_key_polygon(?)` — pkg=ggplot2
+- `element_blank(?)` — pkg=ggplot2
+- `element_line(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `expandHelix(?)` — pkg=R4RNA
+- `fa_read(?)` — pkg=seqmagick
+- `facet_wrap(?)` — pkg=ggplot2
+- `gather(?)` — pkg=tidyr
+- `Geom(?)` — pkg=ggplot2
+- `geom_arc(?)` — pkg=ggforce
+- `geom_area(?)` — pkg=ggplot2
+- `geom_blank(?)` — pkg=ggplot2
+- `geom_col(?)` — pkg=ggplot2
+- `geom_facet(?)` — pkg=ggtree
+- `geom_line(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggplot2
+- `geom_polygon(?)` — pkg=ggplot2
+- `geom_ribbon(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_smooth(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_tile(?)` — pkg=ggplot2
+- `geom_tiplab(?)` — pkg=ggtree
+- `geom_xspline(?)` — pkg=ggfun
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(object, plot, ...)` — pkg=ggplot2
+- `ggplot_build(?)` — pkg=ggplot2
+- `ggplot_gtable(?)` — pkg=ggplot2
+- `ggproto(?)` — pkg=ggplot2
+- `ggtitle(?)` — pkg=ggplot2
+- `globalVariables(?)` — pkg=utils
+- `gpar(?)` — pkg=grid
+- `group_by(?)` — pkg=dplyr
+- `group_by_(?)` — pkg=dplyr
+- `gTree(?)` — pkg=grid
+- `insert_top(?)` — pkg=aplot
+- `labs(?)` — pkg=ggplot2
+- `layer(?)` — pkg=ggplot2
+- `missingArg(?)` — pkg=methods
+- `modifyList(?)` — pkg=utils
+- `n(?)` — pkg=dplyr
+- `new(?)` — pkg=methods
+- `packageDescription(?)` — pkg=utils
+- `plot_list(?)` — pkg=aplot
+- `polygonGrob(?)` — pkg=grid
+- `read.delim(?)` — pkg=utils
+- `readBpseq(?)` — pkg=R4RNA
+- `readBStringSet(?)` — pkg=Biostrings
+- `readConnect(?)` — pkg=R4RNA
+- `readDNAStringSet(?)` — pkg=Biostrings
+- `readHelix(?)` — pkg=R4RNA
+- `readVienna(?)` — pkg=R4RNA
+- `RNAStringSet(?)` — pkg=Biostrings
+- `scale_color_manual(values)` — pkg=ggplot2
+- `scale_fill_gradientn(?)` — pkg=ggplot2
+- `scale_fill_manual(?)` — pkg=ggplot2
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `select(?)` — pkg=dplyr
+- `setNames(?)` — pkg=stats
+- `show(?)` — pkg=methods
+- `summarize(?)` — pkg=dplyr
+- `summarize_(?)` — pkg=dplyr
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `theme_minimal(?)` — pkg=ggplot2
+- `theme_void(?)` — pkg=ggplot2
+- `toString(?)` — pkg=Biostrings
+- `unit(?)` — pkg=grid
+- `unit.pmax(?)` — pkg=grid
+- `width(?)` — pkg=Biostrings
+- `wrap_plots(?)` — pkg=patchwork
+- `xlab(?)` — pkg=ggplot2
+- `xlim(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
 
-### Function (23)
-- `%<+%(?)` — pkg=ggsc
-- `aes(?)` — pkg=ggsc
+## ggsc (1.11.2) — 110 symbols
+
+### Function (20)
 - `draw_key_bgpoint(data, params, size)` — pkg=ggsc
 - `geom_bgpoint(mapping=NULL, data=NULL, stat="identity", position="identity", ..., na.rm=FALSE, show.legend=NA, inherit.aes=TRUE, gap_colour='white', gap_alpha=1, bg_line_width=.3, gap_line_width=.1, pointsize=NULL)` — pkg=ggsc
 - `geom_scattermore2(mapping=NULL, data=NULL, stat="identity", position="identity", ..., na.rm=FALSE, show.legend=NA, inherit.aes=TRUE, interpolate=FALSE, pointsize=0, pixels=c(512, 512), gap_colour='white', gap_alpha=1, bg_line_width=.3, gap_line_width=.1)` — pkg=ggsc
@@ -787,29 +2599,161 @@
 - `scale_bg_color_manual(..., values, aesthetics="bg_colour", breaks=waiver(), na.value="grey50")` — pkg=ggsc
 - `scale_bg_colour_discrete(...)` — pkg=ggsc
 - `scale_bg_colour_manual(..., values, aesthetics="bg_colour", breaks=waiver(), na.value="grey50")` — pkg=ggsc
-- `theme(?)` — pkg=ggsc
 
-### Generic (1)
-- `ggplot_add(object, plot, object_name, ...)` — pkg=ggsc
+### Reexport (90)
+- `%+replace%(?)` — pkg=ggplot2
+- `%<+%(?)` — pkg=ggfun
+- `.data(?)` — pkg=rlang
+- `aes(x, y)` — pkg=ggplot2
+- `alpha(?)` — pkg=scales
+- `annotation_custom(?)` — pkg=ggplot2
+- `as(?)` — pkg=methods
+- `as.formula(?)` — pkg=stats
+- `as.raster(?)` — pkg=grDevices
+- `as_tibble(?)` — pkg=tibble
+- `assay(?)` — pkg=SummarizedExperiment
+- `assayNames(?)` — pkg=SummarizedExperiment
+- `brewer.pal.info(?)` — pkg=RColorBrewer
+- `cli_abort(?)` — pkg=cli
+- `colData(?)` — pkg=SummarizedExperiment
+- `colorRampPalette(?)` — pkg=grDevices
+- `coord_fixed(?)` — pkg=ggplot2
+- `coord_flip(?)` — pkg=ggplot2
+- `DefaultAssay(?)` — pkg=Seurat
+- `discrete_scale(?)` — pkg=ggplot2
+- `dist(?)` — pkg=stats
+- `draw_key_point(?)` — pkg=ggplot2
+- `element_blank(?)` — pkg=ggplot2
+- `element_rect(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `evalCpp(?)` — pkg=Rcpp
+- `facet_grid(?)` — pkg=ggplot2
+- `facet_wrap(?)` — pkg=ggplot2
+- `fill_alpha(?)` — pkg=ggplot2
+- `geom_blank(?)` — pkg=ggplot2
+- `geom_col(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggplot2
+- `geom_scattermore(?)` — pkg=scattermore
+- `geom_violin(?)` — pkg=ggplot2
+- `get_aes_var(?)` — pkg=ggfun
+- `get_fun_from_pkg(pkg, fun)` — pkg=yulab.utils
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(object, plot, object_name, ...)` — pkg=ggplot2
+- `ggplot_build(?)` — pkg=ggplot2
+- `ggtitle(?)` — pkg=ggplot2
+- `gList(?)` — pkg=grid
+- `gpar(?)` — pkg=grid
+- `grid.draw(?)` — pkg=grid
+- `grobName(?)` — pkg=grid
+- `grobTree(?)` — pkg=grid
+- `gTree(?)` — pkg=grid
+- `guide_colorbar(?)` — pkg=ggplot2
+- `guide_legend(?)` — pkg=ggplot2
+- `guides(?)` — pkg=ggplot2
+- `hclust(?)` — pkg=stats
+- `int_colData(?)` — pkg=SingleCellExperiment
+- `int_metadata(?)` — pkg=SingleCellExperiment
+- `is.unit(?)` — pkg=grid
+- `label_wrap_gen(?)` — pkg=ggplot2
+- `labs(?)` — pkg=ggplot2
+- `layer(?)` — pkg=ggplot2
+- `layer_data(?)` — pkg=ggplot2
+- `list2(?)` — pkg=rlang
+- `modifyList(?)` — pkg=utils
+- `pal_identity(?)` — pkg=scales
+- `pivot_longer(?)` — pkg=tidyr
+- `pointsGrob(?)` — pkg=grid
+- `rasterGrob(?)` — pkg=grid
+- `RcppParallelLibs(?)` — pkg=RcppParallel
+- `reducedDimNames(?)` — pkg=SingleCellExperiment
+- `reducedDims(?)` — pkg=SingleCellExperiment
+- `rel(?)` — pkg=ggplot2
+- `scale_color_distiller(?)` — pkg=ggplot2
+- `scale_color_gradient(?)` — pkg=ggplot2
+- `scale_color_gradientn(?)` — pkg=ggplot2
+- `scale_color_identity(?)` — pkg=ggplot2
+- `scale_fill_manual(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `ScaleDiscreteIdentity(?)` — pkg=ggplot2
+- `scattermore(?)` — pkg=scattermore
+- `setMethod(?)` — pkg=methods
+- `setNames(?)` — pkg=stats
+- `sourceCpp(?)` — pkg=Rcpp
+- `stat_ellipse(?)` — pkg=ggplot2
+- `sym(?)` — pkg=rlang
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `theme_dr(?)` — pkg=tidydr
+- `theme_minimal(?)` — pkg=ggplot2
+- `translate_shape_string(?)` — pkg=ggplot2
+- `unit(?)` — pkg=grid
+- `waiver(?)` — pkg=ggplot2
+- `xlab(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
 
-## ggtangle (?) — 0 symbols
+## ggtangle (0.1.3) — 45 symbols
 
-## ggtree (4.3.1) — 139 symbols
+### Function (10)
+- `cnetplot(?)` — pkg=ggtangle
+- `drag_network(p, g=NULL)` — pkg=ggtangle
+- `geom_cnet_label(?)` — pkg=ggtangle
+- `geom_edge(?)` — pkg=ggtangle
+- `geom_edge_interactive(mapping=NULL, data=NULL, geom=ggiraph::geom_segment_interactive, ...)` — pkg=ggtangle
+- `geom_edge_text(?)` — pkg=ggtangle
+- `geom_edge_text_interactive(mapping=NULL, data=NULL, geom=ggiraph::geom_text_interactive, angle_calc="none", label_dodge=NULL, ...)` — pkg=ggtangle
+- `layout_circular(graph, sort.by=NULL, ...)` — pkg=ggtangle
+- `layout_fishbone(graph, direction="left", length=1, angle_sep=30, ...)` — pkg=ggtangle
+- `layout_linear(graph, sort.by=NULL, ...)` — pkg=ggtangle
 
-### Function (137)
+### Reexport (35)
+- `%<+%(?)` — pkg=ggfun
+- `.data(?)` — pkg=rlang
+- `aes(x, y)` — pkg=ggplot2
+- `arrow(?)` — pkg=grid
+- `as.igraph(?)` — pkg=igraph
+- `as_edgelist(?)` — pkg=igraph
+- `caller_env(?)` — pkg=rlang
+- `degree(?)` — pkg=igraph
+- `edge_attr(?)` — pkg=igraph
+- `edge_attr_names(?)` — pkg=igraph
+- `geom_label(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_text_repel(?)` — pkg=ggrepel
+- `get_fun_from_pkg(pkg, fun)` — pkg=yulab.utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(?)` — pkg=ggplot2
+- `ggsave(?)` — pkg=ggplot2
+- `graph_from_data_frame(?)` — pkg=igraph
+- `layout_in_circle(?)` — pkg=igraph
+- `modifyList(?)` — pkg=utils
+- `neighbors(?)` — pkg=igraph
+- `scale_size(?)` — pkg=ggplot2
+- `setNames(?)` — pkg=stats
+- `sym(?)` — pkg=rlang
+- `td_filter(?)` — pkg=ggfun
+- `theme_nothing(?)` — pkg=ggfun
+- `tk_coords(?)` — pkg=igraph
+- `tkplot(?)` — pkg=igraph
+- `V(?)` — pkg=igraph
+- `vertex_attr(?)` — pkg=igraph
+- `vertex_attr_names(?)` — pkg=igraph
+- `yulab_abort(?)` — pkg=yulab.utils
+- `yulab_msg(?)` — pkg=yulab.utils
+
+## ggtree (4.3.1) — 258 symbols
+
+### Function (105)
 - `%+>%(?)` — pkg=ggtree
 - `%<%(?)` — pkg=ggtree
-- `%<+%(?)` — pkg=ggtree
-- `%>%(?)` — pkg=ggtree
 - `add_colorbar(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4)` — pkg=ggtree
-- `aes(?)` — pkg=ggtree
-- `arrow(?)` — pkg=ggtree
 - `as.polytomy(tree, feature, fun)` — pkg=ggtree
 - `as_tanglegram(x, y=NULL, assoc=NULL, layout="rectangular", ladderize=TRUE, preserve_layers=TRUE, ...)` — pkg=ggtree
 - `as_tanglegram.cophylo(x, ..., layout="rectangular", ladderize=TRUE, preserve_layers=TRUE)` — pkg=ggtree
 - `as_tanglegram.default(x, y=NULL, assoc=NULL, layout="rectangular", ladderize=TRUE, preserve_layers=TRUE, ...)` — pkg=ggtree
 - `as_tanglegram.tanglegram(x, ...)` — pkg=ggtree
-- `collapse(x=NULL, node, mode="none", clade_name=NULL, height=NULL, ...)` — pkg=ggtree
 - `Date2decimal(x)` — pkg=ggtree
 - `decimal2Date(x)` — pkg=ggtree
 - `expand(tree_view=NULL, node)` — pkg=ggtree
@@ -818,7 +2762,6 @@
 - `facet_plot(p, mapping=NULL, data, geom, panel, ...)` — pkg=ggtree
 - `facet_widths(p, widths)` — pkg=ggtree
 - `flip(tree_view=NULL, node1, node2)` — pkg=ggtree
-- `fortify(model, data, layout="rectangular", ladderize=TRUE, right=FALSE, branch.length="branch.length", mrsd=NULL, as.Date=FALSE, yscale="none", root.position=0, hang=.1, gap=0.08, mirror=TRUE, optimize=isTRUE(model$params$optimize), optimize_side=model$params$optimize_side %||% "right", ...)` — pkg=ggtree
 - `geom_aline(mapping=NULL, linetype="dotted", linewidth=1, ...)` — pkg=ggtree
 - `geom_balance(node, fill="steelblue", color='white', alpha=.5, extend=0, extendto=NULL)` — pkg=ggtree
 - `geom_cladelab(node=NULL, label=NULL, data=NULL, mapping=NULL, geom="text", parse=FALSE, ...)` — pkg=ggtree
@@ -828,14 +2771,12 @@
 - `geom_highlight(data=NULL, mapping=NULL, node=NULL, type="auto", to.bottom=FALSE, ...)` — pkg=ggtree
 - `geom_hilight(data=NULL, mapping=NULL, node=NULL, type="auto", to.bottom=FALSE, ...)` — pkg=ggtree
 - `geom_inset(insets, width=.1, height=.1, hjust=0, vjust=0, x="node", reverse_x=FALSE, reverse_y=FALSE)` — pkg=ggtree
-- `geom_label(?)` — pkg=ggtree
 - `geom_label2(mapping=NULL, data=NULL, ..., stat="identity", position="identity", family="sans", parse=FALSE, nudge_x=0, nudge_y=0, label.padding=unit(0.25, "lines"), label.r=unit(0.15, "lines"), label.size=0.25, na.rm=TRUE, show.legend=NA, inherit.aes=TRUE)` — pkg=ggtree
 - `geom_label2_interactive(...)` — pkg=ggtree
 - `geom_motif(mapping, data, on, label, align='centre', ...)` — pkg=ggtree
 - `geom_nodelab(mapping=NULL, nudge_x=0, nudge_y=0, geom="text", hjust=0.5, node="internal", ...)` — pkg=ggtree
 - `geom_nodelab2(mapping=NULL, nudge_x=0, nudge_y=0, geom="text", hjust=0.5, ...)` — pkg=ggtree
 - `geom_nodepoint(mapping=NULL, data=NULL, position="identity", na.rm=FALSE, show.legend=NA, inherit.aes=TRUE, ...)` — pkg=ggtree
-- `geom_point(?)` — pkg=ggtree
 - `geom_point2(mapping=NULL, data=NULL, stat="identity", position="identity", na.rm=FALSE, show.legend=NA, inherit.aes=TRUE, ...)` — pkg=ggtree
 - `geom_point2_interactive(...)` — pkg=ggtree
 - `geom_range(range, center="auto", ...)` — pkg=ggtree
@@ -847,7 +2788,6 @@
 - `geom_striplab(taxa1=NULL, taxa2=NULL, label=NULL, data=NULL, mapping=NULL, geom="text", parse=FALSE, ...)` — pkg=ggtree
 - `geom_tanglelink(data=NULL, mapping=NULL, left=NULL, right=NULL, geom=c("curve", "segment"), curvature=0.15, ...)` — pkg=ggtree
 - `geom_taxalink(data=NULL, mapping=NULL, taxa1=NULL, taxa2=NULL, offset=NULL, outward="auto", ...)` — pkg=ggtree
-- `geom_text(?)` — pkg=ggtree
 - `geom_text2(mapping=NULL, data=NULL, ..., stat="identity", position="identity", family="sans", parse=FALSE, na.rm=TRUE, show.legend=NA, inherit.aes=TRUE, nudge_x=0, nudge_y=0, check_overlap=FALSE)` — pkg=ggtree
 - `geom_text2_interactive(...)` — pkg=ggtree
 - `geom_tiplab(mapping=NULL, hjust=0, align=FALSE, linetype="dotted", linesize=0.5, geom="text", offset=0, as_ylab=FALSE, ...)` — pkg=ggtree
@@ -872,18 +2812,12 @@
 - `ggdensitree(data=NULL, mapping=NULL, layout="slanted", tip.order='mode', align.tips=TRUE, jitter=0, ...)` — pkg=ggtree
 - `ggdoubletree(x, y=NULL, assoc=NULL, layout="rectangular", ladderize=TRUE, mirror=TRUE, optimize=FALSE, optimize_side=c("right", "both", "left"), gap=0.08, preserve_layers=TRUE, ...)` — pkg=ggtree
 - `ggexpand(ratio, direction=1, side='hv')` — pkg=ggtree
-- `ggplot(?)` — pkg=ggtree
-- `ggsave(?)` — pkg=ggtree
 - `ggtree(tr, mapping=NULL, layout="rectangular", open.angle=0, mrsd=NULL, as.Date=FALSE, yscale="none", yscale_mapping=NULL, ladderize=TRUE, right=FALSE, branch.length="branch.length", root.position=0, xlim=NULL, layout.params=list(as.graph = TRUE), hang=.1, ...)` — pkg=ggtree
 - `ggtree_set_interactive(?)` — pkg=ggtree
 - `ggtree_unset_interactive(?)` — pkg=ggtree
 - `gheatmap(p, data, offset=0, width=1, low="green", high="red", color="white", colnames=TRUE, colnames_position="bottom", colnames_angle=0, colnames_level=NULL, colnames_offset_x=0, colnames_offset_y=0, font.size=4, family="", hjust=0.5, legend_title="value", custom_column_labels=NULL)` — pkg=ggtree
-- `groupClade(.data, .node, group_name="group", ...)` — pkg=ggtree
-- `groupOTU(.data, .node, group_name="group", ...)` — pkg=ggtree
-- `guide_legend(?)` — pkg=ggtree
 - `gzoom(phy, focus, subtree=FALSE, widths=c(.3, .7), tree_view, xmax_adjust=0, object)` — pkg=ggtree
 - `hexpand(ratio, direction=1)` — pkg=ggtree
-- `identify(?)` — pkg=ggtree
 - `inset(tree_view, insets, width, height, hjust=0, vjust=0, x="node", reverse_x=FALSE, reverse_y=FALSE)` — pkg=ggtree
 - `label_pad(label, justify="right", pad="\u00B7")` — pkg=ggtree
 - `layout_circular(?)` — pkg=ggtree
@@ -891,62 +2825,194 @@
 - `layout_fan(angle=180)` — pkg=ggtree
 - `layout_inward_circular(xlim=NULL)` — pkg=ggtree
 - `layout_rectangular(?)` — pkg=ggtree
-- `margin(?)` — pkg=ggtree
-- `MRCA(.data, .node1, .node2=NULL, ...)` — pkg=ggtree
 - `msaplot(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_line=TRUE, height=0.8)` — pkg=ggtree
 - `multiplot(..., plotlist=NULL, ncol, widths=rep_len(1, ncol), labels=NULL, label_size=5)` — pkg=ggtree
 - `nodebar(data, cols, color, alpha=1, position="stack")` — pkg=ggtree
-- `nodeid(tree, label)` — pkg=ggtree
-- `nodelab(tree, id)` — pkg=ggtree
 - `nodepie(data, cols, color, alpha=1, outline.color="transparent", outline.size=0)` — pkg=ggtree
 - `open_tree(treeview, angle)` — pkg=ggtree
-- `plot_list(?)` — pkg=ggtree
 - `range_format(x, trans=NULL)` — pkg=ggtree
-- `read.tree(?)` — pkg=ggtree
 - `revts(treeview)` — pkg=ggtree
 - `rotate(tree_view=NULL, node)` — pkg=ggtree
 - `rotate_tree(treeview, angle)` — pkg=ggtree
-- `rtree(?)` — pkg=ggtree
 - `scale_color(object, by, ...)` — pkg=ggtree
-- `scale_color_manual(?)` — pkg=ggtree
 - `scale_color_subtree(group)` — pkg=ggtree
-- `scale_colour_manual(?)` — pkg=ggtree
 - `scale_colour_subtree(group)` — pkg=ggtree
-- `scale_fill_manual(?)` — pkg=ggtree
-- `scale_x_continuous(?)` — pkg=ggtree
 - `scale_x_ggtree(breaks=waiver(), labels=waiver())` — pkg=ggtree
 - `scale_x_range(?)` — pkg=ggtree
 - `scaleClade(tree_view=NULL, node, scale=1, vertical_only=TRUE)` — pkg=ggtree
 - `set_hilight_legend(p, color, label, alpha=1)` — pkg=ggtree
 - `StatBalance(?)` — pkg=ggtree
-- `td_filter(?)` — pkg=ggtree
-- `td_mutate(?)` — pkg=ggtree
-- `td_unnest(?)` — pkg=ggtree
-- `theme(?)` — pkg=ggtree
 - `theme_dendrogram(bgcolor="white", fgcolor="black", ...)` — pkg=ggtree
 - `theme_inset(legend.position="none", ...)` — pkg=ggtree
 - `theme_tree(bgcolor="white", ...)` — pkg=ggtree
 - `theme_tree2(bgcolor="white", fgcolor="black", ...)` — pkg=ggtree
-- `unit(?)` — pkg=ggtree
 - `vexpand(ratio, direction=1)` — pkg=ggtree
 - `viewClade(tree_view=NULL, node, xmax_adjust=0)` — pkg=ggtree
-- `xlim(?)` — pkg=ggtree
 - `xlim_expand(xlim, panel)` — pkg=ggtree
 - `xlim_tree(xlim)` — pkg=ggtree
 - `zoomClade(tree_view=NULL, node, xexpand=NULL)` — pkg=ggtree
 
-### Generic (2)
-- `ggplot_add(object, plot, object_name, ...)` — pkg=ggtree
-- `offspring(.data, .node, tiponly=FALSE, self_include=FALSE, ...)` — pkg=ggtree
+### Reexport (153)
+- `%<+%(?)` — pkg=ggfun
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `.data(?)` — pkg=rlang
+- `abort(?)` — pkg=rlang
+- `add(?)` — pkg=magrittr
+- `aes(x, y)` — pkg=ggplot2
+- `alpha(?)` — pkg=scales
+- `ancestor(?)` — pkg=tidytree
+- `annotate(?)` — pkg=ggplot2
+- `annotation_custom(?)` — pkg=ggplot2
+- `arrow(?)` — pkg=grid
+- `as.phylo(?)` — pkg=treeio
+- `as.treedata(?)` — pkg=treeio
+- `as_labeller(?)` — pkg=ggplot2
+- `as_name(?)` — pkg=rlang
+- `as_tibble(?)` — pkg=tidytree
+- `check_installed(?)` — pkg=rlang
+- `cli_alert_warning(?)` — pkg=cli
+- `collapse(x=NULL, node, mode="none", clade_name=NULL, height=NULL, ...)` — pkg=dplyr
+- `coord_cartesian(?)` — pkg=ggplot2
+- `coord_flip(?)` — pkg=ggplot2
+- `coord_polar(?)` — pkg=ggplot2
+- `curveGrob(?)` — pkg=grid
+- `di2multi(?)` — pkg=ape
+- `draw_key_path(?)` — pkg=ggplot2
+- `draw_key_point(?)` — pkg=ggplot2
+- `draw_key_polygon(?)` — pkg=ggplot2
+- `draw_key_text(?)` — pkg=ggplot2
+- `element_blank(?)` — pkg=ggplot2
+- `element_line(?)` — pkg=ggplot2
+- `element_rect(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `env(?)` — pkg=rlang
+- `equals(?)` — pkg=magrittr
+- `expansion(?)` — pkg=ggplot2
+- `facet_grid(?)` — pkg=ggplot2
+- `filter(?)` — pkg=dplyr
+- `fortify(model, data, layout="rectangular", ladderize=TRUE, right=FALSE, branch.length="branch.length", mrsd=NULL, as.Date=FALSE, yscale="none", root.position=0, hang=.1, gap=0.08, mirror=TRUE, optimize=isTRUE(model$params$optimize), optimize_side=model$params$optimize_side %||% "right", ...)` — pkg=ggplot2
+- `from_theme(?)` — pkg=ggplot2
+- `full_join(?)` — pkg=dplyr
+- `gather(?)` — pkg=tidyr
+- `Geom(?)` — pkg=ggplot2
+- `geom_bar(?)` — pkg=ggplot2
+- `geom_blank(?)` — pkg=ggplot2
+- `geom_curve(?)` — pkg=ggplot2
+- `geom_label(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggplot2
+- `geom_polygon(?)` — pkg=ggplot2
+- `geom_rect(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `geom_text_interactive(?)` — pkg=ggiraph
+- `geom_tile(?)` — pkg=ggplot2
+- `GeomInteractiveLabel(?)` — pkg=ggiraph
+- `GeomInteractivePoint(?)` — pkg=ggiraph
+- `GeomInteractivePolygon(?)` — pkg=ggiraph
+- `GeomInteractiveRect(?)` — pkg=ggiraph
+- `GeomInteractiveSegment(?)` — pkg=ggiraph
+- `GeomInteractiveText(?)` — pkg=ggiraph
+- `GeomLabel(?)` — pkg=ggplot2
+- `GeomPoint(?)` — pkg=ggplot2
+- `GeomPolygon(?)` — pkg=ggplot2
+- `GeomRect(?)` — pkg=ggplot2
+- `GeomSegment(?)` — pkg=ggplot2
+- `GeomText(?)` — pkg=ggplot2
+- `get_aes_var(?)` — pkg=ggfun
+- `get_cache_item(key)` — pkg=yulab.utils
+- `get_fun_from_pkg(pkg, fun)` — pkg=yulab.utils
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(object, plot, object_name, ...)` — pkg=ggplot2
+- `ggplot_build(?)` — pkg=ggplot2
+- `ggplot_gtable(?)` — pkg=ggplot2
+- `ggplotGrob(?)` — pkg=ggplot2
+- `ggproto(?)` — pkg=ggplot2
+- `ggsave(?)` — pkg=ggplot2
+- `girafe(?)` — pkg=ggiraph
+- `gpar(?)` — pkg=grid
+- `grid.layout(?)` — pkg=grid
+- `grid.newpage(?)` — pkg=grid
+- `grobTree(?)` — pkg=grid
+- `groupClade(.data, .node, group_name="group", ...)` — pkg=tidytree
+- `groupOTU(.data, .node, group_name="group", ...)` — pkg=tidytree
+- `gTree(?)` — pkg=grid
+- `guide_legend(?)` — pkg=ggplot2
+- `guides(?)` — pkg=ggplot2
+- `identify(?)` — pkg=ggfun
+- `is(?)` — pkg=methods
+- `is_quosure(?)` — pkg=rlang
+- `ladderize(?)` — pkg=ape
+- `last_plot(?)` — pkg=ggplot2
+- `layer(?)` — pkg=ggplot2
+- `margin(?)` — pkg=ggplot2
+- `missingArg(?)` — pkg=methods
+- `modifyList(?)` — pkg=utils
+- `MRCA(.data, .node1, .node2=NULL, ...)` — pkg=tidytree
+- `mutate(?)` — pkg=dplyr
+- `new_quosure(?)` — pkg=rlang
+- `Nnode(?)` — pkg=treeio
+- `nodeid(tree, label)` — pkg=tidytree
+- `nodelab(tree, id)` — pkg=tidytree
+- `Ntip(?)` — pkg=treeio
+- `offspring(.data, .node, tiponly=FALSE, self_include=FALSE, ...)` — pkg=tidytree
+- `opts_sizing(?)` — pkg=ggiraph
+- `opts_toolbar(?)` — pkg=ggiraph
+- `opts_tooltip(?)` — pkg=ggiraph
+- `opts_zoom(?)` — pkg=ggiraph
+- `packageVersion(?)` — pkg=utils
+- `parent(?)` — pkg=tidytree
+- `parse_expr(?)` — pkg=rlang
+- `plot_list(?)` — pkg=aplot
+- `position_nudge(?)` — pkg=ggplot2
+- `pushViewport(?)` — pkg=grid
+- `quo(?)` — pkg=rlang
+- `quo_get_env(?)` — pkg=rlang
+- `quo_name(?)` — pkg=rlang
+- `read.fasta(?)` — pkg=treeio
+- `read.tree(?)` — pkg=ape
+- `rectGrob(?)` — pkg=grid
+- `reorder.phylo(?)` — pkg=ape
+- `rtree(?)` — pkg=ape
+- `scale_color_manual(values)` — pkg=ggplot2
+- `scale_colour_manual(?)` — pkg=ggplot2
+- `scale_fill_discrete(?)` — pkg=ggplot2
+- `scale_fill_gradient(?)` — pkg=ggplot2
+- `scale_fill_manual(?)` — pkg=ggplot2
+- `scale_x_continuous(?)` — pkg=ggplot2
+- `scale_x_date(?)` — pkg=ggplot2
+- `scale_x_reverse(?)` — pkg=ggplot2
+- `scale_y_continuous(?)` — pkg=ggplot2
+- `select(?)` — pkg=dplyr
+- `setGeneric(?)` — pkg=methods
+- `setOldClass(?)` — pkg=methods
+- `Stat(?)` — pkg=ggplot2
+- `sym(?)` — pkg=rlang
+- `td_filter(?)` — pkg=ggfun
+- `td_mutate(?)` — pkg=ggfun
+- `td_unnest(?)` — pkg=ggfun
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `theme_void(?)` — pkg=ggplot2
+- `unit(?)` — pkg=grid
+- `update_cache_item(?)` — pkg=yulab.utils
+- `vars(?)` — pkg=ggplot2
+- `viewport(?)` — pkg=grid
+- `waiver(?)` — pkg=ggplot2
+- `xlab(?)` — pkg=ggplot2
+- `xlim(?)` — pkg=ggplot2
+- `xrange(?)` — pkg=aplot
+- `ylab(?)` — pkg=ggplot2
+- `ylim(?)` — pkg=ggplot2
+- `yulab_msg(?)` — pkg=yulab.utils
 
-## ggtreeExtra (1.23.1) — 18 symbols
+## ggtreeExtra (1.23.1) — 43 symbols
 
-### Function (18)
-- `%>%(?)` — pkg=ggtreeExtra
+### Function (14)
 - `fruit_plot(p, data=NULL, geom, mapping, offset=0.03, pwidth=0.2, position="auto", ...)` — pkg=ggtreeExtra
 - `geom_fruit(mapping, data=NULL, geom, offset=0.03, pwidth=0.2, position="auto", inherit.aes=FALSE, grid.params=NULL, axis.params=list( axis="none", text.angle=0, text..., ...)` — pkg=ggtreeExtra
 - `geom_fruit_list(fruit, ...)` — pkg=ggtreeExtra
-- `ggplot_add(object, plot, object_name, ...)` — pkg=ggtreeExtra
 - `position_dodgex(?)` — pkg=ggtreeExtra
 - `position_dodgex2(?)` — pkg=ggtreeExtra
 - `position_identityx(?)` — pkg=ggtreeExtra
@@ -958,12 +3024,70 @@
 - `position_stackx(vjust=1, hexpand=NA, vexpand=NA, reverse=FALSE)` — pkg=ggtreeExtra
 - `PositionJitterdodgex(?)` — pkg=ggtreeExtra
 - `PositionJitterx(?)` — pkg=ggtreeExtra
-- `td_filter(?)` — pkg=ggtreeExtra
-- `td_unnest(?)` — pkg=ggtreeExtra
 
-## gson (?) — 0 symbols
+### Reexport (29)
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `aes(x, y)` — pkg=ggplot2
+- `aggregate(?)` — pkg=stats
+- `as.formula(?)` — pkg=stats
+- `as.treedata(?)` — pkg=tidytree
+- `as_name(?)` — pkg=rlang
+- `cli_abort(?)` — pkg=cli
+- `enquo(?)` — pkg=rlang
+- `flip_data(?)` — pkg=ggplot2
+- `geom_segment(?)` — pkg=ggplot2
+- `geom_text(?)` — pkg=ggplot2
+- `get_env(?)` — pkg=rlang
+- `get_expr(?)` — pkg=rlang
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot_add(object, plot, object_name, ...)` — pkg=ggplot2
+- `ggproto(?)` — pkg=ggplot2
+- `has_flipped_aes(?)` — pkg=ggplot2
+- `modifyList(?)` — pkg=utils
+- `new_scale_color(?)` — pkg=ggnewscale
+- `Position(?)` — pkg=ggplot2
+- `quo_get_expr(?)` — pkg=rlang
+- `quo_name(?)` — pkg=rlang
+- `quo_text(?)` — pkg=rlang
+- `remove_missing(?)` — pkg=ggplot2
+- `scale_color_manual(values)` — pkg=ggplot2
+- `sym(?)` — pkg=rlang
+- `td_filter(?)` — pkg=ggtree
+- `td_unnest(?)` — pkg=ggtree
+- `yulab_msg(?)` — pkg=yulab.utils
 
-## ivolcano (0.0.7) — 16 symbols
+## gson (0.2.1) — 23 symbols
+
+### Function (8)
+- `gson(gsid2gene, gsid2name=NULL, gene2name=NULL, schema_version="1.0", species=NULL, gsname=NULL, version=NULL, accessed_date=NULL, keytype=NULL, urlpattern=NULL, info=NULL)` — pkg=gson
+- `gsonList(...)` — pkg=gson
+- `read.gmt(gmtfile, output="data.frame")` — pkg=gson
+- `read.gmt.wp(gmtfile, output="data.frame")` — pkg=gson
+- `read.gson(file)` — pkg=gson
+- `validate_gson(x, error=TRUE)` — pkg=gson
+- `write.gmt(x, file="")` — pkg=gson
+- `write.gson(x, file="")` — pkg=gson
+
+### Generic (5)
+- `as.data.frame(x, row.names=NULL, optional=FALSE, ...)` — pkg=gson
+- `as.list(x, ...)` — pkg=gson
+- `length(x)` — pkg=gson
+- `names(x)` — pkg=gson
+- `print(x, ...)` — pkg=gson
+
+### Reexport (10)
+- `.data(?)` — pkg=rlang
+- `browseURL(?)` — pkg=utils
+- `fromJSON(?)` — pkg=jsonlite
+- `new(?)` — pkg=methods
+- `packageVersion(?)` — pkg=utils
+- `setNames(?)` — pkg=stats
+- `show(?)` — pkg=methods
+- `stack(?)` — pkg=utils
+- `toJSON(?)` — pkg=jsonlite
+- `yread(file)` — pkg=yulab.utils
+
+## ivolcano (0.0.7) — 49 symbols
 
 ### Function (14)
 - `geom_ivolcano_gene(top_n=10, label_mode="separate", fontface="italic", label_sig_only=TRUE, filter=NULL)` — pkg=ivolcano
@@ -981,23 +3105,71 @@
 - `pathway_app(enrichment, gene_data, pathway_col="Description", pathway_gene_col="geneID", pathway_p_col="p.adjust", pathway_ratio_col="GeneRatio", gene_col="gene", gene_effect_col="logFC", gene_p_col="adj.P.Val", show_pathways=NULL, gene_id_case=c("asis", "upper", "lower"), pval_cutoff=0.05, logFC_cutoff=1, launch=FALSE, app_title="Pathway-gene explorer")` — pkg=ivolcano
 - `scale_color_figureya(mode=c("classic", "advanced"), na.value="grey80", guide="none", ...)` — pkg=ivolcano
 
-### Generic (2)
-- `ggplot_add(object, plot, ...)` — pkg=ivolcano
+### Generic (1)
 - `print(x, ...)` — pkg=ivolcano
 
-## meshes (1.39.3) — 8 symbols
+### Reexport (34)
+- `.data(?)` — pkg=rlang
+- `aes(x, y)` — pkg=ggplot2
+- `coord_cartesian(?)` — pkg=ggplot2
+- `element_blank(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `fortify(?)` — pkg=ggplot2
+- `geom_hline(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggplot2
+- `geom_point_interactive(?)` — pkg=ggiraph
+- `geom_text_repel(?)` — pkg=ggrepel
+- `geom_vline(?)` — pkg=ggplot2
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggplot_add(object, plot, ...)` — pkg=ggplot2
+- `girafe(?)` — pkg=ggiraph
+- `girafeOutput(?)` — pkg=ggiraph
+- `is(?)` — pkg=methods
+- `knit_print(?)` — pkg=knitr
+- `labs(?)` — pkg=ggplot2
+- `margin(?)` — pkg=ggplot2
+- `modifyList(?)` — pkg=utils
+- `mutate(?)` — pkg=dplyr
+- `opts_hover(?)` — pkg=ggiraph
+- `renderGirafe(?)` — pkg=ggiraph
+- `reorder(?)` — pkg=stats
+- `scale_alpha_identity(?)` — pkg=ggplot2
+- `scale_color_continuous(?)` — pkg=ggplot2
+- `scale_color_manual(values)` — pkg=ggplot2
+- `scale_colour_manual(?)` — pkg=ggplot2
+- `scale_size_identity(?)` — pkg=ggplot2
+- `setNames(?)` — pkg=stats
+- `sym(?)` — pkg=rlang
+- `theme(?)` — pkg=ggplot2
+- `theme_minimal(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
 
-### Function (8)
+## meshes (1.39.3) — 19 symbols
+
+### Function (5)
 - `enrichMeSH(gene, MeSHDb, database='gendoo', category='C', pvalueCutoff=0.05, pAdjustMethod="BH", universe=NULL, minGSSize=10, maxGSSize=500, qvalueCutoff=0.2, meshdbVersion=NULL)` — pkg=meshes
-- `geneID(?)` — pkg=meshes
-- `geneInCategory(?)` — pkg=meshes
 - `geneSim(geneID1, geneID2=NULL, measure="Wang", combine="BMA", semData)` — pkg=meshes
-- `get_organism(?)` — pkg=meshes
 - `gseMeSH(geneList, MeSHDb, database='gendoo', category='C', nPerm=1000, exponent=1, minGSSize=10, maxGSSize=500, eps=1e-10, pvalueCutoff=0.05, pAdjustMethod="BH", verbose=TRUE, seed=FALSE, ...)` — pkg=meshes
 - `meshdata(MeSHDb=NULL, database, category, computeIC=FALSE)` — pkg=meshes
 - `meshSim(meshID1, meshID2, measure="Wang", semData)` — pkg=meshes
 
-## scMSGNN (0.3.0) — 4 symbols
+### Reexport (14)
+- `combineScores(?)` — pkg=GOSemSim
+- `geneID(?)` — pkg=enrichit
+- `geneInCategory(?)` — pkg=enrichit
+- `get_fun_from_pkg(pkg, fun)` — pkg=yulab.utils
+- `get_organism(db)` — pkg=GOSemSim
+- `gsea_gson(?)` — pkg=enrichit
+- `gson(gsid2gene, gsid2name)` — pkg=gson
+- `keys(x)` — pkg=AnnotationDbi
+- `metadata(?)` — pkg=AnnotationDbi
+- `new(?)` — pkg=methods
+- `ora_gson(?)` — pkg=enrichit
+- `select(?)` — pkg=AnnotationDbi
+- `termSim(?)` — pkg=GOSemSim
+- `yulab_msg(?)` — pkg=yulab.utils
+
+## scMSGNN (0.3.0) — 12 symbols
 
 ### Generic (4)
 - `ensure_tensor(x, dtype=torch::torch_float32(), device=NULL, ...)` — pkg=scMSGNN
@@ -1005,7 +3177,17 @@
 - `scMSGNN_CorrectBatch(object, features=NULL, k_neighbors=20, k_scales=NULL, sign_k=2, hidden_dims=c(128, 64), epochs=50, lr=0.001, batch_size=256, device="cpu", adj_matrix=NULL, pathway_mask=NULL, adj_lambda=1.0, batch=NULL, batch_lambda=1.0, ...)` — pkg=scMSGNN
 - `scMSGNN_Run(object, features=NULL, k_neighbors=20, k_scales=NULL, sign_k=2, hidden_dims=c(128, 64), epochs=50, lr=0.001, batch_size=256, device="cpu", adj_matrix=NULL, pathway_mask=NULL, adj_lambda=1.0, ...)` — pkg=scMSGNN
 
-## scholar (1.0.0) — 30 symbols
+### Reexport (8)
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `Diagonal(?)` — pkg=Matrix
+- `nn2(?)` — pkg=RANN
+- `rowSums(?)` — pkg=Matrix
+- `sparseMatrix(?)` — pkg=Matrix
+- `t(?)` — pkg=Matrix
+- `tail(x)` — pkg=utils
+- `which(?)` — pkg=Matrix
+
+## scholar (1.0.0) — 52 symbols
 
 ### Function (30)
 - `author_position(?)` — pkg=scholar
@@ -1039,31 +3221,47 @@
 - `set_scholar_mirror(mirror=NULL)` — pkg=scholar
 - `tidy_id(id)` — pkg=scholar
 
-## sclet (1.0.1) — 208 symbols
+### Reexport (22)
+- `%>%(lhs, rhs)` — pkg=dplyr
+- `.data(?)` — pkg=rlang
+- `content(?)` — pkg=httr
+- `filter(?)` — pkg=dplyr
+- `GET(?)` — pkg=httr
+- `group_by(?)` — pkg=dplyr
+- `html_attr(?)` — pkg=rvest
+- `html_children(?)` — pkg=rvest
+- `html_nodes(?)` — pkg=rvest
+- `html_table(?)` — pkg=rvest
+- `html_text(?)` — pkg=rvest
+- `mutate(?)` — pkg=dplyr
+- `read_html(?)` — pkg=xml2
+- `row_number(?)` — pkg=dplyr
+- `str_extract(?)` — pkg=stringr
+- `str_replace(?)` — pkg=stringr
+- `str_split(?)` — pkg=stringr
+- `str_sub(?)` — pkg=stringr
+- `str_trim(?)` — pkg=stringr
+- `str_which(?)` — pkg=stringr
+- `summarize(?)` — pkg=dplyr
+- `tail(x)` — pkg=utils
 
-### Function (208)
+## sclet (1.0.1) — 287 symbols
+
+### Function (195)
 - `ActiveIdent(object)` — pkg=sclet
-- `ActiveIdent<-(?)` — pkg=sclet
 - `AggregateExpression(object, group_by, assay.type="counts", fun="sum")` — pkg=sclet
 - `as.SCE(object, ...)` — pkg=sclet
 - `as.Seurat(object, ...)` — pkg=sclet
-- `assay(?)` — pkg=sclet
 - `AuditAnalysisChain(sce, features, raw_layer="counts", integrated_layer=NULL, ...)` — pkg=sclet
 - `BatchRemover(sce, batch=NULL, HVG=NULL, nHVG=5000, assay.type="logcounts", PARAM=NULL, restrict=NULL, correct.all=FALSE, name="batchcorrect")` — pkg=sclet
 - `CellDimPlot(object, group.by=NULL, reduction=NULL, ...)` — pkg=sclet
 - `CellRankSummary(object, id=NULL)` — pkg=sclet
 - `CellStatPlot(object, group.by=NULL, split.by=NULL, position="fill", ...)` — pkg=sclet
-- `colData(?)` — pkg=sclet
-- `colData<-(?)` — pkg=sclet
 - `CommandLog(object, details=FALSE)` — pkg=sclet
 - `DefaultAssay(object)` — pkg=sclet
-- `DefaultAssay<-(?)` — pkg=sclet
 - `DefaultGraph(object)` — pkg=sclet
-- `DefaultGraph<-(?)` — pkg=sclet
 - `DefaultLayer(object)` — pkg=sclet
-- `DefaultLayer<-(?)` — pkg=sclet
 - `DefaultReduction(object)` — pkg=sclet
-- `DefaultReduction<-(?)` — pkg=sclet
 - `DEtestPlot(object, id=NULL, p_val_cutoff=0.05, logfc_cutoff=0.25, ...)` — pkg=sclet
 - `DimPlot(object, reduction=NULL, ...)` — pkg=sclet
 - `ElbowPlot(object)` — pkg=sclet
@@ -1139,7 +3337,6 @@
 - `LayerData(object, layer=NULL)` — pkg=sclet
 - `Layers(object)` — pkg=sclet
 - `lineage_plot(sce, dims=c(1, 2), group, reduction="UMAP", lineages=NULL, cells=NULL, slot="data", mapping=NULL, geom=sc_geom_point, linewidth=0.9, ...)` — pkg=sclet
-- `logNormCounts(?)` — pkg=sclet
 - `NormalizeData(object, scale.factor=10000, assay="counts")` — pkg=sclet
 - `PercentageFeatureSet(object, pattern=NULL, feature=NULL)` — pkg=sclet
 - `PipelineSummary(object)` — pkg=sclet
@@ -1160,7 +3357,6 @@
 - `plot_genecurve(sce, assay_name="logcounts", features, lineaegs=NULL, pseudotime.data="slingPseudotime", method=c("smooth","gam"), point=FALSE, line.size=0.8, alpha=0.5, size=1, ncol=NULL, se=TRUE)` — pkg=sclet
 - `plot_group_heatmap(object, features, group.by=NULL, layer=NULL, ...)` — pkg=sclet
 - `plot_lineage(sce, dims=c(1, 2), group, reduction="UMAP", lineages=NULL, cells=NULL, slot="data", mapping=NULL, geom=sc_geom_point, linewidth=0.9, ...)` — pkg=sclet
-- `plot_list(?)` — pkg=sclet
 - `plot_perturbation_ranking(object, n=20, fill_color="steelblue")` — pkg=sclet
 - `plot_program_activity(object, program, source=c("auto", "geneset_scoring", "scenic"), reduction=NULL, id=NULL, assay=NULL, point_size=0.6, low="grey90", high="firebrick")` — pkg=sclet
 - `plot_program_dotplot(object, programs, source=c("auto", "geneset_scoring", "scenic"), group.by=NULL, id=NULL, low="#2166AC", high="#B2182B")` — pkg=sclet
@@ -1179,7 +3375,6 @@
 - `plot_velocity_fate_correlation(object, fate=NULL, velocity_id=NULL, trajectory_id=NULL, assay=NULL, point_size=0.8, alpha=0.8)` — pkg=sclet
 - `plot_velocity_latent_time(object, reduction=NULL, id=NULL, point_size=0.6, low="grey90", high="firebrick")` — pkg=sclet
 - `plot_velocity_magnitude(object, reduction=NULL, id=NULL, assay=NULL, point_size=0.6, low="grey90", high="navy")` — pkg=sclet
-- `plotColData(?)` — pkg=sclet
 - `ProjectionPlot(query, ref, reduction="UMAP", group.by=NULL, ...)` — pkg=sclet
 - `pseudo_heatmap(sce, features, assay_name="logcounts", pseudotime.data="slingPseudotime", lineage=NULL, scale=TRUE, sort=TRUE, cluster_columns=FALSE, cluster_rows=FALSE)` — pkg=sclet
 - `pseudo_plot(sce, reduction=NULL, pseudotime.data="slingPseudotime", lineage=NULL, ...)` — pkg=sclet
@@ -1190,8 +3385,6 @@
 - `register_multimodal_adt(sce, name="ADT")` — pkg=sclet
 - `register_multimodal_atac(sce, name="ATAC")` — pkg=sclet
 - `RenameIdents(object, new_ids)` — pkg=sclet
-- `rowData(?)` — pkg=sclet
-- `rowData<-(?)` — pkg=sclet
 - `RunCCI(object, method=c("CellChat", "CellPhoneDB", "NicheNet"), keep_object=FALSE, ...)` — pkg=sclet
 - `RunCellChat(sce, group=NULL, assay_name=NULL, layer=NULL, species="human", db_item=c("Secreted Signaling"), type="triMean", trim=0.1, min.cells=10, name="cellchat", return=c("cellchat", "sce", "both"), keep_object=FALSE)` — pkg=sclet
 - `RunCellFate(sce, method=c("CellRank"), reduction="PCA", cluster_key=ActiveIdent(sce), velocity_id=NULL, backend=c("basilisk", "reticulate"), python=NULL, name="cellfate", ...)` — pkg=sclet
@@ -1251,7 +3444,101 @@
 - `VlnPlot(object, features, ncol="auto")` — pkg=sclet
 - `WriteH5AD(object, file, ...)` — pkg=sclet
 
-## seqmagick (0.1.9) — 30 symbols
+### Reexport (92)
+- `.data(?)` — pkg=rlang
+- `aes(x, y)` — pkg=ggplot2
+- `aggregateAcrossCells(?)` — pkg=scuttle
+- `altExp(?)` — pkg=SingleCellExperiment
+- `as(?)` — pkg=methods
+- `assay(?)` — pkg=SummarizedExperiment
+- `assayNames(?)` — pkg=SummarizedExperiment
+- `ave(?)` — pkg=stats
+- `BasiliskEnvironment(?)` — pkg=basilisk
+- `basiliskRun(?)` — pkg=basilisk
+- `basiliskStart(?)` — pkg=basilisk
+- `basiliskStop(?)` — pkg=basilisk
+- `cli_abort(?)` — pkg=cli
+- `cluster_louvain(?)` — pkg=igraph
+- `colData(?)` — pkg=SummarizedExperiment
+- `colLabels(?)` — pkg=SingleCellExperiment
+- `counts(?)` — pkg=SingleCellExperiment
+- `element_blank(?)` — pkg=ggplot2
+- `element_line(?)` — pkg=ggplot2
+- `element_rect(?)` — pkg=ggplot2
+- `element_text(?)` — pkg=ggplot2
+- `enquo(?)` — pkg=rlang
+- `facet_grid(?)` — pkg=ggplot2
+- `filter(?)` — pkg=dplyr
+- `gene_summary(?)` — pkg=fanyi
+- `geom_bar(?)` — pkg=ggplot2
+- `geom_hline(?)` — pkg=ggplot2
+- `geom_jitter(?)` — pkg=ggplot2
+- `geom_point(?)` — pkg=ggplot2
+- `geom_text_repel(?)` — pkg=ggrepel
+- `geom_violin(?)` — pkg=ggplot2
+- `geom_vline(?)` — pkg=ggplot2
+- `get_fun_from_pkg(pkg, fun)` — pkg=yulab.utils
+- `getFromNamespace(?)` — pkg=utils
+- `ggplot(data, mapping)` — pkg=ggplot2
+- `ggtitle(?)` — pkg=ggplot2
+- `group_tt(?)` — pkg=tinytable
+- `guide_legend(?)` — pkg=ggplot2
+- `guides(?)` — pkg=ggplot2
+- `head(x)` — pkg=utils
+- `install_zip_gh(?)` — pkg=yulab.utils
+- `is(?)` — pkg=methods
+- `is.installed(pkg)` — pkg=yulab.utils
+- `labs(?)` — pkg=ggplot2
+- `lines(?)` — pkg=graphics
+- `loess(?)` — pkg=stats
+- `logcounts(?)` — pkg=SingleCellExperiment
+- `logNormCounts(?)` — pkg=scuttle
+- `mad(?)` — pkg=stats
+- `makeSNNGraph(?)` — pkg=bluster
+- `median(?)` — pkg=stats
+- `metadata(?)` — pkg=S4Vectors
+- `modelGeneVar(?)` — pkg=scran
+- `modifyList(?)` — pkg=utils
+- `na.omit(?)` — pkg=stats
+- `o(?)` — pkg=yulab.utils
+- `pivot_longer(?)` — pkg=tidyr
+- `plot(?)` — pkg=graphics
+- `plot_list(?)` — pkg=aplot
+- `plotColData(?)` — pkg=scater
+- `predict(?)` — pkg=stats
+- `quantile(?)` — pkg=stats
+- `reducedDim(?)` — pkg=SingleCellExperiment
+- `reducedDimNames(?)` — pkg=SingleCellExperiment
+- `reducedDims(?)` — pkg=SingleCellExperiment
+- `rowData(?)` — pkg=SummarizedExperiment
+- `rowSds(?)` — pkg=MatrixGenerics
+- `rowSums(?)` — pkg=Matrix
+- `runPCA(?)` — pkg=scater
+- `runUMAP(?)` — pkg=scater
+- `save_tt(?)` — pkg=tinytable
+- `sc_dim(?)` — pkg=ggsc
+- `sc_feature(?)` — pkg=ggsc
+- `scale_color_manual(values)` — pkg=ggplot2
+- `scale_color_viridis_c(?)` — pkg=ggplot2
+- `scale_size_continuous(?)` — pkg=ggplot2
+- `scale_x_log10(?)` — pkg=ggplot2
+- `sd(?)` — pkg=stats
+- `setMethod(?)` — pkg=methods
+- `setNames(?)` — pkg=stats
+- `show_in_excel(?)` — pkg=yulab.utils
+- `style_tt(?)` — pkg=tinytable
+- `SummarizedExperiment(?)` — pkg=SummarizedExperiment
+- `theme(?)` — pkg=ggplot2
+- `theme_bw(?)` — pkg=ggplot2
+- `theme_classic(?)` — pkg=ggplot2
+- `theme_minimal(?)` — pkg=ggplot2
+- `tt(?)` — pkg=tinytable
+- `uniquifyFeatureNames(?)` — pkg=scuttle
+- `write.csv(?)` — pkg=utils
+- `xlab(?)` — pkg=ggplot2
+- `ylab(?)` — pkg=ggplot2
+
+## seqmagick (0.1.9) — 49 symbols
 
 ### Function (30)
 - `bam2DNAStringSet(bamfile, refseq)` — pkg=seqmagick
@@ -1285,9 +3572,112 @@
 - `seqlen(fasfile)` — pkg=seqmagick
 - `sth_read(file, type="auto")` — pkg=seqmagick
 
-## tidytree (?) — 0 symbols
+### Reexport (19)
+- `AAStringSet(?)` — pkg=Biostrings
+- `BStringSet(?)` — pkg=Biostrings
+- `consensusMatrix(?)` — pkg=Biostrings
+- `DNAStringSet(?)` — pkg=Biostrings
+- `download.file(?)` — pkg=utils
+- `matchPattern(?)` — pkg=Biostrings
+- `read.delim(?)` — pkg=utils
+- `readAAStringSet(?)` — pkg=Biostrings
+- `readBStringSet(?)` — pkg=Biostrings
+- `readDNAStringSet(?)` — pkg=Biostrings
+- `readRNAStringSet(?)` — pkg=Biostrings
+- `RNAStringSet(?)` — pkg=Biostrings
+- `setNames(?)` — pkg=stats
+- `setTxtProgressBar(?)` — pkg=utils
+- `toString(?)` — pkg=Biostrings
+- `txtProgressBar(?)` — pkg=utils
+- `use_perl(?)` — pkg=yulab.utils
+- `width(?)` — pkg=Biostrings
+- `writeXStringSet(?)` — pkg=Biostrings
 
-## tigeR (1.0.0) — 64 symbols
+## tidytree (0.4.8) — 76 symbols
+
+### Function (25)
+- `ancestor(.data, .node, ...)` — pkg=tidytree
+- `as.treedata(tree, ...)` — pkg=tidytree
+- `as.ultrametric(tree, ...)` — pkg=tidytree
+- `child(.data, .node, type='children', ...)` — pkg=tidytree
+- `drop.tip(object, tip, ...)` — pkg=tidytree
+- `get.data(object)` — pkg=tidytree
+- `get.fields(object)` — pkg=tidytree
+- `get.treetext(object)` — pkg=tidytree
+- `get_tree_data(tree_object)` — pkg=tidytree
+- `getNodeNum(tree)` — pkg=tidytree
+- `groupClade(.data, .node, group_name='group', overlap='overwrite', ...)` — pkg=tidytree
+- `groupOTU(.data, .node, group_name='group', ...)` — pkg=tidytree
+- `isTip(.data, .node, ...)` — pkg=tidytree
+- `keep.tip(object, tip, ...)` — pkg=tidytree
+- `MRCA(.data, .node1, .node2=NULL, ...)` — pkg=tidytree
+- `node.label(x, node='internal', ...)` — pkg=tidytree
+- `nodeid(tree, label)` — pkg=tidytree
+- `nodelab(tree, id)` — pkg=tidytree
+- `offspring(.data, .node, tiponly=FALSE, self_include=FALSE, type='all', ...)` — pkg=tidytree
+- `parent(.data, .node, ...)` — pkg=tidytree
+- `rootnode(.data, ...)` — pkg=tidytree
+- `sibling(.data, .node, ...)` — pkg=tidytree
+- `tip.label(x, ...)` — pkg=tidytree
+- `tree_subset(tree, node, levels_back=5, group_node=TRUE, group_name="group", root_edge=TRUE)` — pkg=tidytree
+- `treedata(...)` — pkg=tidytree
+
+### Generic (2)
+- `merge(x, y, ...)` — pkg=tidytree
+- `print(x, n=10, width=NULL, max_extra_cols=NULL, max_footer_lines=NULL, ...)` — pkg=tidytree
+
+### Reexport (49)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `.data(?)` — pkg=rlang
+- `arrange(?)` — pkg=dplyr
+- `as.DNAbin(?)` — pkg=ape
+- `as.phylo(x, ...)` — pkg=ape
+- `as_tibble(x, ...)` — pkg=tibble
+- `bind_rows(?)` — pkg=dplyr
+- `cli_warn(?)` — pkg=cli
+- `eval_select(?)` — pkg=tidyselect
+- `extract.clade(?)` — pkg=ape
+- `filter(.data, .preserve=FALSE, keep.td=TRUE, ...)` — pkg=dplyr
+- `full_join(x, y, by=NULL, copy=FALSE, suffix=c("", ".y"), ...)` — pkg=dplyr
+- `group_by(?)` — pkg=dplyr
+- `head(x)` — pkg=utils
+- `inner_join(x, y, by=NULL, copy=FALSE, suffix=c("", ".y"), ...)` — pkg=dplyr
+- `interp(?)` — pkg=lazyeval
+- `is(?)` — pkg=methods
+- `is.rooted(phy)` — pkg=ape
+- `isClass(?)` — pkg=methods
+- `left_join(x, y, by=NULL, copy=FALSE, suffix=c("", ".y"), keep=NULL, ...)` — pkg=dplyr
+- `mutate(.data, keep.td=TRUE, ...)` — pkg=dplyr
+- `new(?)` — pkg=methods
+- `Nnode(phy, internal.only=TRUE, ...)` — pkg=ape
+- `Ntip(phy)` — pkg=ape
+- `print.phylo(?)` — pkg=ape
+- `pull(.data, var=-1, name=NULL, ...)` — pkg=dplyr
+- `quo(?)` — pkg=rlang
+- `read.tree(?)` — pkg=ape
+- `rename(.data, ...)` — pkg=dplyr
+- `representation(?)` — pkg=methods
+- `root(phy, outgroup, node=NULL, edgelabel=TRUE, ...)` — pkg=ape
+- `rtree(?)` — pkg=ape
+- `select(.data, keep.td=FALSE, ...)` — pkg=dplyr
+- `setClass(?)` — pkg=methods
+- `setClassUnion(?)` — pkg=methods
+- `setGeneric(?)` — pkg=methods
+- `setOldClass(?)` — pkg=methods
+- `show(?)` — pkg=methods
+- `str_wrap(?)` — pkg=yulab.utils
+- `style_subtle(?)` — pkg=pillar
+- `summarise(?)` — pkg=dplyr
+- `summarize(?)` — pkg=dplyr
+- `tail(x)` — pkg=utils
+- `tibble(?)` — pkg=tibble
+- `transmute(?)` — pkg=dplyr
+- `unnest(data, cols, ..., keep_empty=FALSE, ptype=NULL, names_sep=NULL, names_repair="check_unique")` — pkg=tidyr
+- `which.edge(?)` — pkg=ape
+- `yulab_msg(?)` — pkg=yulab.utils
+
+## tigeR (1.0.0) — 89 symbols
 
 ### Function (64)
 - `ABIS(SE, sig_matrix)` — pkg=tigeR
@@ -1355,42 +3745,47 @@
 - `to1(SE, by_row=TRUE)` — pkg=tigeR
 - `xCell(SE, signatures=NULL, genes=NULL, spill=NULL, rnaseq=TRUE, file.name=NULL, scale=TRUE, alpha=0.5, save.raw=FALSE, parallel.sz=4, parallel.type='SOCK', cell.types.use=NULL)` — pkg=tigeR
 
-## treeio (1.37.1) — 78 symbols
+### Reexport (25)
+- `%$%(?)` — pkg=magrittr
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `.data(?)` — pkg=rlang
+- `assay(?)` — pkg=SummarizedExperiment
+- `coef(?)` — pkg=stats
+- `colData(?)` — pkg=SummarizedExperiment
+- `cor(?)` — pkg=stats
+- `current_env(?)` — pkg=rlang
+- `ExperimentHub(?)` — pkg=ExperimentHub
+- `fit(?)` — pkg=cancerclass
+- `ggsurvplot(?)` — pkg=survminer
+- `median(?)` — pkg=stats
+- `model.matrix(?)` — pkg=stats
+- `na.omit(?)` — pkg=stats
+- `query(?)` — pkg=AnnotationHub
+- `randomForest(?)` — pkg=randomForest
+- `roc(?)` — pkg=pROC
+- `sd(?)` — pkg=stats
+- `setNames(?)` — pkg=stats
+- `Surv(?)` — pkg=survival
+- `survfit(?)` — pkg=survival
+- `t.test(?)` — pkg=stats
+- `theme_bw(?)` — pkg=ggplot2
+- `wilcox.test(?)` — pkg=stats
 
-### Function (77)
-- `%<>%(?)` — pkg=treeio
-- `%>%(?)` — pkg=treeio
-- `.data(?)` — pkg=treeio
-- `ancestor(?)` — pkg=treeio
-- `as.phylo(x, branch.length, label, ...)` — pkg=treeio
-- `as.treedata(tree, boot=NULL, branch.length, label, type="ml", ...)` — pkg=treeio
-- `as_tibble(?)` — pkg=treeio
-- `child(?)` — pkg=treeio
-- `drop.tip(?)` — pkg=treeio
+## treeio (1.37.1) — 115 symbols
+
+### Function (46)
 - `edgeNum2nodeNum(jp, edgeNum)` — pkg=treeio
 - `find.hclust(x, graph.mst=FALSE, weights=NULL, hclust.method='average', ...)` — pkg=treeio
-- `full_join(?)` — pkg=treeio
-- `get.data(?)` — pkg=treeio
-- `get.fields(?)` — pkg=treeio
 - `get.placements(tree, by="best", ...)` — pkg=treeio
 - `get.tree(x, ...)` — pkg=treeio
 - `get.treetext(?)` — pkg=treeio
 - `getNodeNum(tree)` — pkg=treeio
-- `inner_join(?)` — pkg=treeio
 - `is.ggtree(x)` — pkg=treeio
-- `is.rooted(?)` — pkg=treeio
-- `isTip(?)` — pkg=treeio
 - `label_branch_paml(tree, node, label)` — pkg=treeio
 - `mask(tree_object, field, site, mask_site=FALSE)` — pkg=treeio
 - `merge_tree(obj1, obj2)` — pkg=treeio
-- `MRCA(?)` — pkg=treeio
-- `Nnode(edge)` — pkg=treeio
 - `Nnode2(tree)` — pkg=treeio
-- `nodeid(?)` — pkg=treeio
-- `nodelab(?)` — pkg=treeio
-- `Ntip(edge)` — pkg=treeio
-- `offspring(?)` — pkg=treeio
-- `parent(?)` — pkg=treeio
 - `raxml2nwk(infile, outfile="raxml.tree")` — pkg=treeio
 - `read.astral(file)` — pkg=treeio
 - `read.beast(file, threads=1, verbose=FALSE)` — pkg=treeio
@@ -1409,7 +3804,6 @@
 - `read.mrbayes(file, threads=1, verbose=FALSE)` — pkg=treeio
 - `read.newick(file, node.label="label", ...)` — pkg=treeio
 - `read.nextstrain.json(x)` — pkg=treeio
-- `read.nexus(?)` — pkg=treeio
 - `read.nhx(treetext, phylo)` — pkg=treeio
 - `read.paml_rst(rstfile, type="Joint")` — pkg=treeio
 - `read.phylip(file)` — pkg=treeio
@@ -1418,31 +3812,92 @@
 - `read.phyloxml(file)` — pkg=treeio
 - `read.r8s(file)` — pkg=treeio
 - `read.raxml(file=NULL, text=NULL)` — pkg=treeio
-- `read.tree(?)` — pkg=treeio
 - `read.treeqza(treeqza, node.label="label", ...)` — pkg=treeio
 - `read.treetime(file)` — pkg=treeio
 - `rename_taxa(tree, data, key=1, value=2)` — pkg=treeio
 - `rescale_tree(tree_object, branch.length)` — pkg=treeio
-- `root(?)` — pkg=treeio
-- `rootnode(?)` — pkg=treeio
-- `rtree(?)` — pkg=treeio
 - `spt(x, from, to, weights=NULL, ...)` — pkg=treeio
-- `tibble(?)` — pkg=treeio
-- `treedata(?)` — pkg=treeio
 - `write.beast(treedata, file="", append=FALSE, digits=10, tree.prefix="")` — pkg=treeio
 - `write.beast.newick(treedata, file="", append=FALSE, digits=10, tree.prefix="")` — pkg=treeio
 - `write.jplace(x, outfile)` — pkg=treeio
 - `write.jtree(treedata, file="")` — pkg=treeio
-- `write.nexus(?)` — pkg=treeio
-- `write.tree(?)` — pkg=treeio
 
 ### Generic (1)
 - `print(x, ...)` — pkg=treeio
 
-## wikiprofiler (0.1.7) — 9 symbols
+### Reexport (68)
+- `%<>%(lhs, rhs)` — pkg=magrittr
+- `%>%(lhs, rhs)` — pkg=magrittr
+- `.compressTipLabel(?)` — pkg=ape
+- `.data(?)` — pkg=rlang
+- `.hasSlot(?)` — pkg=methods
+- `.uncompressTipLabel(?)` — pkg=ape
+- `ancestor(?)` — pkg=tidytree
+- `as.AAbin.character(?)` — pkg=ape
+- `as.dist(?)` — pkg=stats
+- `as.DNAbin(?)` — pkg=ape
+- `as.DNAbin.character(?)` — pkg=ape
+- `as.phylo(x, branch.length, label, ...)` — pkg=tidytree
+- `as.treedata(tree, boot=NULL, branch.length, label, type="ml", ...)` — pkg=tidytree
+- `as_tibble(?)` — pkg=tibble
+- `branching.times(?)` — pkg=ape
+- `check_installed(?)` — pkg=rlang
+- `checkLabel(?)` — pkg=ape
+- `child(?)` — pkg=tidytree
+- `drop.tip(?)` — pkg=tidytree
+- `enexpr(?)` — pkg=rlang
+- `filter(?)` — pkg=dplyr
+- `fromJSON(?)` — pkg=jsonlite
+- `full_join(?)` — pkg=dplyr
+- `get.data(?)` — pkg=tidytree
+- `get.fields(?)` — pkg=tidytree
+- `get_tree_data(?)` — pkg=tidytree
+- `group_by(?)` — pkg=dplyr
+- `hclust(?)` — pkg=stats
+- `inner_join(?)` — pkg=dplyr
+- `is(?)` — pkg=methods
+- `is.rooted(?)` — pkg=ape
+- `is.ultrametric(?)` — pkg=ape
+- `isTip(?)` — pkg=tidytree
+- `mclapply(?)` — pkg=parallel
+- `missingArg(?)` — pkg=methods
+- `MRCA(?)` — pkg=tidytree
+- `mutate(?)` — pkg=dplyr
+- `mutate_if(?)` — pkg=dplyr
+- `n(?)` — pkg=dplyr
+- `new(?)` — pkg=methods
+- `Nnode(edge)` — pkg=ape
+- `nodeid(?)` — pkg=tidytree
+- `nodelab(?)` — pkg=tidytree
+- `Ntip(edge)` — pkg=ape
+- `offspring(?)` — pkg=tidytree
+- `parent(?)` — pkg=tidytree
+- `quo_name(?)` — pkg=rlang
+- `read.FASTA(?)` — pkg=ape
+- `read.nexus(?)` — pkg=ape
+- `read.tree(?)` — pkg=ape
+- `rename(?)` — pkg=dplyr
+- `reorder.phylo(?)` — pkg=ape
+- `root(?)` — pkg=ape
+- `rootnode(?)` — pkg=tidytree
+- `rtree(?)` — pkg=ape
+- `select(?)` — pkg=dplyr
+- `setGeneric(?)` — pkg=methods
+- `setNames(?)` — pkg=stats
+- `slot(?)` — pkg=methods
+- `summarize(?)` — pkg=dplyr
+- `tibble(?)` — pkg=tibble
+- `toJSON(?)` — pkg=jsonlite
+- `trans(?)` — pkg=ape
+- `treedata(?)` — pkg=tidytree
+- `use_perl(?)` — pkg=yulab.utils
+- `write.nexus(?)` — pkg=ape
+- `write.tree(?)` — pkg=ape
+- `yulab_msg(?)` — pkg=yulab.utils
 
-### Function (9)
-- `ggsave(?)` — pkg=wikiprofiler
+## wikiprofiler (0.1.7) — 13 symbols
+
+### Function (8)
 - `read.wp(file)` — pkg=wikiprofiler
 - `wp_bgfill(p, value, high="red", low="blue", legend=TRUE, legend_x=0.001, legend_y=0.94)` — pkg=wikiprofiler
 - `wp_comparefill(p, value, control, mode=c("difference", "log2_ratio"), pseudocount=1, high="red", low="blue", legend=TRUE, legend_x=0.001, legend_y=0.94)` — pkg=wikiprofiler
@@ -1452,4 +3907,106 @@
 - `wpplot(ID)` — pkg=wikiprofiler
 - `wpsave(p, file, width=NULL, height=NULL, ...)` — pkg=wikiprofiler
 
-## yulab.utils (?) — 0 symbols
+### Reexport (5)
+- `as.grob(?)` — pkg=ggplotify
+- `ggsave(?)` — pkg=ggplot2
+- `grid.draw(?)` — pkg=grid
+- `rasterGrob(?)` — pkg=grid
+- `read.gmt.wp(gmtfile)` — pkg=gson
+
+## yulab.utils (0.2.5) — 89 symbols
+
+### Function (66)
+- `as_chunked_array(?)` — pkg=yulab.utils
+- `auto_set_regexpr_style(?)` — pkg=yulab.utils
+- `Biocpkg(pkg)` — pkg=yulab.utils
+- `c2(?)` — pkg=yulab.utils
+- `cache_list_items(?)` — pkg=yulab.utils
+- `cache_load(path)` — pkg=yulab.utils
+- `cache_save(path)` — pkg=yulab.utils
+- `cache_size(?)` — pkg=yulab.utils
+- `check_directory(?)` — pkg=yulab.utils
+- `check_file(?)` — pkg=yulab.utils
+- `check_input(?)` — pkg=yulab.utils
+- `check_packages(?)` — pkg=yulab.utils
+- `check_pkg(?)` — pkg=yulab.utils
+- `check_range(?)` — pkg=yulab.utils
+- `combinations(n)` — pkg=yulab.utils
+- `CRANpkg(pkg)` — pkg=yulab.utils
+- `download_yulab_file(destfile, urls, gzfile=FALSE, appname=NULL)` — pkg=yulab.utils
+- `exec(command)` — pkg=yulab.utils
+- `get_cache(?)` — pkg=yulab.utils
+- `get_cache_element(item, elements, default=NULL, prune_expired=TRUE)` — pkg=yulab.utils
+- `get_cache_item(item)` — pkg=yulab.utils
+- `get_dependencies(pkg, repo=c("CRAN", "BioC"))` — pkg=yulab.utils
+- `get_fun_from_pkg(pkg, fun)` — pkg=yulab.utils
+- `Githubpkg(user, pkg)` — pkg=yulab.utils
+- `has_internet(site="https://www.baidu.com/")` — pkg=yulab.utils
+- `initial_cache(?)` — pkg=yulab.utils
+- `initial_cache_item(item)` — pkg=yulab.utils
+- `install_zip(file, subdir=NULL, args="--no-build-vignettes")` — pkg=yulab.utils
+- `install_zip_gh(repo, ref="HEAD", subdir=NULL, args="--no-build-vignettes")` — pkg=yulab.utils
+- `is.installed(packages)` — pkg=yulab.utils
+- `load_OrgDb(?)` — pkg=yulab.utils
+- `ls2df(inputList)` — pkg=yulab.utils
+- `mat2df(x)` — pkg=yulab.utils
+- `mat2list(x)` — pkg=yulab.utils
+- `mypkg(pkg, url)` — pkg=yulab.utils
+- `o(file=".")` — pkg=yulab.utils
+- `packageTitle(pkg, repo='CRAN')` — pkg=yulab.utils
+- `parse_ratio(ratio)` — pkg=yulab.utils
+- `pload(package, action="auto")` — pkg=yulab.utils
+- `prune_cache_item(item)` — pkg=yulab.utils
+- `quiet(?)` — pkg=yulab.utils
+- `rbindlist(x)` — pkg=yulab.utils
+- `read.cb(reader=read.table, ...)` — pkg=yulab.utils
+- `rm_cache(?)` — pkg=yulab.utils
+- `rm_cache_item(item)` — pkg=yulab.utils
+- `scale_range(data)` — pkg=yulab.utils
+- `scihub_dl(doi, scihub='sci-hub.tw', download=TRUE)` — pkg=yulab.utils
+- `set_PCRE(?)` — pkg=yulab.utils
+- `set_regexpr_style(style)` — pkg=yulab.utils
+- `set_TRE(?)` — pkg=yulab.utils
+- `show_in_excel(.data)` — pkg=yulab.utils
+- `str_detect(string, pattern, negate=FALSE)` — pkg=yulab.utils
+- `str_ends(string, pattern, negate=FALSE)` — pkg=yulab.utils
+- `str_extract(string, pattern)` — pkg=yulab.utils
+- `str_starts(string, pattern, negate=FALSE)` — pkg=yulab.utils
+- `str_wrap(string, width=getOption("width"))` — pkg=yulab.utils
+- `update_cache_item(item, elements, ttl=NULL)` — pkg=yulab.utils
+- `use_perl(?)` — pkg=yulab.utils
+- `user_dir(appname=NULL, appauthor=NULL, ...)` — pkg=yulab.utils
+- `with_cache(item, key, compute, ttl=NULL)` — pkg=yulab.utils
+- `yread(file, reader=readLines, params=list(), cache_dir=NULL)` — pkg=yulab.utils
+- `yread_tsv(file, reader=utils::read.delim, params=list(), cache_dir=tempdir())` — pkg=yulab.utils
+- `yulab_abort(?)` — pkg=yulab.utils
+- `yulab_inform(?)` — pkg=yulab.utils
+- `yulab_msg(pkgname=NULL, n=1)` — pkg=yulab.utils
+- `yulab_warn(?)` — pkg=yulab.utils
+
+### Generic (1)
+- `print(x, ...)` — pkg=yulab.utils
+
+### Reexport (22)
+- `abort(?)` — pkg=rlang
+- `as_name(?)` — pkg=rlang
+- `bibentry(?)` — pkg=utils
+- `capture.output(?)` — pkg=utils
+- `check_installed(?)` — pkg=rlang
+- `cli_h2(?)` — pkg=cli
+- `combn(?)` — pkg=utils
+- `digest(?)` — pkg=digest
+- `download.file(?)` — pkg=utils
+- `enquo(?)` — pkg=rlang
+- `getFromNamespace(?)` — pkg=utils
+- `inform(?)` — pkg=rlang
+- `is(?)` — pkg=methods
+- `modifyList(?)` — pkg=utils
+- `package_dependencies(?)` — pkg=tools
+- `packageDescription(?)` — pkg=utils
+- `path_join(?)` — pkg=fs
+- `read.delim(?)` — pkg=utils
+- `read.table(?)` — pkg=utils
+- `setNames(?)` — pkg=stats
+- `user_data_dir(?)` — pkg=rappdirs
+- `warn(?)` — pkg=rlang
