@@ -1,7 +1,7 @@
 # tigeR — 1.0.0
 
-> 数据源：github.com/YuLab-SMU/tigeR@devel
-> 64 个已知符号
+> 数据源：YuLab-SMU/tigeR @ main
+> 89 个已知符号
 
 ## Function (64)
 
@@ -69,3 +69,31 @@
 - `TIMER_SE(SE, type="SKCM")`
 - `to1(SE, by_row=TRUE)`
 - `xCell(SE, signatures=NULL, genes=NULL, spill=NULL, rnaseq=TRUE, file.name=NULL, scale=TRUE, alpha=0.5, save.raw=FALSE, parallel.sz=4, parallel.type='SOCK', cell.types.use=NULL)`
+
+## Reexport (25)
+
+- `%$%(?)`
+- `%<>%(lhs, rhs)`
+- `%>%(lhs, rhs)`
+- `.data(?)`
+- `assay(?)`
+- `coef(?)`
+- `colData(?)`
+- `cor(?)`
+- `current_env(?)`
+- `ExperimentHub(?)`
+- `fit(?)`
+- `ggsurvplot(?)`
+- `median(?)`
+- `model.matrix(?)`
+- `na.omit(?)`
+- `query(?)`
+- `randomForest(?)`
+- `roc(?)`
+- `sd(?)`
+- `setNames(?)`
+- `Surv(?)`
+- `survfit(?)`
+- `t.test(?)`
+- `theme_bw(?)`
+- `wilcox.test(?)`

@@ -1,31 +1,20 @@
 # MicrobiotaProcess — 1.25.0
 
-> 数据源：github.com/YuLab-SMU/MicrobiotaProcess@devel
-> 156 个已知符号
+> 数据源：YuLab-SMU/MicrobiotaProcess @ devel
+> 272 个已知符号
 
-## Function (147)
+## Function (118)
 
-- `%<>%(?)`
-- `%>%(?)`
-- `arrange(.data, ..., by_group=FALSE, keep.mpse=FALSE)`
 - `as.MPSE(.data, ...)`
 - `as.mpse(.data, ...)`
 - `as.phyloseq(x, .abundance, ...)`
-- `as.treedata(tree, include.rownames=FALSE, use_taxatree=TRUE, tiplevel="OTU", ...)`
 - `as_phyloseq(x, .abundance, ...)`
-- `as_tibble(x, ...)`
 - `build_tree(seqs, ...)`
-- `colData(?)`
-- `colData<-(?)`
 - `convert_to_treedata(data, type="species", include.rownames=FALSE, ...)`
 - `diff_analysis(obj, ...)`
-- `distinct(.data, ..., .keep_all=FALSE)`
 - `dr_extract(name, .f=NULL)`
 - `drop_taxa(obj, ...)`
-- `extract(?)`
 - `extract_binary_offspring(.data, .node, type='tips', ...)`
-- `filter(.data, ..., .preserve=FALSE, keep.mpse=TRUE)`
-- `fortify(model, data, .slot="colData", ...)`
 - `generalizedFC(x, y, base=10, steps=0.05, pseudo=0.00001, data, subset, na.action, ...)`
 - `get_alltaxadf(obj, method=NULL, type="species", include.rownames=FALSE, ...)`
 - `get_alphaindex(obj, mindepth, sampleda, force=FALSE, ...)`
@@ -56,10 +45,8 @@
 - `ggeffectsize(obj, removeUnknown=TRUE, setFacet=TRUE, ...)`
 - `ggordpoint(obj, pc=c(1,2), mapping=NULL, sampleda=NULL, factorNames=NULL, factorLevels=NULL, poinsize=2, linesize=0.3, arrowsize=1.5, arrowlinecolour="grey", ellipse=FALSE, showsample=FALSE, ellipse_pro=0.9, ellipse_alpha=0.2, ellipse_linewd=0.5, ellipse_lty=3, biplot=FALSE, topn=5, settheme=TRUE, speciesannot=FALSE, fontsize=2.5, labelfactor=NULL, stroke=0.1, fontface="bold.italic", fontfamily="sans", textlinesize=0.02, ...)`
 - `ggrarecurve(obj, chunks=400, factorLevels=NULL, indexNames="Observe", linesize=0.5, facetnrow=1, shadow=TRUE, factorNames, se=FALSE, method="lm", formula=y ~ log(x), ...)`
-- `group_by(.data, ..., .add=FALSE, .drop=group_by_drop_default(.data))`
 - `import_dada2(seqtab, taxatab=NULL, reftree=NULL, sampleda=NULL, ...)`
 - `import_qiime2(otuqza, taxaqza=NULL, mapfilename=NULL, refseqqza=NULL, treeqza=NULL, parallel=FALSE, ...)`
-- `left_join(x, y, by=NULL, copy=FALSE, suffix=c("", ".y"), ...)`
 - `mp_adonis(?)`
 - `mp_aggregate(?)`
 - `mp_aggregate_clade(?)`
@@ -85,18 +72,109 @@
 - `mp_diff_clade(?)`
 - `mp_dmn(?)`
 - `mp_dmngroup(?)`
+- `mp_envfit(?)`
+- `mp_extract_abundance(?)`
+- `mp_extract_assays(x, .abundance, byRow=TRUE, ...)`
+- `mp_extract_dist(?)`
+- `mp_extract_feature(x, addtaxa=FALSE, ...)`
+- `mp_extract_internal_attr(?)`
+- `mp_extract_otutree(x, ...)`
+- `mp_extract_rarecurve(?)`
+- `mp_extract_refseq(?)`
+- `mp_extract_sample(x, ...)`
+- `mp_extract_taxatree(x, tip.level="OTU", ...)`
+- `mp_extract_taxonomy(x, ...)`
+- `mp_extract_tree(x, type="taxatree", tip.level="OTU", ...)`
 
-## Generic (6)
+## Generic (3)
 
 - `as.data.frame(x, ...)`
 - `dim(x)`
-- `ggplot_add(object, plot, object_name, ...)`
-- `head(x, n=6L, ...)`
 - `print(object, x, n=NULL, width=NULL, max_extra_cols=NULL, max_footer_lines=NULL, ...)`
-- `tail(x, n=6L, ...)`
 
-## S4method (3)
+## S4method (1)
 
 - `[(?)`
-- `rownames<-(?)`
-- `show(?)`
+
+## Reexport (150)
+
+- `%<>%(lhs, rhs)`
+- `%>%(lhs, rhs)`
+- `%dopar%(?)`
+- `.data(?)`
+- `across(?)`
+- `aes(x, y)`
+- `aes_(?)`
+- `aes_string(?)`
+- `aggregate(?)`
+- `all_of(?)`
+- `anova(?)`
+- `arrange(.data, ..., by_group=FALSE, keep.mpse=FALSE)`
+- `arrow(?)`
+- `as(?)`
+- `as.formula(?)`
+- `as.phylo(?)`
+- `as.treedata(tree, include.rownames=FALSE, use_taxatree=TRUE, tiplevel="OTU", ...)`
+- `as_name(?)`
+- `as_tibble(x, ...)`
+- `bind_rows(?)`
+- `check_installed(?)`
+- `chull(?)`
+- `cli_inform(?)`
+- `colData(?)`
+- `colorRampPalette(?)`
+- `column_to_rownames(?)`
+- `coord_cartesian(?)`
+- `coord_flip(?)`
+- `cov(?)`
+- `ddply(?)`
+- `decostand(?)`
+- `distinct(.data, ..., .keep_all=FALSE)`
+- `diversity(?)`
+- `drop.tip(?)`
+- `element_blank(?)`
+- `element_line(?)`
+- `element_rect(?)`
+- `element_text(?)`
+- `estimateR(?)`
+- `eval_select(?)`
+- `expr(?)`
+- `extract(?)`
+- `facet_grid(?)`
+- `facet_wrap(?)`
+- `filter(.data, ..., .preserve=FALSE, keep.mpse=TRUE)`
+- `fortify(model, data, .slot="colData", ...)`
+- `geom_bar(?)`
+- `geom_boxplot(?)`
+- `geom_col(?)`
+- `geom_errorbar(?)`
+- `geom_errorbarh(?)`
+- `geom_fruit(?)`
+- `geom_hline(?)`
+- `geom_point(?)`
+- `geom_rect(?)`
+- `geom_ribbon(?)`
+- `geom_segment(?)`
+- `geom_signif(?)`
+- `geom_smooth(?)`
+- `geom_star(?)`
+- `geom_text(?)`
+- `geom_text_repel(?)`
+- `geom_tiplab(?)`
+- `geom_tippoint(?)`
+- `geom_violin(?)`
+- `geom_vline(?)`
+- `getFromNamespace(?)`
+- `ggplot(data, mapping)`
+- `ggplot_add(object, plot, object_name, ...)`
+- `ggproto(?)`
+- `ggsave(?)`
+- `ggtree(?)`
+- `group_by(.data, ..., .add=FALSE, .drop=group_by_drop_default(.data))`
+- `group_by_drop_default(?)`
+- `guide_axis(?)`
+- `guide_legend(?)`
+- `hclust(?)`
+- `head(x, n=6L, ...)`
+- `labs(?)`
+- `layer(?)`

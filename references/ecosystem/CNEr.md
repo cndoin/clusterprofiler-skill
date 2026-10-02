@@ -1,4 +1,157 @@
-# CNEr — ?
+# CNEr — 1.49.1
 
-> 数据源：github.com/YuLab-SMU/CNEr@devel
-> 0 个已知符号
+> 数据源：bioconductor.org/packages/devel/bioc @ 1.49.1
+> 144 个已知符号
+
+## Function (38)
+
+- `Axt(targetRanges=GRanges(), targetSeqs=DNAStringSet(), queryRanges=GRanges(), querySeqs=DNAStringSet(), score=integer(0), symCount=integer(0), names=NULL)`
+- `axtChain(psls, chains=sub("\\.psl$", ".chain", psls, ignore..., assemblyTarget, assemblyQuery, distance=c("far", "medium", "near"), removePsl=TRUE, binary="axtChain")`
+- `axtInfo(axtFiles)`
+- `binFromCoordRange(starts, ends)`
+- `binRangesFromCoordRange(start, end)`
+- `binRestrictionString(start, end, field="bin")`
+- `blatCNE(cne, blatOptions=NULL, cutIdentity=90)`
+- `chainMergeSort(chains, assemblyTarget, assemblyQuery, allChain=paste0(sub("\\.2bit$", "", basename(a..., removeChains=TRUE, binary="chainMergeSort")`
+- `chainNetSyntenic(allPreChain, assemblyTarget, assemblyQuery, netSyntenicFile=paste0( sub("\\.2bit$", "", basename(..., binaryChainNet="chainNet", binaryNetSyntenic="netSyntenic")`
+- `chainPreNet(allChain, assemblyTarget, assemblyQuery, allPreChain=paste0(sub("\\.2bit$", "", basename(a..., removeAllChain=TRUE, binary="chainPreNet")`
+- `CNE(assembly1Fn=character(1), assembly2Fn=character(1), axt12Fn=character(), axt21Fn=character(), window=50L, identity=50L, CNE12=GRangePairs(), CNE21=GRangePairs(), CNEMerged=GRangePairs(), CNEFinal=GRangePairs(), aligner="blat", cutoffs1=4L, cutoffs2=4L)`
+- `CNEDensity(dbName, tableName, chr, start, end, whichAssembly=c("first", "second"), windowSize=300, minLength=NULL)`
+- `fetchChromSizes(assembly)`
+- `GRangePairs(first=GRanges(), second=GRanges(), ..., names=NULL, hits=NULL)`
+- `lastal(db, queryFn, outputFn=sub("\\.(fa|fasta)$", ".maf", paste(b..., distance=c("far", "medium", "near"), binary="lastal", mc.cores=getOption("mc.cores", 2L), echoCommand=FALSE)`
+- `lastz(assemblyTarget, assemblyQuery, outputDir=".", chrsTarget=NULL, chrsQuery=NULL, distance=c("far", "medium", "near"), binary="lastz", mc.cores=getOption("mc.cores", 2L), echoCommand=FALSE)`
+- `lavToPsl(lavs, psls=sub("\\.lav$", ".psl", lavs, ignore.c..., removeLav=TRUE, binary="lavToPsl")`
+- `makeAncoraFiles(cne, outputDir=".", genomeFirst="first", genomeSecond="second", threshold="50_50")`
+- `makeAxtTracks(x)`
+- `makeCNEDensity(x, outputDir=".", genomeFirst="first", genomeSecond="second", threshold="50_50", windowSizeFirst=300, windowSizeSecond=300)`
+- `makeGRBs(x, winSize=NULL, genes=NULL, ratio=1, background=c("chromosome", "genome"), minCNEs=1L)`
+- `N50(fn)`
+- `N90(fn)`
+- `netToAxt(in.net, in.chain, assemblyTarget, assemblyQuery, axtFile=paste0(sub("\\.2bit$", "", basename(a..., removeFiles=FALSE, binaryNetToAxt="netToAxt", binaryAxtSort="axtSort")`
+- `plotCNEDistribution(x, chrs=NULL, chrScale=c("Mb", "Kb"))`
+- `plotCNEWidth(x, ...)`
+- `psubAxt(x, targetSearch, querySearch)`
+- `read.rmMask.GRanges(fn)`
+- `read.rmskFasta(fn)`
+- `readAncora(fn, assembly=NULL, tAssemblyFn=NULL, qAssemblyFn=NULL)`
+- `readAncoraIntoSQLite(cneFns, dbName, overwrite=FALSE)`
+- `readAxt(axtFiles, tAssemblyFn=NULL, qAssemblyFn=NULL)`
+- `readBed(bedFile, assemblyFn=NULL)`
+- `readCNERangesFromSQLite(dbName, tableName, chr=NULL, start=NULL, end=NULL, whichAssembly=c("first", "second"), minLength=NULL, tAssemblyFn=NULL, qAssemblyFn=NULL)`
+- `reverseCigar(cigar, ops=CIGAR_OPS)`
+- `saveCNEToSQLite(x, dbName, tableName=NULL, overwrite=FALSE)`
+- `scoringMatrix(distance=c("far", "medium", "near"))`
+- `writeAxt(axt, con)`
+
+## S4method (28)
+
+- `c(?)`
+- `ceScan(?)`
+- `CNE12(?)`
+- `CNE21(?)`
+- `CNEFinal(?)`
+- `cneMerge(?)`
+- `CNEMerged(?)`
+- `first(?)`
+- `fixCoordinates(?)`
+- `grglist(?)`
+- `last(?)`
+- `matchDistribution(?)`
+- `queryRanges(?)`
+- `querySeqs(?)`
+- `score(?)`
+- `second(?)`
+- `seqinfo(?)`
+- `seqnames(?)`
+- `strand(?)`
+- `subAxt(?)`
+- `summary(?)`
+- `swap(?)`
+- `symCount(?)`
+- `syntenicDotplot(?)`
+- `targetRanges(?)`
+- `targetSeqs(?)`
+- `thresholds(?)`
+- `unique(?)`
+
+## Reexport (78)
+
+- `.Call2(?)`
+- `aes(x, y)`
+- `aes_q(?)`
+- `aes_string(?)`
+- `as(?)`
+- `CIGAR_OPS(?)`
+- `DataFrame(?)`
+- `DNA_BASES(?)`
+- `DNAStringSet(?)`
+- `download.file(?)`
+- `estimate_pars(?)`
+- `estimate_xmin(?)`
+- `explode_cigar_oplens(?)`
+- `explode_cigar_ops(?)`
+- `extends(?)`
+- `facet_wrap(?)`
+- `fasta.seqlengths(?)`
+- `file_ext(?)`
+- `geom_point(?)`
+- `geom_segment(?)`
+- `geom_text(?)`
+- `geom_tile(?)`
+- `getGOTerm(?)`
+- `ggplot(data, mapping)`
+- `ggtitle(?)`
+- `GOBPANCESTOR(?)`
+- `GOBPCHILDREN(?)`
+- `GOBPOFFSPRING(?)`
+- `GOCCANCESTOR(?)`
+- `GOCCCHILDREN(?)`
+- `GOCCOFFSPRING(?)`
+- `GOMFANCESTOR(?)`
+- `GOMFCHILDREN(?)`
+- `GOMFOFFSPRING(?)`
+- `GRanges(?)`
+- `gunzip(?)`
+- `gzip(?)`
+- `IntegerList(?)`
+- `IRanges(?)`
+- `is(?)`
+- `isSingleString(?)`
+- `isTRUEorFALSE(?)`
+- `jpeg(?)`
+- `keggGet(?)`
+- `lines(?)`
+- `mcmapply(?)`
+- `melt(?)`
+- `new(?)`
+- `normalizeDoubleBracketSubscript(?)`
+- `normalizeSingleBracketSubscript(?)`
+- `par(?)`
+- `pdf(?)`
+- `plot(?)`
+- `png(?)`
+- `postscript(?)`
+- `queryHits(?)`
+- `queryLength(?)`
+- `read.delim(?)`
+- `read.table(?)`
+- `read_tsv(?)`
+- `readBStringSet(?)`
+- `RleViewsList(?)`
+- `scale_colour_manual(?)`
+- `scale_fill_continuous(?)`
+- `scale_x_continuous(?)`
+- `scale_y_continuous(?)`
+- `Seqinfo(?)`
+- `setNames(?)`
+- `SQLite(?)`
+- `subjectHits(?)`
+- `subjectLength(?)`
+- `text(?)`
+- `theme_bw(?)`
+- `TwoBitFile(?)`
+- `validObject(?)`
+- `write.table(?)`
+- `xlab(?)`
+- `ylab(?)`

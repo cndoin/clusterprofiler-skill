@@ -1,12 +1,10 @@
 # ggsc — 1.11.2
 
-> 数据源：github.com/YuLab-SMU/ggsc@devel
-> 24 个已知符号
+> 数据源：YuLab-SMU/ggsc @ devel
+> 110 个已知符号
 
-## Function (23)
+## Function (20)
 
-- `%<+%(?)`
-- `aes(?)`
 - `draw_key_bgpoint(data, params, size)`
 - `geom_bgpoint(mapping=NULL, data=NULL, stat="identity", position="identity", ..., na.rm=FALSE, show.legend=NA, inherit.aes=TRUE, gap_colour='white', gap_alpha=1, bg_line_width=.3, gap_line_width=.1, pointsize=NULL)`
 - `geom_scattermore2(mapping=NULL, data=NULL, stat="identity", position="identity", ..., na.rm=FALSE, show.legend=NA, inherit.aes=TRUE, interpolate=FALSE, pointsize=0, pixels=c(512, 512), gap_colour='white', gap_alpha=1, bg_line_width=.3, gap_line_width=.1)`
@@ -27,8 +25,86 @@
 - `scale_bg_color_manual(..., values, aesthetics="bg_colour", breaks=waiver(), na.value="grey50")`
 - `scale_bg_colour_discrete(...)`
 - `scale_bg_colour_manual(..., values, aesthetics="bg_colour", breaks=waiver(), na.value="grey50")`
-- `theme(?)`
 
-## Generic (1)
+## Reexport (90)
 
+- `%+replace%(?)`
+- `%<+%(?)`
+- `.data(?)`
+- `aes(x, y)`
+- `alpha(?)`
+- `annotation_custom(?)`
+- `as(?)`
+- `as.formula(?)`
+- `as.raster(?)`
+- `as_tibble(?)`
+- `assay(?)`
+- `assayNames(?)`
+- `brewer.pal.info(?)`
+- `cli_abort(?)`
+- `colData(?)`
+- `colorRampPalette(?)`
+- `coord_fixed(?)`
+- `coord_flip(?)`
+- `DefaultAssay(?)`
+- `discrete_scale(?)`
+- `dist(?)`
+- `draw_key_point(?)`
+- `element_blank(?)`
+- `element_rect(?)`
+- `element_text(?)`
+- `evalCpp(?)`
+- `facet_grid(?)`
+- `facet_wrap(?)`
+- `fill_alpha(?)`
+- `geom_blank(?)`
+- `geom_col(?)`
+- `geom_point(?)`
+- `geom_scattermore(?)`
+- `geom_violin(?)`
+- `get_aes_var(?)`
+- `get_fun_from_pkg(pkg, fun)`
+- `getFromNamespace(?)`
+- `ggplot(data, mapping)`
 - `ggplot_add(object, plot, object_name, ...)`
+- `ggplot_build(?)`
+- `ggtitle(?)`
+- `gList(?)`
+- `gpar(?)`
+- `grid.draw(?)`
+- `grobName(?)`
+- `grobTree(?)`
+- `gTree(?)`
+- `guide_colorbar(?)`
+- `guide_legend(?)`
+- `guides(?)`
+- `hclust(?)`
+- `int_colData(?)`
+- `int_metadata(?)`
+- `is.unit(?)`
+- `label_wrap_gen(?)`
+- `labs(?)`
+- `layer(?)`
+- `layer_data(?)`
+- `list2(?)`
+- `modifyList(?)`
+- `pal_identity(?)`
+- `pivot_longer(?)`
+- `pointsGrob(?)`
+- `rasterGrob(?)`
+- `RcppParallelLibs(?)`
+- `reducedDimNames(?)`
+- `reducedDims(?)`
+- `rel(?)`
+- `scale_color_distiller(?)`
+- `scale_color_gradient(?)`
+- `scale_color_gradientn(?)`
+- `scale_color_identity(?)`
+- `scale_fill_manual(?)`
+- `scale_y_continuous(?)`
+- `ScaleDiscreteIdentity(?)`
+- `scattermore(?)`
+- `setMethod(?)`
+- `setNames(?)`
+- `sourceCpp(?)`
+- `stat_ellipse(?)`

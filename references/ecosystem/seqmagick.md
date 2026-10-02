@@ -1,7 +1,7 @@
 # seqmagick — 0.1.9
 
-> 数据源：github.com/YuLab-SMU/seqmagick@devel
-> 30 个已知符号
+> 数据源：YuLab-SMU/seqmagick @ master
+> 49 个已知符号
 
 ## Function (30)
 
@@ -35,3 +35,25 @@
 - `replaceInside(fasfile, from="-", to="N", outfile=NULL)`
 - `seqlen(fasfile)`
 - `sth_read(file, type="auto")`
+
+## Reexport (19)
+
+- `AAStringSet(?)`
+- `BStringSet(?)`
+- `consensusMatrix(?)`
+- `DNAStringSet(?)`
+- `download.file(?)`
+- `matchPattern(?)`
+- `read.delim(?)`
+- `readAAStringSet(?)`
+- `readBStringSet(?)`
+- `readDNAStringSet(?)`
+- `readRNAStringSet(?)`
+- `RNAStringSet(?)`
+- `setNames(?)`
+- `setTxtProgressBar(?)`
+- `toString(?)`
+- `txtProgressBar(?)`
+- `use_perl(?)`
+- `width(?)`
+- `writeXStringSet(?)`

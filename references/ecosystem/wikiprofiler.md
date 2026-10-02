@@ -1,11 +1,10 @@
 # wikiprofiler — 0.1.7
 
-> 数据源：github.com/YuLab-SMU/wikiprofiler@devel
-> 9 个已知符号
+> 数据源：YuLab-SMU/wikiprofiler @ master
+> 13 个已知符号
 
-## Function (9)
+## Function (8)
 
-- `ggsave(?)`
 - `read.wp(file)`
 - `wp_bgfill(p, value, high="red", low="blue", legend=TRUE, legend_x=0.001, legend_y=0.94)`
 - `wp_comparefill(p, value, control, mode=c("difference", "log2_ratio"), pseudocount=1, high="red", low="blue", legend=TRUE, legend_x=0.001, legend_y=0.94)`
@@ -14,3 +13,11 @@
 - `wp_shadowtext(p, bg.r=2, bg.col="white")`
 - `wpplot(ID)`
 - `wpsave(p, file, width=NULL, height=NULL, ...)`
+
+## Reexport (5)
+
+- `as.grob(?)`
+- `ggsave(?)`
+- `grid.draw(?)`
+- `rasterGrob(?)`
+- `read.gmt.wp(gmtfile)`

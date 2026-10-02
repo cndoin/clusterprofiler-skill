@@ -1,4 +1,176 @@
-# TCMDATA — ?
+# TCMDATA — 1.0.0
 
-> 数据源：github.com/YuLab-SMU/TCMDATA@devel
-> 0 个已知符号
+> 数据源：YuLab-SMU/TCMDATA @ master
+> 309 个已知符号
+
+## Function (127)
+
+- `add_cluster_score(g, cluster_attr="louvain_cluster", min_size=3)`
+- `Addclusterscore(...)`
+- `artifact_exists(artifact_id)`
+- `calculate_metric_weights(g, metrics=c( "degree", "betweenness", "closenes..., use_weight=TRUE, correlation_method=c("spearman", "pearson"), correlation_threshold=0.8, clustering_method=c("complete", "average", "single"))`
+- `clear_tcm_artifacts(?)`
+- `compound_similarity(query, from=c("smiles","cid","inchikey","name"), threshold=90, topn=10, fetch_factor=3, compute_score=TRUE, ...)`
+- `compute_nodeinfo(g, weight_attr="score", normalize=FALSE, seed=42)`
+- `convert_structure(input_file, output_file=NULL, input_type=NULL, output_type="pdb", add_hydrogens=FALSE, gen3d=FALSE, overwrite=FALSE, quiet=FALSE)`
+- `create_tcm_agent(name, description, system_prompt)`
+- `create_tcm_ml_list(?)`
+- `create_tcm_task_agent(tools=NULL, system_prompt=NULL, skills=NULL)`
+- `create_tcm_tools(task_type=NULL, tool_names=NULL)`
+- `create_tcm_workflow(name, steps)`
+- `download_ligand_structure(cid, type=c("auto", "3d", "2d"), destdir=".", filename=NULL, overwrite=FALSE, quiet=FALSE)`
+- `download_receptor_structure(pdb_id, format=c("pdb", "cif"), destdir=".", filename=NULL, overwrite=FALSE, quiet=FALSE)`
+- `draft_result_paragraph(x, type=c("enrichment", "ppi", "table"), language=c("zh", "en"), prompt=NULL, model=NULL)`
+- `edit_ggnetwork_layout(graph, layout="fr", physics=FALSE, seed=42L, width=1000, height=750, viewer=NULL, ...)`
+- `evaluate_ml_nested_cv(ml_data, methods=c("lasso", "rf", "svm_rfe", "xgboost"), outer_folds=5L, outer_repeats=1L, inner_folds=5L, inner_repeats=1L, balance_method=c("none", "auto", "weights", "down"), metric="ROC", seed=2025L, keep_fold_models=FALSE, model_args=list())`
+- `evaluate_tcm_target_sets_by_ppi(target_sets, disease_targets, ppi=NULL, ppi_path=NULL, set_col=NULL, target_col="target", disease_gene_col="symbol", disease_weight_col="disease_weight", weight_attr="score", distance_attr="distance", n_perm=1000L, degree_bins=20L, seed=42L, warn_coverage=0.5)`
+- `get_disease_targets(efo_id, size=200, score_threshold=0)`
+- `get_enet_coefs(?)`
+- `get_gene_auc(genes, ml_data=NULL, expr_mat=NULL, group=NULL, use=c("auto", "train", "test"), ci=TRUE, p_adjust_method="BH", ci_method=c("delong", "bootstrap"), conf_level=0.95, boot_n=2000L, seed=2025L)`
+- `get_mcode_res(g, only_clusters=FALSE)`
+- `get_ml_consensus(?)`
+- `get_ml_gene_sets(..., set_names=NULL)`
+- `get_node_profile(tab, node_name, metrics=c("degree", "betweenness", "closeness...)`
+- `get_ppi(x, taxID="auto", ...)`
+- `get_pubmed_data(tcm_name, disease_name, year_range=NULL, email=NULL, retmax=1000, ...)`
+- `get_pubmed_table(x, n=NULL, file=NULL)`
+- `get_wgcna_module_genes(x, module, min_module_membership=NULL, trait=NULL, min_gene_significance=NULL)`
+- `getcid(compound, from=c("name", "smiles", "inchi"), match=c("first", "best", "all"), pause=0.25, quiet=TRUE, ...)`
+- `getGores(x, up_genes=NULL, down_genes=NULL, top=10)`
+- `getMCODE_res(...)`
+- `getprops(cid, properties=c( "MolecularFormula", "MolecularWeig..., ...)`
+- `getvenndata(..., set_names=NULL)`
+- `getvennresult(venn_df, col_names=NULL, drop_empty=TRUE)`
+- `ggdock(dock_data, order=NULL, type="dot", point_size=3, base_size=7, base_family="Arial", angle=50, hjust=1, vjust=1, palette=NULL, label=FALSE, label_digits=2, label_size=3, label_color="black", label_family=base_family, label_fontface="plain", ...)`
+- `ggdot_sankey(enrich_obj, n=10, axis_order=c("Pathway","Gene"), id_colors=c("#8DD3C7", "#FFFFB3", "#BEBADA", "#..., desc_colors=c("#E64B35", "#4DBBD5", "#00A087", "#..., id_y_pos=1.1, desc_y_pos=1.0, pathway_wrap=50, sankey_text_size=2.5, bubble_size_range=c(3, 8), dot_palette="RdBu", dot_x_var=c("GeneRatio", "RichFactor", "FoldEnr..., bubble_p_label="p.adjust", sankey_width=2, dot_width=1, font_family="Arial", font_face="plain", gene_fontface="plain", base_size=7, sankey_lab="Gene-Pathway", seed=2025, ...)`
+- `gglollipop(enrich_obj, x="RichFactor", top_n=10, orderBy=NULL, text.col="black", text.size=7, font.family="Arial", text.width=35, palette="RdBu", line.col="grey60", line.type="solid", line.size=0.9, plot_title=NULL, show_count=TRUE, ...)`
+- `ggppi_network(graph, metric="degree", size_metric=metric, cluster=NULL, candidate=NULL, score=NULL, layout="nicely", show_text=TRUE, label_top=10L, seed=42L, size_range=c(2.5, 8), colour_low="#FEE8C8", colour_high="#D7301F", edge_color="#B8B8B8", edge_alpha=0.55, edge_width=0.35, edge_width_range=c(0.15, 1.2), base_size=7, base_family="Arial", title=NULL, ...)`
+- `ggtcm_network(x, herb_col="herb", compound_col="molecule", target_col="target", layout="concentric", node_size="degree", show_text=TRUE, label_top=c(Herb = Inf, Molecule = 12, Target =..., highlight=NULL, colors=c( Herb = "#D94B2B", Molecule = "#F07..., shapes=c(Herb = 21, Molecule = 21, Target = 21), type_sizes=c(Herb = 11, Molecule = 6, Target = 4), ring_radii=c(Herb = 0.22, Molecule = 1.05, Targe..., show_rings=TRUE, size_range=c(3, 8), edge_color="#C8C8C8", edge_alpha=0.35, edge_width=0.3, seed=42L, base_size=7, base_family="Arial", title=NULL, ...)`
+- `ggvenn_plot(venn_df, col_names=NULL, set.color=c("#4E79A7", "#B85C5C", "#59A14F", "#..., set.name.color="black", use.color.as.text=TRUE, name.size=3.2, text.size=2.8, font.family="Arial", font.face="plain", base_size=7, stroke.color="grey25", stroke.size=0.35, show.percentage=FALSE, show.elements=FALSE, digits=1, expand_ratio=0.2)`
+- `go_barplot(enrich_obj, x="Count", order=TRUE, top_n=10, colors=NULL, label.size=3.2, show_count=TRUE, label.bold=FALSE, base_size=7, base_family="Arial", x.angle=60, legend.position="top", plot_title=NULL, ...)`
+- `gocircle_plot(x, top, up_genes=NULL, down_genes=NULL, cat_col=c(BP = "#E64B35", CC = "#4DBBD5", MF ..., up_col="#AE2A8A", down_col="#7B87BF", padjust_col=c("#FF906F", "#861D30"), bg.col="gray95", max_width=2.5, fontsize=7, fontface="plain", fontfamily="Arial", ...)`
+- `herb_enricher(genes, bg_universe=NULL, type=c("Herb_pinyin_name","Herb_cn_name","..., pvalueCutoff=0.05, qvalueCutoff=0.2, pAdjustMethod="BH", minGSSize=10, maxGSSize=5000)`
+- `interpret_enrichment(x, top_n=10, max_genes=5L, audience="researcher", language=c("zh", "en"), role=NULL, system=NULL, prompt=NULL, model=NULL)`
+- `interpret_ppi(x, top_n=10, audience="researcher", language=c("zh", "en"), role=NULL, system=NULL, prompt=NULL, model=NULL)`
+- `interpret_table(x, top_n=20, audience="researcher", language=c("zh", "en"), role=NULL, system=NULL, prompt=NULL, model=NULL)`
+- `list_tcm_artifacts(?)`
+- `load_tcm_artifact(artifact_id)`
+- `make_tcm_function(instruction, name="CustomFn")`
+- `ml_enet(?)`
+- `ml_lasso(?)`
+- `ml_rf(?)`
+- `ml_ridge(?)`
+- `ml_svm_rfe(?)`
+- `ml_xgboost(?)`
+- `plot_enet_coefs(result, top_n=20)`
+- `plot_enet_cv(result, ...)`
+- `plot_enet_path(result, top_n=20, xvar="lambda", ...)`
+- `plot_gene_boxplot(genes, ml_data=NULL, expr_mat=NULL, group=NULL, use=c("auto", "train", "test"), test_method=c("wilcox", "t.test"), palette=.pal_tcm_groups()[1:2], show_points=TRUE, point_alpha=0.35, violin=FALSE, ncol=NULL, scales="free_y", p_label=c("p.format", "p.signif", "p.adj"), p_adjust_method="BH", base_size=7, base_family="Arial")`
+- `plot_gene_roc(genes, ml_data=NULL, expr_mat=NULL, group=NULL, use=c("auto", "train", "test"), combine=TRUE, palette=NULL, show_ci=FALSE, ncol=NULL, label_size=6.2, p_adjust_method="BH")`
+- `plot_ml_roc(ml_list)`
+- `plot_ml_venn(..., set_names=NULL)`
+- `plot_node_heatmap(data, id_col="name", select_cols=NULL, colors=c("#4E79A7", "white", "#B85C5C"), cluster_rows=TRUE, cluster_cols=FALSE, row_fontsize=7, row_fontface="plain", col_fontsize=7, col_fontface="plain", fontfamily="Arial", col_rotation=45, show_row_names=TRUE, show_column_names=TRUE, legend_title="Z-score", border_color=NA, border_width=0.3, ...)`
+- `plot_rf_boruta(result, top_n=20)`
+- `plot_rf_importance(result, top_n=20)`
+- `plot_svm_rfe_curve(result)`
+- `plot_wgcna_eigengenes(x, show_heatmap=FALSE, linewidth=0.4, label_size=2.5, base_size=7, base_family="Arial")`
+- `plot_wgcna_modules(x, block=1L, linewidth=0.25, base_size=7, base_family="Arial")`
+- `plot_wgcna_traits(x, show_labels=TRUE, digits=2, label_size=2.4, base_size=7, base_family="Arial")`
+- `plot_xgb_importance(result, top_n=20)`
+- `PlotNodeHeatmap(...)`
+- `ppi_knock(g, targets, n_perm=1000L, metrics=c("ASPL", "AD", "DC", "CC"), weight_attr="score", rewire_niter=10L, seed=42L, p_method=c("empirical", "normal"), p_adjust_method="BH")`
+- `ppi_knock_impact(g, targets, metrics=c("ASPL", "AD", "DC", "CC"), n_perm=1000L, weight_attr="score", rewire_niter=10L, seed=42L, p_adjust_method="BH", alpha=0.05, p_method=c("empirical", "normal"))`
+- `ppi_subset(ppi_obj, n=NULL, score_cutoff=0.7, edge_attr="score", rm_isolates=TRUE)`
+- `prepare_disease_weights(..., source_weights=c( OpenTargets = 1.0, OTP = 1.0, Gene..., gene_col=NULL, score_col=NULL, source_col="source", deg_score=FALSE, deg_score_method=c("effect_significance", "wald_stat"), require_score=TRUE, method=c("noisy_or", "weighted_mean", "max"), score_normalization=c("auto", "none", "minmax"))`
+- `prepare_herb_graph(df, n=NULL, herb_col="herb", molecule_col="molecule", target_col="target", compute_metrics=TRUE)`
+- `prepare_herb_target_weights(herb_df, target_col="target", molecule_col="molecule", herb_col="herb", method=c("binary", "record_count", "compound...)`
+- `prepare_ml_data(expr_mat, group, positive_class=NULL, genes=NULL, split=FALSE, train_ratio=0.7, train_idx=NULL, test_expr=NULL, test_group=NULL, seed=2025, imbalance_threshold=0.25, imbalance_action=c("warn", "message", "none"))`
+
+## Generic (3)
+
+- `as.character(x, ...)`
+- `print(x, ...)`
+- `summary(object, ...)`
+
+## Reexport (179)
+
+- `.data(?)`
+- `abline(?)`
+- `aes(x, y)`
+- `aggregate(?)`
+- `all_of(?)`
+- `annotate(?)`
+- `arrange(?)`
+- `articulation_points(?)`
+- `as_adj_list(?)`
+- `as_adjacency_matrix(?)`
+- `as_data_frame(?)`
+- `as_tibble(?)`
+- `as_undirected(?)`
+- `ave(?)`
+- `barplot(?)`
+- `betweenness(?)`
+- `bfs(?)`
+- `bind_rows(?)`
+- `case_when(?)`
+- `centr_degree(?)`
+- `closeness(?)`
+- `cluster_fast_greedy(?)`
+- `cluster_louvain(?)`
+- `coef(?)`
+- `colorRampPalette(?)`
+- `combn(?)`
+- `complete.cases(?)`
+- `components(?)`
+- `coord_equal(?)`
+- `coord_fixed(?)`
+- `coord_flip(?)`
+- `coreness(?)`
+- `count(?)`
+- `data(?)`
+- `degree(?)`
+- `delete_vertices(?)`
+- `desc(?)`
+- `diameter(?)`
+- `distances(?)`
+- `distinct(?)`
+- `dotplot(object, x, color, showCategory, size, split, font.size, title, label_format, orderBy, decreasing, xlim, ylim)`
+- `drop_na(?)`
+- `E(?)`
+- `eccentricity(?)`
+- `ecount(?)`
+- `edge_attr(?)`
+- `edge_attr_names(?)`
+- `edge_density(?)`
+- `eigen_centrality(?)`
+- `element_blank(?)`
+- `element_line(?)`
+- `element_rect(?)`
+- `element_text(?)`
+- `enricher(?)`
+- `expansion(?)`
+- `facet_wrap(?)`
+- `filter(?)`
+- `geom_abline(?)`
+- `geom_boxplot(?)`
+- `geom_col(?)`
+- `geom_edge(?)`
+- `geom_hline(?)`
+- `geom_jitter(?)`
+- `geom_line(?)`
+- `geom_path(?)`
+- `geom_point(?)`
+- `geom_polygon(?)`
+- `geom_ribbon(?)`
+- `geom_segment(?)`
+- `geom_text(?)`
+- `geom_text_repel(?)`
+- `geom_tile(?)`
+- `geom_tiplab(?)`
+- `geom_violin(?)`
+- `geom_vline(?)`
+- `get_legend(?)`
+- `getFromNamespace(?)`
+- `ggplot(data, mapping)`
+- `ggtitle(?)`
+- `ggtree(?)`

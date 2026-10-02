@@ -1,7 +1,7 @@
 # MicrobiomeProfiler — 1.19.2
 
-> 数据源：github.com/YuLab-SMU/MicrobiomeProfiler@devel
-> 22 个已知符号
+> 数据源：YuLab-SMU/MicrobiomeProfiler @ devel
+> 58 个已知符号
 
 ## Function (22)
 
@@ -27,3 +27,42 @@
 - `gseModule(geneList, nPerm=1000, exponent=1, minGSSize=10, maxGSSize=500, pvalueCutoff=0.05, pAdjustMethod="BH", method="multilevel", adaptive=FALSE, minPerm=101, maxPerm=100000, pvalThreshold=0.1, verbose=TRUE, seed=FALSE)`
 - `gseSMPDB(metabo_list, nPerm=1000, exponent=1, minGSSize=10, maxGSSize=500, pvalueCutoff=0.05, pAdjustMethod="BH", method="multilevel", adaptive=FALSE, minPerm=101, maxPerm=100000, pvalThreshold=0.1, verbose=TRUE, seed=FALSE)`
 - `run_MicrobiomeProfiler(onStart=NULL, options=list(), enableBookmarking=NULL, uiPattern="/", ...)`
+
+## Reexport (36)
+
+- `%<>%(lhs, rhs)`
+- `activate_js(?)`
+- `add_resource_path(?)`
+- `barplot(?)`
+- `bundle_resources(?)`
+- `colorPickr(?)`
+- `data(?)`
+- `datatable(?)`
+- `dotplot(object, x, color, showCategory, size, split, font.size, title, label_format, orderBy, decreasing, xlim, ylim)`
+- `download.file(?)`
+- `DTOutput(?)`
+- `favicon(?)`
+- `ggsave(?)`
+- `gsea_gson(?)`
+- `gson(gsid2gene, gsid2name)`
+- `guide_colorbar(?)`
+- `guides(?)`
+- `JS(?)`
+- `na.omit(?)`
+- `NS(?)`
+- `ora_gson(?)`
+- `read.csv(?)`
+- `read.delim(?)`
+- `renderDT(?)`
+- `scale_color_gradient(?)`
+- `scale_fill_gradient(?)`
+- `setNames(?)`
+- `shinyApp(?)`
+- `slot(?)`
+- `slotNames(?)`
+- `tagList(?)`
+- `unzip(?)`
+- `with_golem_options(?)`
+- `withLoader(?)`
+- `xlab(?)`
+- `yread(file)`

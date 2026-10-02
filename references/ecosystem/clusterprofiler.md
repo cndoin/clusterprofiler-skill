@@ -1,6 +1,6 @@
-# clusterprofiler — 4.21.2
+# clusterProfiler — 4.21.2
 
-> 数据源：github.com/YuLab-SMU/clusterprofiler@devel
+> 数据源：YuLab-SMU/clusterProfiler @ devel
 > 155 个已知符号
 
 ## Function (56)

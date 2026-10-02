@@ -1,7 +1,7 @@
 # scholar — 1.0.0
 
-> 数据源：github.com/YuLab-SMU/scholar@devel
-> 30 个已知符号
+> 数据源：YuLab-SMU/scholar @ master
+> 52 个已知符号
 
 ## Function (30)
 
@@ -35,3 +35,28 @@
 - `search_scholar_ids(?)`
 - `set_scholar_mirror(mirror=NULL)`
 - `tidy_id(id)`
+
+## Reexport (22)
+
+- `%>%(lhs, rhs)`
+- `.data(?)`
+- `content(?)`
+- `filter(?)`
+- `GET(?)`
+- `group_by(?)`
+- `html_attr(?)`
+- `html_children(?)`
+- `html_nodes(?)`
+- `html_table(?)`
+- `html_text(?)`
+- `mutate(?)`
+- `read_html(?)`
+- `row_number(?)`
+- `str_extract(?)`
+- `str_replace(?)`
+- `str_split(?)`
+- `str_sub(?)`
+- `str_trim(?)`
+- `str_which(?)`
+- `summarize(?)`
+- `tail(x)`

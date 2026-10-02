@@ -1,9 +1,9 @@
 # ChIPseeker — 1.49.2
 
-> 数据源：github.com/YuLab-SMU/ChIPseeker@devel
-> 48 个已知符号
+> 数据源：YuLab-SMU/ChIPseeker @ devel
+> 136 个已知符号
 
-## Function (40)
+## Function (38)
 
 - `.(..., .env=parent.frame())`
 - `annotatePeak(peak, tssRegion=c(-3000, 3000), TxDb=NULL, level="transcript", assignGenomicAnnotation=TRUE, genomicAnnotationPriority=c("Promoter", "5UTR", "3UTR", "Exon",..., annoDb=NULL, addFlankGeneInfo=FALSE, flankDistance=5000, sameStrand=FALSE, ignoreOverlap=FALSE, ignoreUpstream=FALSE, ignoreDownstream=FALSE, overlap="TSS", verbose=TRUE, columns=c("ENTREZID", "ENSEMBL", "SYMBOL", "G...)`
@@ -23,7 +23,6 @@
 - `getPromoters(TxDb=NULL, upstream=1000, downstream=1000, by="gene")`
 - `getSampleFiles(?)`
 - `getTagMatrix(peak, upstream, downstream, windows, type, by, TxDb=NULL, weightCol=NULL, nbin=NULL, verbose=TRUE, ignore_strand=FALSE)`
-- `GRangesList(?)`
 - `makeBioRegionFromGranges(gr, by, type, upstream=1000, downstream=1000)`
 - `overlap(Sets)`
 - `peak_Profile_Heatmap(peak, weightCol=NULL, TxDb=NULL, upstream=1000, downstream=1000, xlab="", ylab="", title=NULL, palette=NULL, verbose=TRUE, by="gene", type="start_site", nbin=NULL, ignore_strand=FALSE, windows_name=NULL, ncol=NULL, nrow=NULL, facet_label_text_size=12, conf, facet="row", free_y=TRUE, height_proportion=4)`
@@ -38,7 +37,6 @@
 - `plotPeakProf(tagMatrix=NULL, peak, upstream, downstream, conf, by, type, windows_name=NULL, weightCol=NULL, TxDb=NULL, xlab="Genomic Region (5'->3')", ylab="Peak Count Frequency", facet="row", free_y=TRUE, verbose=TRUE, nbin=NULL, ignore_strand=FALSE, ...)`
 - `plotPeakProf2(peak, upstream, downstream, conf, by, type, weightCol=NULL, TxDb=NULL, xlab="Genomic Region (5'->3')", ylab="Peak Count Frequency", facet="none", free_y=TRUE, verbose=TRUE, nbin=NULL, ignore_strand=FALSE, ...)`
 - `readPeakFile(peakfile, as="GRanges", ...)`
-- `rel(?)`
 - `seq2gene(seq, tssRegion, flankDistance, TxDb, sameStrand=FALSE)`
 - `shuffle(peak.gr, TxDb)`
 - `tagHeatmap(tagMatrix, xlab="", ylab="", title=NULL, palette="RdBu", nrow=NULL, ncol=NULL)`
@@ -46,16 +44,90 @@
 - `vennplot(Sets, by="gplots", ...)`
 - `vennplot.peakfile(files, labels=NULL)`
 
-## Generic (6)
+## Generic (2)
 
-- `arrange(.data, .by_group=FALSE, ...)`
 - `as.data.frame(x, row.names=NULL, optional=FALSE, ...)`
-- `filter(.data, .by=NULL, .preserve=FALSE, ...)`
-- `mutate(.data, .by=NULL, .keep=c("all", "used", "unused", "none"), .before=NULL, .after=NULL, ...)`
 - `rename(x, ...)`
-- `subset(x, ...)`
 
-## S4method (2)
+## Reexport (96)
 
+- `%<>%(lhs, rhs)`
+- `%>%(lhs, rhs)`
+- `.data(?)`
+- `aes(x, y)`
+- `aes_(?)`
+- `arrange(.data, .by_group=FALSE, ...)`
+- `as(?)`
+- `boot(?)`
+- `boot.ci(?)`
+- `colorRampPalette(?)`
+- `coord_fixed(?)`
+- `coord_flip(?)`
+- `detectCores(?)`
+- `download.file(?)`
+- `element_blank(?)`
+- `element_text(?)`
+- `end(?)`
+- `exonsBy(?)`
+- `facet_grid(?)`
+- `filter(.data, .by=NULL, .preserve=FALSE, ...)`
+- `fiveUTRsByTranscript(?)`
+- `floating.pie(?)`
+- `genes(?)`
+- `geom_bar(?)`
+- `geom_blank(?)`
+- `geom_hline(?)`
+- `geom_line(?)`
+- `geom_rect(?)`
+- `geom_ribbon(?)`
+- `geom_segment(?)`
+- `geom_text(?)`
+- `geom_tile(?)`
+- `geom_vline(?)`
+- `get(?)`
+- `get_cache_element(?)`
+- `get_cache_item(key)`
+- `ggplot(data, mapping)`
+- `ggtitle(?)`
+- `GRangesList(?)`
+- `group_by(?)`
+- `guide_legend(?)`
+- `import.chain(?)`
+- `initial_cache_item(?)`
+- `insert_bottom(?)`
+- `intronsByTranscript(?)`
+- `is(?)`
+- `labs(?)`
+- `layout(?)`
+- `legend(?)`
+- `liftOver(?)`
+- `mat2df(?)`
+- `mclapply(?)`
+- `metadata(?)`
+- `missingArg(?)`
+- `mutate(.data, .by=NULL, .keep=c("all", "used", "unused", "none"), .before=NULL, .after=NULL, ...)`
+- `new(?)`
+- `p.adjust(?)`
+- `par(?)`
+- `permutations(?)`
+- `phyper(?)`
+- `pie(?)`
+- `plot.new(?)`
+- `plot.venn(?)`
+- `plot_list(?)`
+- `quos(?)`
+- `read.delim(?)`
+- `rel(?)`
+- `rm_cache_item(?)`
+- `scale_color_manual(values)`
+- `scale_fill_brewer(?)`
+- `scale_fill_distiller(?)`
+- `scale_fill_hue(?)`
+- `scale_fill_manual(?)`
+- `scale_x_continuous(?)`
+- `scale_y_continuous(?)`
+- `select(?)`
+- `setTxtProgressBar(?)`
 - `show(?)`
-- `upsetplot(?)`
+- `start(?)`
+- `subset(x, ...)`

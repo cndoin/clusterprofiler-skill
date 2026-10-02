@@ -1,32 +1,24 @@
 # sclet — 1.0.1
 
-> 数据源：github.com/YuLab-SMU/sclet@devel
-> 208 个已知符号
+> 数据源：YuLab-SMU/sclet @ devel
+> 287 个已知符号
 
-## Function (208)
+## Function (195)
 
 - `ActiveIdent(object)`
-- `ActiveIdent<-(?)`
 - `AggregateExpression(object, group_by, assay.type="counts", fun="sum")`
 - `as.SCE(object, ...)`
 - `as.Seurat(object, ...)`
-- `assay(?)`
 - `AuditAnalysisChain(sce, features, raw_layer="counts", integrated_layer=NULL, ...)`
 - `BatchRemover(sce, batch=NULL, HVG=NULL, nHVG=5000, assay.type="logcounts", PARAM=NULL, restrict=NULL, correct.all=FALSE, name="batchcorrect")`
 - `CellDimPlot(object, group.by=NULL, reduction=NULL, ...)`
 - `CellRankSummary(object, id=NULL)`
 - `CellStatPlot(object, group.by=NULL, split.by=NULL, position="fill", ...)`
-- `colData(?)`
-- `colData<-(?)`
 - `CommandLog(object, details=FALSE)`
 - `DefaultAssay(object)`
-- `DefaultAssay<-(?)`
 - `DefaultGraph(object)`
-- `DefaultGraph<-(?)`
 - `DefaultLayer(object)`
-- `DefaultLayer<-(?)`
 - `DefaultReduction(object)`
-- `DefaultReduction<-(?)`
 - `DEtestPlot(object, id=NULL, p_val_cutoff=0.05, logfc_cutoff=0.25, ...)`
 - `DimPlot(object, reduction=NULL, ...)`
 - `ElbowPlot(object)`
@@ -85,3 +77,94 @@
 - `has_integration(object, id=NULL)`
 - `has_mapping(object, id=NULL)`
 - `has_milo(object, id=NULL)`
+- `has_multimodal_adt(sce)`
+- `has_multimodal_atac(sce)`
+- `has_nichenet(object, id=NULL)`
+- `has_perturbation(object)`
+- `has_perturbation_priority(object)`
+- `has_program(object, program, source=c("auto", "geneset_scoring", "scenic"), id=NULL)`
+- `has_rare_cells(object)`
+- `has_scenic(object, id=NULL)`
+
+## Reexport (92)
+
+- `.data(?)`
+- `aes(x, y)`
+- `aggregateAcrossCells(?)`
+- `altExp(?)`
+- `as(?)`
+- `assay(?)`
+- `assayNames(?)`
+- `ave(?)`
+- `BasiliskEnvironment(?)`
+- `basiliskRun(?)`
+- `basiliskStart(?)`
+- `basiliskStop(?)`
+- `cli_abort(?)`
+- `cluster_louvain(?)`
+- `colData(?)`
+- `colLabels(?)`
+- `counts(?)`
+- `element_blank(?)`
+- `element_line(?)`
+- `element_rect(?)`
+- `element_text(?)`
+- `enquo(?)`
+- `facet_grid(?)`
+- `filter(?)`
+- `gene_summary(?)`
+- `geom_bar(?)`
+- `geom_hline(?)`
+- `geom_jitter(?)`
+- `geom_point(?)`
+- `geom_text_repel(?)`
+- `geom_violin(?)`
+- `geom_vline(?)`
+- `get_fun_from_pkg(pkg, fun)`
+- `getFromNamespace(?)`
+- `ggplot(data, mapping)`
+- `ggtitle(?)`
+- `group_tt(?)`
+- `guide_legend(?)`
+- `guides(?)`
+- `head(x)`
+- `install_zip_gh(?)`
+- `is(?)`
+- `is.installed(pkg)`
+- `labs(?)`
+- `lines(?)`
+- `loess(?)`
+- `logcounts(?)`
+- `logNormCounts(?)`
+- `mad(?)`
+- `makeSNNGraph(?)`
+- `median(?)`
+- `metadata(?)`
+- `modelGeneVar(?)`
+- `modifyList(?)`
+- `na.omit(?)`
+- `o(?)`
+- `pivot_longer(?)`
+- `plot(?)`
+- `plot_list(?)`
+- `plotColData(?)`
+- `predict(?)`
+- `quantile(?)`
+- `reducedDim(?)`
+- `reducedDimNames(?)`
+- `reducedDims(?)`
+- `rowData(?)`
+- `rowSds(?)`
+- `rowSums(?)`
+- `runPCA(?)`
+- `runUMAP(?)`
+- `save_tt(?)`
+- `sc_dim(?)`
+- `sc_feature(?)`
+- `scale_color_manual(values)`
+- `scale_color_viridis_c(?)`
+- `scale_size_continuous(?)`
+- `scale_x_log10(?)`
+- `sd(?)`
+- `setMethod(?)`
+- `setNames(?)`

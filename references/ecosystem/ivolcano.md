@@ -1,7 +1,7 @@
 # ivolcano — 0.0.7
 
-> 数据源：github.com/YuLab-SMU/ivolcano@devel
-> 16 个已知符号
+> 数据源：YuLab-SMU/ivolcano @ devel
+> 49 个已知符号
 
 ## Function (14)
 
@@ -20,7 +20,43 @@
 - `pathway_app(enrichment, gene_data, pathway_col="Description", pathway_gene_col="geneID", pathway_p_col="p.adjust", pathway_ratio_col="GeneRatio", gene_col="gene", gene_effect_col="logFC", gene_p_col="adj.P.Val", show_pathways=NULL, gene_id_case=c("asis", "upper", "lower"), pval_cutoff=0.05, logFC_cutoff=1, launch=FALSE, app_title="Pathway-gene explorer")`
 - `scale_color_figureya(mode=c("classic", "advanced"), na.value="grey80", guide="none", ...)`
 
-## Generic (2)
+## Generic (1)
 
-- `ggplot_add(object, plot, ...)`
 - `print(x, ...)`
+
+## Reexport (34)
+
+- `.data(?)`
+- `aes(x, y)`
+- `coord_cartesian(?)`
+- `element_blank(?)`
+- `element_text(?)`
+- `fortify(?)`
+- `geom_hline(?)`
+- `geom_point(?)`
+- `geom_point_interactive(?)`
+- `geom_text_repel(?)`
+- `geom_vline(?)`
+- `ggplot(data, mapping)`
+- `ggplot_add(object, plot, ...)`
+- `girafe(?)`
+- `girafeOutput(?)`
+- `is(?)`
+- `knit_print(?)`
+- `labs(?)`
+- `margin(?)`
+- `modifyList(?)`
+- `mutate(?)`
+- `opts_hover(?)`
+- `renderGirafe(?)`
+- `reorder(?)`
+- `scale_alpha_identity(?)`
+- `scale_color_continuous(?)`
+- `scale_color_manual(values)`
+- `scale_colour_manual(?)`
+- `scale_size_identity(?)`
+- `setNames(?)`
+- `sym(?)`
+- `theme(?)`
+- `theme_minimal(?)`
+- `ylab(?)`

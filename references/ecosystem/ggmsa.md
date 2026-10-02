@@ -1,7 +1,7 @@
 # ggmsa — 1.19.2
 
-> 数据源：github.com/YuLab-SMU/ggmsa@devel
-> 34 个已知符号
+> 数据源：YuLab-SMU/ggmsa @ devel
+> 122 个已知符号
 
 ## Function (30)
 
@@ -36,12 +36,93 @@
 - `tidy_msa(msa, start=NULL, end=NULL)`
 - `treeMSA_plot(p_tree, tidymsa_df, ancestral_node="none", sub=FALSE, panel="MSA", font=NULL, color="Chemistry_AA", seq_colname=NULL, ...)`
 
-## Generic (2)
+## Generic (1)
 
 - `diff(x, ...)`
-- `ggplot_add(object, plot, ...)`
 
-## S4method (2)
+## S4method (1)
 
 - `plot(?)`
+
+## Reexport (90)
+
+- `%<>%(lhs, rhs)`
+- `%>%(lhs, rhs)`
+- `AAStringSet(?)`
+- `aes(x, y)`
+- `aes_(?)`
+- `arrow(?)`
+- `as.helix(?)`
+- `as.patchwork(?)`
+- `brewer.pal(?)`
+- `collapseHelix(?)`
+- `colorRampPalette(?)`
+- `coord_cartesian(?)`
+- `coord_fixed(?)`
+- `DNAStringSet(?)`
+- `draw_key_polygon(?)`
+- `element_blank(?)`
+- `element_line(?)`
+- `element_text(?)`
+- `expandHelix(?)`
+- `fa_read(?)`
+- `facet_wrap(?)`
+- `gather(?)`
+- `Geom(?)`
+- `geom_arc(?)`
+- `geom_area(?)`
+- `geom_blank(?)`
+- `geom_col(?)`
+- `geom_facet(?)`
+- `geom_line(?)`
+- `geom_point(?)`
+- `geom_polygon(?)`
+- `geom_ribbon(?)`
+- `geom_segment(?)`
+- `geom_smooth(?)`
+- `geom_text(?)`
+- `geom_tile(?)`
+- `geom_tiplab(?)`
+- `geom_xspline(?)`
+- `getFromNamespace(?)`
+- `ggplot(data, mapping)`
+- `ggplot_add(object, plot, ...)`
+- `ggplot_build(?)`
+- `ggplot_gtable(?)`
+- `ggproto(?)`
+- `ggtitle(?)`
+- `globalVariables(?)`
+- `gpar(?)`
+- `group_by(?)`
+- `group_by_(?)`
+- `gTree(?)`
+- `insert_top(?)`
+- `labs(?)`
+- `layer(?)`
+- `missingArg(?)`
+- `modifyList(?)`
+- `n(?)`
+- `new(?)`
+- `packageDescription(?)`
+- `plot_list(?)`
+- `polygonGrob(?)`
+- `read.delim(?)`
+- `readBpseq(?)`
+- `readBStringSet(?)`
+- `readConnect(?)`
+- `readDNAStringSet(?)`
+- `readHelix(?)`
+- `readVienna(?)`
+- `RNAStringSet(?)`
+- `scale_color_manual(values)`
+- `scale_fill_gradientn(?)`
+- `scale_fill_manual(?)`
+- `scale_x_continuous(?)`
+- `scale_y_continuous(?)`
+- `select(?)`
+- `setNames(?)`
 - `show(?)`
+- `summarize(?)`
+- `summarize_(?)`
+- `theme(?)`
+- `theme_bw(?)`

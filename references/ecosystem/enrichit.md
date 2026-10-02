@@ -1,7 +1,7 @@
 # enrichit — 0.2.5
 
-> 数据源：github.com/YuLab-SMU/enrichit@devel
-> 36 个已知符号
+> 数据源：YuLab-SMU/enrichit @ devel
+> 52 个已知符号
 
 ## Function (30)
 
@@ -36,14 +36,33 @@
 - `select_features_for_ora(x, cutoff=0.05, by=c("pvalue", "score"), ...)`
 - `setReadable(x, OrgDb, keyType="auto", toType="SYMBOL")`
 
-## Generic (4)
+## Generic (2)
 
 - `as.data.frame(x, ...)`
 - `dim(x)`
-- `head(x, n=6L, ...)`
-- `tail(x, n=6L, ...)`
 
-## S4method (2)
+## S4method (1)
 
-- `show(?)`
 - `summary(?)`
+
+## Reexport (19)
+
+- `.hasSlot(?)`
+- `check_installed(?)`
+- `colSums(?)`
+- `Diagonal(?)`
+- `head(x, n=6L, ...)`
+- `is(?)`
+- `median(?)`
+- `new(?)`
+- `p.adjust(?)`
+- `pchisq(?)`
+- `pnorm(?)`
+- `qnorm(?)`
+- `rowSums(?)`
+- `setNames(?)`
+- `show(?)`
+- `sourceCpp(?)`
+- `sparseMatrix(?)`
+- `str(?)`
+- `tail(x, n=6L, ...)`

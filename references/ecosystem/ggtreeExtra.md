@@ -1,15 +1,13 @@
 # ggtreeExtra — 1.23.1
 
-> 数据源：github.com/YuLab-SMU/ggtreeExtra@devel
-> 18 个已知符号
+> 数据源：YuLab-SMU/ggtreeExtra @ devel
+> 43 个已知符号
 
-## Function (18)
+## Function (14)
 
-- `%>%(?)`
 - `fruit_plot(p, data=NULL, geom, mapping, offset=0.03, pwidth=0.2, position="auto", ...)`
 - `geom_fruit(mapping, data=NULL, geom, offset=0.03, pwidth=0.2, position="auto", inherit.aes=FALSE, grid.params=NULL, axis.params=list( axis="none", text.angle=0, text..., ...)`
 - `geom_fruit_list(fruit, ...)`
-- `ggplot_add(object, plot, object_name, ...)`
 - `position_dodgex(?)`
 - `position_dodgex2(?)`
 - `position_identityx(?)`
@@ -21,5 +19,35 @@
 - `position_stackx(vjust=1, hexpand=NA, vexpand=NA, reverse=FALSE)`
 - `PositionJitterdodgex(?)`
 - `PositionJitterx(?)`
+
+## Reexport (29)
+
+- `%>%(lhs, rhs)`
+- `aes(x, y)`
+- `aggregate(?)`
+- `as.formula(?)`
+- `as.treedata(?)`
+- `as_name(?)`
+- `cli_abort(?)`
+- `enquo(?)`
+- `flip_data(?)`
+- `geom_segment(?)`
+- `geom_text(?)`
+- `get_env(?)`
+- `get_expr(?)`
+- `getFromNamespace(?)`
+- `ggplot_add(object, plot, object_name, ...)`
+- `ggproto(?)`
+- `has_flipped_aes(?)`
+- `modifyList(?)`
+- `new_scale_color(?)`
+- `Position(?)`
+- `quo_get_expr(?)`
+- `quo_name(?)`
+- `quo_text(?)`
+- `remove_missing(?)`
+- `scale_color_manual(values)`
+- `sym(?)`
 - `td_filter(?)`
 - `td_unnest(?)`
+- `yulab_msg(?)`

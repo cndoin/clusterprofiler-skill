@@ -1,9 +1,9 @@
 # epiSeeker — 1.1.2
 
-> 数据源：github.com/YuLab-SMU/epiSeeker@devel
-> 49 个已知符号
+> 数据源：YuLab-SMU/epiSeeker @ devel
+> 185 个已知符号
 
-## Function (41)
+## Function (40)
 
 - `.(..., .env=parent.frame())`
 - `annotateSeq(peak, tssRegion=c(-3000, 3000), TxDb=NULL, level="transcript", assignGenomicAnnotation=TRUE, genomicAnnotationPriority=c("Promoter", "5UTR", "3UTR", "Exon",..., annoDb=NULL, addFlankGeneInfo=FALSE, flankDistance=5000, sameStrand=FALSE, ignoreOverlap=FALSE, ignoreUpstream=FALSE, ignoreDownstream=FALSE, overlap="TSS", verbose=TRUE, columns=c("ENTREZID", "ENSEMBL", "SYMBOL", "G...)`
@@ -40,23 +40,96 @@
 - `plotPeakHeatmap(tagMatrix, plot_prof=TRUE, xlab="", ylab="", palette=NULL, title=NULL, facet_label_text_size=12, nrow=NULL, ncol=NULL, conf=NULL, statistic_method="mean", missingDataAsZero=TRUE, facet="none", free_y=TRUE, height_proportion=4, ...)`
 - `plotPeakProf(tagMatrix, xlab="Genomic Region (5'->3')", ylab="Peak Count Frequency", conf=NULL, title="", facet="none", free_y=TRUE, statistic_method="mean", missingDataAsZero=TRUE, ...)`
 - `readPeakFile(peakfile, as="GRanges", ...)`
-- `rel(?)`
 - `seq2gene(seq, tssRegion, flankDistance, TxDb, sameStrand=FALSE)`
 - `shuffle(peak.gr, TxDb)`
 - `vennpie(x, r=0.2, cex=1.2, col=NULL)`
 - `vennplot(Sets, ...)`
 - `vennplot.peakfile(files, labels=NULL)`
 
-## Generic (6)
+## Generic (2)
 
-- `arrange(.data, .by_group=FALSE, ...)`
 - `as.data.frame(x, row.names=NULL, optional=FALSE, ...)`
-- `filter(.data, .by=NULL, .preserve=FALSE, ...)`
-- `mutate(.data, .by=NULL, .keep=c("all", "used", "unused", "none"), .before=NULL, .after=NULL, ...)`
-- `rename(.data, ...)`
 - `subset(x, subset, ...)`
 
-## S4method (2)
+## Reexport (143)
 
-- `show(?)`
-- `upsetplot(?)`
+- `%<>%(lhs, rhs)`
+- `%>%(lhs, rhs)`
+- `.data(?)`
+- `aes(x, y)`
+- `aes_string(?)`
+- `all_of(?)`
+- `annotate(?)`
+- `arrange(.data, .by_group=FALSE, ...)`
+- `as(?)`
+- `as.formula(?)`
+- `assayNames(?)`
+- `assays(?)`
+- `boot(?)`
+- `boot.ci(?)`
+- `BSseq(?)`
+- `check_installed(?)`
+- `colorRampPalette(?)`
+- `coord_cartesian(?)`
+- `coord_fixed(?)`
+- `coord_flip(?)`
+- `dbConnect(?)`
+- `dbGetQuery(?)`
+- `detectCores(?)`
+- `dist(?)`
+- `DNAStringSet(?)`
+- `download.file(?)`
+- `element_blank(?)`
+- `element_line(?)`
+- `element_rect(?)`
+- `element_text(?)`
+- `end(?)`
+- `exonsBy(?)`
+- `facet_grid(?)`
+- `file_test(?)`
+- `filter(.data, .by=NULL, .preserve=FALSE, ...)`
+- `findOverlaps(?)`
+- `fiveUTRsByTranscript(?)`
+- `floating.pie(?)`
+- `gather(?)`
+- `genes(?)`
+- `geom_bar(?)`
+- `geom_blank(?)`
+- `geom_col(?)`
+- `geom_curve(?)`
+- `geom_hline(?)`
+- `geom_line(?)`
+- `geom_rect(?)`
+- `geom_ribbon(?)`
+- `geom_segment(?)`
+- `geom_text(?)`
+- `geom_tile(?)`
+- `geom_vline(?)`
+- `get(?)`
+- `get_cache_element(?)`
+- `get_cache_item(key)`
+- `getFromNamespace(?)`
+- `ggplot(data, mapping)`
+- `ggtitle(?)`
+- `GRanges(?)`
+- `granges(?)`
+- `GRangesList(?)`
+- `group_by(?)`
+- `guide_legend(?)`
+- `hclust(?)`
+- `head(x)`
+- `import.chain(?)`
+- `initial_cache_item(?)`
+- `insert_bottom(?)`
+- `intronsByTranscript(?)`
+- `IRanges(?)`
+- `is(?)`
+- `labs(?)`
+- `layout(?)`
+- `left_join(?)`
+- `legend(?)`
+- `liftOver(?)`
+- `makeGRangesFromDataFrame(?)`
+- `mat2df(?)`
+- `mclapply(?)`
+- `mcols(?)`
