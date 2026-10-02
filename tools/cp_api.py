@@ -91,6 +91,11 @@ def main():
         return 1
 
     r = syms[n]
+    # 若用户传的是 pkg::sym，把 name 字段切成短名 + 全名（不破坏 pkg 前缀语义）
+    if "::" in n:
+        short = n.split("::", 1)[1]
+        r = dict(r); r["name"] = short; r["qualified_name"] = n
+        n = short
     sig = sigs.get(n) or "%s(%s)" % (n, ", ".join(r["args"]))
     if a.json:
         print(json.dumps({"name": n, "module": r["module"], "pkg": r["pkg"],
