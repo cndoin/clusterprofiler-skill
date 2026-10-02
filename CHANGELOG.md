@@ -2,6 +2,70 @@
 
 所有重要变更都会记录在这里。本项目遵循 [Semantic Versioning](https://semver.org/)。
 
+## [2.1.0] - 2026-10-01
+
+### 重大修复（完整性与稳定性审计）
+
+对 v2.0.0 做了一轮以「量事实、不靠声明」为准的审计，修掉 7 个真实缺陷。
+审计口径：`python .build/edge_audit.py`，从 41 项检查 0 通过起步，现 41/41 全绿。
+
+#### 修复（Fixed）
+
+- **6 个包抓取静默失败**：`aplot` / `tidytree` / `ggbreak` / `ggimage` / `ggtangle` /
+  `createKEGGdb` 只有 `master` 或 `main` 分支，脚本却一律按 `devel` 抓 → 404 →
+  产出 0 字节 DESCRIPTION/NAMESPACE。改为按 `devel → master → main → HEAD` 自动探测。
+- **ref 探测方法本身是错的**：原来用 `raw.githubusercontent.com/<repo>/<ref>/DESCRIPTION`
+  判断 ref 是否存在，但对不存在的 ref 该端点会**静默回退到默认分支并返回 200**，
+  于是抓回「有 NAMESPACE、零个 R 文件」的半残包。改用 `codeload` 的 HTTP HEAD 探测
+  （不存在的 ref 老实报 404）。这一条是上面 6 个包能真正修好的前提。
+- **`aPEAR` 仓库名错误**：`YuLab-SMU/aPEAR` 不存在，真实上游是 `ievaKer/aPEAR`。
+- **`CNEr` 根本不在 GitHub**：它是 Bioconductor 包（1.49.1）。新增 Bioconductor
+  源码 tarball 抓取路径（`bioc:<Pkg>`），该包从 0 个符号变成 249 个。
+- **`HDO` 无公开源码**：GitHub 与 Bioconductor 均无仓库，已从事实底座移除并在
+  `fetch_sources.KNOWN_UNAVAILABLE` 里显式登记，不再产出空 stub 冒充覆盖。
+- **失败不再被吞掉**：`fetch_repo` 原来把每个文件的异常都 catch 成一行 WARN 然后正常返回，
+  所以「36 个成功 / 0 个失败」是假的（实际 9 个包是空的）。现在抓完会验收
+  NAMESPACE 非空且 R 文件数 > 0，不达标即记失败、退出码 1，`rebuild.py` 随之中断。
+- **`build_api.py` 把 NAMESPACE 注释当成了符号名**：CNEr 的 NAMESPACE 是
+  「多行块 + 块内文件注释」风格，原正则 `[^)]` 会吃掉换行，把 `## AllClasses.r` 这类
+  注释写进白名单（实测污染 25 个键）。改为「剥注释 → 合并续行 → 校验符号名合法」。
+- **`pkg::fn` 跨包调用被整体跳过**：`cp_lint` 原来遇到 `pkg not in
+  (clusterProfiler, enrichit, enrichplot)` 就 `continue`，导致 1325 个 `pkg::sym`
+  白名单键形同虚设 —— `ChIPseeker::annotatePeakxx()` 这种幻觉调用被判为通过。
+  现在按白名单里的生态包集合精确路由：生态内校验（限定名优先、短名兜底），
+  生态外（dplyr / ggplot2 等）放行。
+- **参数校验把「没有证据」当成「证据表明不存在」**：约 975 个键只有导出名、
+  没解析到 formals，原来会对此类符号做参数校验，把 `diversity(x, index="shannon")`、
+  `plotCov(x, col="red")` 这类**正确代码**判成错误。现在空 args 不做参数校验，
+  改计入 `stats.args_unverified` 如实暴露覆盖率。
+- **`by = list(...)` 被解析成 `bylist()`**：`scan_calls` 在 `=` 处不 flush 标识符，
+  左值名与右值标识符粘连，既丢掉真实的 `list()` 调用又凭空多报一个 unknown-function。
+- **`aggregate(x, by=)` 等按名传参的正确写法曾被误报**（同上根因）。
+- **`gen_docs.py` 用构建目录名当包名**：clusterProfiler 的构建目录是 `.build/clusterprofiler`
+  （小写，v1.0 遗留），文档被写成 `ecosystem/clusterprofiler.md`，与其余包命名不一致。
+  Windows 文件系统大小写不敏感所以本机看不出来，到 Linux 才会炸。改为取
+  `api_full.json` 的 `package` 字段，并自动清理已移除包（HDO/TCMDATA 旧档）的残留文档。
+- **`rebuild.py` 的「一键全量重建」是假的**：它调的是 `fetch_sources.py --ref devel`
+  （只抓 clusterProfiler 单包）和 `build_api.py`（无 `--all`），产出的 whitelist
+  只含 1 个包，与发布版完全对不上。改为 `--all` + `--all --merge`。
+- **`generated_from.source` 是硬编码的假信息**（写死 `YuLab-SMU/<多个包>@devel`）。
+  现在 `fetch_sources` 为每个包落一份 `source.json`，whitelist 的
+  `generated_from.sources` 记录逐包真实 repo/ref。
+- **审计脚本自身的假通过**：`.build/edge_audit.py` 在
+  `with NamedTemporaryFile(...)` 块内直接调子进程，`f.write` 还在用户态缓冲，
+  子进程读到的是空文件 —— 空文件恰好也判 ok，于是「未闭合括号」等用例静默假通过。
+  改为先落盘再交给子进程，并给每个用例补上内容证据断言（如 `calls_found` / `cp_calls_checked`）。
+
+#### 变更（Changed）
+
+- 覆盖包数 37 → **38**：新增 `CBNplot`、`TCMDATA`、`clusterProfiler.dplyr`；
+  移除 `HDO`（无公开源码，已登记）。白名单 2458 → **6137** 键；**零符号包从 9 个降到 0 个**。
+- `SKILL.md` 路由表按白名单订正：删掉 20+ 个不存在的函数名
+  （`CNE_range` / `RunSVP` / `summarize_taxa` / `peakAnno` / `enrichHDO` /
+  `meshHyperGTest` / `networkPlot` / `run_SCSeed` / `wp_profile` / `upsetplot` 等），
+  改用真实导出名。技能包的文档不得违反它自己的第一规则。
+- `cp_lint` 新增 `stats.args_unverified`，人类可读输出同步展示。
+
 ## [2.0.0] - 2026-10-01
 
 ### 重大变更（Ecosystem Expansion）

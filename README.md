@@ -2,13 +2,13 @@
 
 给 AI Agent 用的 **Y 叔（YuLab-SMU）全套生物信息学 R 包**编排技能，让 Agent 写出的 R 代码**不出现幻觉函数、不出现幻觉参数**。
 
-它不是一个 clusterProfiler 教程，也不是 API 文档的抄写件。它的全部事实来自**程序解析 37 个上游 R 包源码**
+它不是一个 clusterProfiler 教程，也不是 API 文档的抄写件。它的全部事实来自**程序解析 38 个上游 R 包源码**
 （每个包的 `NAMESPACE` + `R/*.R` 的真实 `formals` + `setMethod` + 别名赋值 + 第三方包 re-export），
 并且任何交付前的 R 脚本都会被 `cp_lint.py` 静态校验器拦一遍。
 
-- **覆盖范围**：Y 叔生态 **37 个包 / 2458 个符号**（其中 987 个带真实 formals）
-- **核心包**：clusterProfiler 4.21.2 / enrichit / enrichplot / gson / DOSE / ReactomePA / meshes / GOSemSim / ChIPseeker / MicrobiomeProfiler / HDO / aPEAR / aisdk
-- **生态包**：ggtree + treeio + ggtreeExtra + MicrobiotaProcess + SVP + sclet + scMSGNN + ggsc + createKEGGdb + aplot + ggmsa + ... 共 25 个
+- **覆盖范围**：生态 **38 个包 / 6137 个白名单键**（2384 个导出符号名 + 3753 个 `pkg::sym` 限定名；3087 个键带真实 formals）
+- **核心包**：clusterProfiler 4.21.2 / enrichit / enrichplot / gson / DOSE / ReactomePA / meshes / GOSemSim / ChIPseeker / MicrobiomeProfiler / aPEAR / CBNplot / clusterProfiler.dplyr / aisdk / TCMDATA
+- **生态包**：ggtree + treeio + ggtreeExtra + tidytree + MicrobiotaProcess + SVP + sclet + scMSGNN + ggsc + createKEGGdb + CNEr + aplot + ggmsa + ... 共 23 个
 - 依赖：**零第三方包**，只用 Python 3 标准库 + 可选 R
 
 ---
@@ -84,9 +84,9 @@ clusterprofiler-skill/
 ├── CHANGELOG.md
 ├── README.md
 ├── references/
-│   ├── api-signatures.md     # 2458 个函数（37 包，按生态包分组，110KB）
-│   ├── function-index.md     # 模块索引 + 跨包同名函数（27KB）
-│   ├── ecosystem/<pkg>.md    # 37 个 mini 速查（每个包一份）
+│   ├── api-signatures.md     # 3731 个符号（38 包，按生态包分组，225KB）
+│   ├── function-index.md     # 模块索引 + 跨包同名函数（86KB）
+│   ├── ecosystem/<pkg>.md    # 38 个 mini 速查（每个包一份）
 │   ├── workflows.md         # 22 个可直接改用的流程模板
 │   ├── pitfalls.md          # 跨生态常见坑
 │   └── environment.md       # 安装、版本对齐、离线与 HPC 场景

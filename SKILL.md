@@ -1,17 +1,20 @@
 ---
 # clusterprofiler-skill · 必需字段（Claude Agent Skill 官方规范）
 name: clusterprofiler-skill
-description: "Y 叔（YuLab-SMU）全套生物信息学 R 包生态的 Agent 技能，覆盖 37 个包 / 2458 个符号：clusterProfiler 4.21.x（GO/KEGG/WikiPathways/KEGG Module/PathwayCommons/DAVID/MSigDB/enricher 富集分析，ORA/GSEA/NSEA/MNSEA/网络拓扑/贝叶斯 term 选择/LLM 解读）、enrichit（C++ 富集引擎，aggregate_enrichment/bayes_enrich/harmonize_ids/setReadable/nseGO/nseKEGG/mnsea/ora/gsea）、enrichplot 可视化（dotplot/cnetplot/emapplot/gseaplot/ridgeplot/heatplot/goplot/upsetplot）、gson 知识表示、DOSE（Disease Ontology/NCG/DisGeNET 疾病注释）、ReactomePA（Reactome pathway 分析）、meshes（MeSH 富集）、GOSemSim（GO 语义相似度，含 mgoSim/godata）、ChIPseeker（ChIP-seq/ATAC-seq peak 注释）、MicrobiomeProfiler（微生物组富集）、HDO（Human Disease Ontology）、aPEAR（网络富集装饰）、aisdk（LLM 集成）、ggtree + treeio + ggtreeExtra + tidytree（系统发育树全套）、MicrobiotaProcess（微生物组深度分析）、SVP（空间转录组）+ ggsc、sclet + scMSGNN（单细胞）、createKEGGdb + CNEr（KEGG/CNE 数据库）、aplot + ggimage + ggtangle + ggbreak + ggmsa + ivolcano（科研绘图）、yulab.utils、msigdbr（MSigDB）、epiSeeker（表观遗传）、tigeR（肿瘤免疫）、scholar（学者引用）。完整覆盖 ID 转换（bitr/bitr_kegg）、离线 GSON、KEGG Module 富集、PPI 网络（STRING）、Uniprot 查询、4 大知识源（GO/KEGG/Reactome/DO/MeSH/MSigDB）。事实底座从上游源码 NAMESPACE + R/*.R 真实 formals 解析，cp_lint 自动拦截 LLM 写 R 代码时最常见的 10 类幻觉函数 / 幻觉参数 / 拼写错误 / 全角符号 / 括号不匹配。"
+description: "Y 叔（YuLab-SMU）全套生物信息学 R 包生态的 Agent 技能，覆盖 38 个包 / 6137 个白名单键（2384 个导出符号名）：clusterProfiler 4.21.x（GO/KEGG/WikiPathways/KEGG Module/PathwayCommons/DAVID/MSigDB/enricher 富集分析，ORA/GSEA/NSEA/MNSEA/网络拓扑/贝叶斯 term 选择/LLM 解读）、enrichit（C++ 富集引擎，aggregate_enrichment/bayes_enrich/harmonize_ids/setReadable/nseGO/nseKEGG/mnsea/ora/gsea）、enrichplot 可视化（dotplot/cnetplot/emapplot/gseaplot/ridgeplot/heatplot/goplot/upsetplot）、gson 知识表示、DOSE（Disease Ontology/NCG/DisGeNET 疾病注释）、ReactomePA（Reactome pathway 分析）、meshes（MeSH 富集）、GOSemSim（GO 语义相似度，含 mgoSim/godata）、ChIPseeker（ChIP-seq/ATAC-seq peak 注释）、MicrobiomeProfiler（微生物组富集）、aPEAR（网络富集装饰）、CBNplot（富集结果贝叶斯网络）、TCMDATA（中医医案数据）、aisdk（LLM 集成）、ggtree + treeio + ggtreeExtra + tidytree（系统发育树全套）、MicrobiotaProcess（微生物组深度分析）、SVP（空间转录组）+ ggsc、sclet + scMSGNN（单细胞）、createKEGGdb + CNEr（KEGG/CNE 数据库）、aplot + ggimage + ggtangle + ggbreak + ggmsa + ivolcano（科研绘图）、yulab.utils、msigdbr（MSigDB）、epiSeeker（表观遗传）、tigeR（肿瘤免疫）、scholar（学者引用）。完整覆盖 ID 转换（bitr/bitr_kegg）、离线 GSON、KEGG Module 富集、PPI 网络（STRING）、Uniprot 查询、4 大知识源（GO/KEGG/Reactome/DO/MeSH/MSigDB）。事实底座从上游源码 NAMESPACE + R/*.R 真实 formals 解析，cp_lint 自动拦截 LLM 写 R 代码时最常见的 10 类幻觉函数 / 幻觉参数 / 拼写错误 / 全角符号 / 括号不匹配。"
 # 下方为 WorkBuddy 宿主扩展字段；Claude Code 会忽略（不报错、不影响解析）。
 license: MIT
-version: 2.0.0
+version: 2.1.0
 allowed-tools: Bash, Read, Grep, Glob
 agent_created: true
 ---
 
 # clusterprofiler-skill · Y 叔全套 R 包生态编排技能
 
-面向 **37 个 YuLab-SMU 生态包**（事实底座取自每个上游仓库 `devel` 分支的 NAMESPACE + R/*.R 真实 formals + 手工核对的第三方包 formals）。
+面向 **38 个生物医学知识挖掘生态包**（事实底座取自每个上游仓库的 NAMESPACE + R/*.R 真实 formals）。
+分支不固定：devel / master / main 由 `fetch_sources.py` 自动探测回退，逐包真实来源记在
+`tools/whitelist.json` 的 `generated_from.sources` 里（其中 CNEr 取自 Bioconductor 源码包，
+aPEAR 来自 ievaKer 组织）。手工核对的第三方 formals 见 `THIRD_PARTY_PARAMS`。
 
 本技能负责：**选对函数 → 写对参数 → 校验脚本 → 编排流程 → 解读报错**。
 不负责替用户猜数据、猜基因、猜物种 —— 那些必须由用户给或从结果里读。
@@ -21,8 +24,10 @@ agent_created: true
 ## 一、不可违反的事实（违反 = 交付幻觉代码）
 
 1. **任何一个 clusterProfiler 函数名，必须能在 `tools/whitelist.json` 里查到。**
-   白名单是从 NAMESPACE + R/ 源码解析出的 145 个真实符号，加上 enrichplot / dplyr /
-   magrittr / enrichit / ggplot2 / aisdk 等 re-export 函数共 165 个 known symbols。
+   白名单是从 38 个包的 NAMESPACE + R/ 源码解析出的 6137 个键（2384 个导出符号名 +
+   3753 个 `pkg::sym` 限定名），其中 3087 个键带真实 formals。
+   **注意**：没解析到 formals 的符号只校验函数名、不校验参数（避免误杀正确代码），
+   cp_lint 的 `stats.args_unverified` 会如实报出这类调用的数量。
    交付任何 R 代码前，**必须**跑 `tools/cp_lint.py`，把 error 清零。
    这是本技能存在的第一理由：clusterProfiler 是 LLM 幻觉重灾区。
 
@@ -85,52 +90,53 @@ agent_created: true
 
 ---
 
-## 三、生态包路由（37 包按用途归类）
+## 三、生态包路由（38 包按用途归类）
 
 按用户的实际问题路由到对应包：
 
 | 用户场景 | 该用包 | 关键函数 |
 |---|---|---|
 | GO / KEGG / 通路 ORA / GSEA | **clusterProfiler** | `enrichGO` / `enrichKEGG` / `gseGO` / `gseKEGG` / `compareCluster` |
-| Disease / NCG / DisGeNET 注释 | **DOSE** | `enrichDO` / `gseDO` / `enrichNCG` / `gseNCG` / `enricher` (DisGeNET) |
-| Reactome 通路 | **ReactomePA** | `enrichPathway` / `gsePathway` |
-| MeSH 富集 + 语义 | **meshes** | `enrichMeSH` / `gseMeSH` / `meshHyperGTest` |
-| GO term / gene 相似度 | **GOSemSim** | `godata` / `mgoSim` / `geneSim` / `Wang` / `Rel` |
-| C 富集分析（GO+KEGG+其他） | **clusterProfiler::enricher** + GMT 文件 | `read.gmt` + `enricher` |
-| ChIP-seq / ATAC-seq peak 注释 | **ChIPseeker** | `annotatePeak` / `peakAnno` / `makeTxDbFromGFF` / `covplot` / `getGEO` |
-| 微生物组功能富集 | **MicrobiomeProfiler** | `taxaMe` + Shiny App |
-| 人类疾病本体（HDO） | **HDO** | `enrichHDO` / `gseHDO` |
-| 富集结果网络化 | **aPEAR** | `enrichmentNetwork` / `networkPlot` |
+| 自定义基因集（GMT / GSON） | **clusterProfiler** + **gson** | `read.gmt` / `enricher` / `read.gson` / `gson` / `write.gson` |
+| Disease / NCG / DisGeNET 注释 | **DOSE** | `enrichDO` / `gseDO` / `enrichNCG` / `gseNCG` / `doseSim` / `gene2DO` |
+| Reactome 通路 | **ReactomePA** | `enrichPathway` / `gsePathway` / `nsePathway` / `viewPathway` / `convertIdentifiers` |
+| MeSH 富集 + 语义 | **meshes** | `enrichMeSH` / `gseMeSH` / `meshSim` |
+| GO term / gene 相似度 | **GOSemSim** | `godata` / `mgoSim` / `mgeneSim` / `goSim` / `combineScores` |
+| ChIP-seq / ATAC-seq peak 注释 | **ChIPseeker** | `annotatePeak` / `covplot` / `enrichPeakOverlap` / `dropAnno` / `downloadGEObedFiles` |
+| 微生物组功能富集 | **MicrobiomeProfiler** | `enrichKO` / `enrichCOG` / `enrichMDA` / `enrichModule` / `gseKO` / `run_MicrobiomeProfiler` |
+| 微生物组数据对象与多样性 | **MicrobiotaProcess** | `MPSE` / `as.MPSE` / `diversity` / `diff_analysis` / `drop_taxa` / `build_tree` |
+| 富集结果网络化 | **aPEAR** | `enrichmentNetwork` / `getGenes` / `pathwaySimilarity` |
+| 富集结果贝叶斯网络 | **CBNplot** | `bnpathplot` / `bngeneplot` / `bnpathtest` / `obtainPath` |
 | 网络感知 GSEA | **enrichit** | `nseGO` / `nseKEGG` / `mnseGO` / `mnseKEGG` |
 | 贝叶斯 term 选择 | **enrichit** | `bayes_enrich` / `bayes_summary` |
 | 多组学聚合 | **enrichit** | `aggregate_enrichment` / `aggregate_omics` / `harmonize_ids` |
-| ID 映射 | **clusterProfiler / DOSE / ReactomePA / meshes** | `bitr` / `bitr_kegg` / `bitr_dgn` |
-| 富集结果可视化 | **enrichplot** | `dotplot` / `cnetplot` / `emapplot` / `gseaplot` / `ridgeplot` / `heatplot` |
-| 系统发育树绘制 | **ggtree** + treeio | `ggtree` / `ggtree` + GROSS 文件 / `rotate` / `collapse` |
-| 系统发育树 + 子图 | **ggtreeExtra** | `geom_fruit` / `geom_inset` |
-| 微生物组数据 | **MicrobiotaProcess** | `summarize_taxa` / `alpha_diversity` / `beta_diversity` |
-| 空间转录组高变特征 | **SVP** | `RunSVP` / `spatial_heatmap` |
-| 空间 / 单细胞可视化 | **ggsc** | `SpatialMap` / `CellDifferentiogram` |
-| 单细胞分类 / 聚类 | **sclet** | `run_SCSeed` / `run_PRESS` |
-| 单细胞 GNN 整合 | **scMSGNN** | `scMSGNN` |
-| KEGG 数据库构建 | **createKEGGdb** | `create_kegg_db` |
-| CNE（非编码元件）数据库 | **CNEr** | `CNE_range` / `CNErscan` |
-| 进化保守非编码元件 | **CNEr** + **ggtree** | 结合使用 |
-| 火山图 | **ivolcano** | `ivolcano` |
-| 轴断点 | **ggbreak** | `scale_x_break` / `scale_y_break` |
-| 多序列比对 | **ggmsa** | `ggmsa` |
-| 装饰图 | **aplot** | `plot_list` / `insert_top` |
-| 图中加图 | **ggimage** | `geom_subview` |
-| 网络图 / 关联图 | **ggtangle** | `ggtangle` |
-| 肿瘤免疫 | **tigeR** | `tigeR` / `receptor_clonotype` |
-| Wiki 注释 | **wikiprofiler** | `wp_profile` |
-| 表观遗传峰 | **epiSeeker** | `epiStat` / `diffBind` |
-| 学者引用分析 | **scholar** | `get_profile` / `get_citation_history` |
-| 序列处理 | **seqmagick** | `fa_mask` / `fa_rc` |
-| 中文医案数据 | **TCMDATA** | `TCM_API` |
-| 通用工具 | **yulab.utils** | `yread` / `get_fun_from_pkg` / `user_dir` |
-| 离线 GSON 数据库 | **gson** | `gson_GO` / `gson_KEGG` / `read.gmt` |
-| LLM 解读 | **aisdk** | `Agent` / `ChatSession` / `generate_object` |
+| ID 映射 | **clusterProfiler** / **DOSE** / **ReactomePA** / **meshes** | `bitr` / `bitr_kegg` |
+| 富集结果可视化 | **enrichplot** | `dotplot` / `cnetplot` / `emapplot` / `gseaplot2` / `ridgeplot` / `heatplot` / `goplot` |
+| dplyr 动词操作富集结果 | **clusterProfiler.dplyr** | `filter` / `mutate` / `arrange` / `select`（对 enrichResult 的 S3 方法） |
+| 系统发育树绘制 | **ggtree** | `geom_tiplab` / `geom_hilight` / `geom_facet` / `gheatmap` / `geom_strip` |
+| 树数据 IO 与转换 | **treeio** | `read.newick` / `read.beast` / `read.codeml` / `read.iqtree` / `as.treedata` |
+| 树上叠加外部数据 | **ggtreeExtra** | `geom_fruit` / `geom_inset` |
+| 树节点/祖先运算 | **tidytree** | `MRCA` / `Ntip` / `Nnode2` / `getNodeNum` / `as_tibble` |
+| 空间转录组特征 | **SVP** | `runLISA` / `runMCA` / `runGLOBALBV` / `runLOCALBV` / `gsvaExp` / `plot_heatmap_globalbv` |
+| 空间 / 单细胞降维可视化 | **ggsc** | `sc_dim` / `sc_dim_count` / `sc_dim_geom_ellipse` / `sc_dim_geom_feature` / `plot_lisa_feature` |
+| 单细胞标准流程 | **sclet** | `RunStandardPipeline` / `FindClusters` / `CellDimPlot` / `RunEnrichment` / `BatchRemover` |
+| 单细胞 GNN 批次校正 | **scMSGNN** | `scMSGNN_Run` / `scMSGNN_Annotate` / `scMSGNN_CorrectBatch` |
+| KEGG 数据库构建 | **createKEGGdb** | `create_kegg_db` / `create_kegg_db_microbiota` |
+| CNE（保守非编码元件） | **CNEr** | `CNEFinal` / `CNEMerged` / `Axt` / `GRangePairs` / `readAxt` / `syntenicDotplot` |
+| 火山图（可交互） | **ivolcano** | `ivolcano` / `ivolcano_point` / `idotplot` |
+| 轴断点 / 轴截断 | **ggbreak** | `scale_x_break` / `scale_y_break` / `scale_x_cut` / `scale_y_cut` / `scale_wrap` |
+| 多序列比对可视化 | **ggmsa** | `ggmsa` / `geom_msa` / `facet_msa` / `geom_seqlogo` / `ggSeqBundle` |
+| 图形拼版 / 嵌套 | **aplot** | `plot_list` / `insert_top` / `insert_bottom` / `insert_left` / `insert_right` / `gglist` |
+| 图中加图 / 图标 | **ggimage** | `geom_subview` / `geom_image` / `geom_emoji` / `geom_flag` / `geom_phylopic` |
+| 网络 / 关联图 | **ggtangle** | `drag_network` / `geom_edge_text` / `layout_circular` / `layout_fishbone` |
+| 肿瘤免疫微环境 | **tigeR** | `Dataloader` / `build_Model` / `browse_BE` / `compare_biomk` / `IRS_grading` |
+| Wiki 通路注释图 | **wikiprofiler** | `wp_render` / `wpplot` / `wp_bgfill` / `wp_comparefill` / `read.wp` |
+| 表观遗传 peak 与基序 | **epiSeeker** | `annotateSeq` / `parse_peak` / `plotCov` / `plotPeakHeatmap` / `plotBmProf` / `runValue` |
+| 学者引用分析 | **scholar** | `get_profile` / `get_citation_history` / `get_publications` / `compare_scholars` |
+| 序列处理 | **seqmagick** | `fa_read` / `fa_write` / `fa_filter` / `fa_rename` / `bs_aln` / `bs_consensus` |
+| 中医医案数据 | **TCMDATA** | `TCM_sankey` / `PlotNodeHeatmap` / `Addclusterscore` / `calculate_metric_weights` |
+| 通用工具 | **yulab.utils** | `get_fun_from_pkg` / `check_pkg` / `has_internet` / `download_yulab_file` |
+| LLM 解读 | **aisdk** | `Agent` / `ChatSession` / `generate_text` / `generate_object` / `ask_ai` |
 
 ---
 
