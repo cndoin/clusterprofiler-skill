@@ -5,10 +5,13 @@
 链路： 抓源码 -> 解析 NAMESPACE/formals -> 生成 references + whitelist.json
 
 用法：
-  python3 rebuild.py                  全量重建（先抓源码，再解析，再生成文档）
+  python3 rebuild.py                  全量重建（抓全部 38 个包的源码 → 解析 → 生成文档）
   python3 rebuild.py --no-fetch       用 .build/ 里已有的源码重建（离线）
-  python3 rebuild.py --ref devel      指定 clusterProfiler 的 git ref
   python3 rebuild.py --dry-run        只打印将要执行的步骤
+
+注意：fetch_sources 现在**自动**逐包探测 ref（devel → master → main → HEAD），
+不存在即回退，所以 rebuild 不再需要 --ref 选项。
+早期版本传的 `--ref devel` 会被新版 fetch_sources 拒收并 exit 2。
 
 产物（都在 skill 目录内）：
   references/api-signatures.md    全量函数真实签名
@@ -48,17 +51,21 @@ def snapshot(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-fetch", action="store_true", help="跳过抓源码")
-    ap.add_argument("--ref", default="devel", help="clusterProfiler 的 git ref")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
     wl = os.path.join(SKILL_DIR, "tools", "whitelist.json")
     before = snapshot(wl)
 
+    # 必须 --all / --merge：原版调 `fetch_sources.py --ref devel` 只抓 clusterProfiler
+    # 一个包，`build_api.py` 无参数也只解析 clusterProfiler，于是"一键重建"产出的
+    # whitelist 只有 1 个包 —— 和发布版（38 包）完全对不上，是会骗人的重建脚本。
     steps = []
     if not args.no_fetch:
-        steps.append(("fetch_sources.py", ["--ref", args.ref]))
-    steps.append(("build_api.py", []))
+        # v2.1.0：fetch_sources 自动探测 ref（不存在的 ref 自动回退），
+        # 不再需要给它传 --ref。
+        steps.append(("fetch_sources.py", ["--all"]))
+    steps.append(("build_api.py", ["--all", "--merge"]))
     steps.append(("gen_docs.py", []))
 
     if args.dry_run:

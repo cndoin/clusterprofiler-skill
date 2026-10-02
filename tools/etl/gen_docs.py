@@ -17,6 +17,9 @@ import io, os, json, sys
 from collections import defaultdict
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
+if _HERE not in sys.path:
+    sys.path.insert(0, _HERE)
+import fetch_sources as _fs   # 权威包表（PACKAGES）+ 数据源标签
 SKILL = os.path.dirname(os.path.dirname(_HERE))           # skill 根目录
 BUILD_DIR = os.path.abspath(os.environ.get(
     "CP_BUILD_DIR", os.path.join(SKILL, ".build")))
@@ -31,16 +34,31 @@ os.makedirs(ECOSYSTEM_DIR, exist_ok=True)
 
 
 def load_pkgs():
-    """加载所有 <pkg>/raw/api_full.json"""
+    """加载所有 <pkg>/raw/api_full.json。
+
+    包名一律取 JSON 里的 `package` 字段（规范大小写），**不能用构建目录名**：
+    clusterProfiler 的目录在磁盘上是小写的 `.build/clusterprofiler`（v1.0 遗留），
+    用目录名会把文档写成 `ecosystem/clusterprofiler.md`，与其余文档命名风格不一致。
+    Windows 文件系统大小写不敏感，这个 bug 在本机看不出来，到 Linux 才炸。
+
+    同时丢掉已从 PACKAGES 移除的陈旧目录（如 HDO），
+    避免它们的空 stub 永远留在 references/ecosystem/ 里。
+    """
     pkgs = {}
     if not os.path.isdir(BUILD_DIR):
         return pkgs
+    known = set(_fs.PACKAGES)
     for entry in sorted(os.listdir(BUILD_DIR)):
         raw = os.path.join(BUILD_DIR, entry, "raw", "api_full.json")
         if not os.path.exists(raw):
             continue
         d = json.loads(io.open(raw, encoding="utf-8").read())
-        pkgs[entry] = d
+        name = d.get("package") or entry
+        if name not in known:
+            sys.stderr.write("WARN: 跳过 %s（package=%s 不在 PACKAGES 里）\n"
+                             % (entry, name))
+            continue
+        pkgs[name] = d
     return pkgs
 
 
@@ -90,7 +108,7 @@ def gen_full_api_md(pkgs):
     out = []
     out.append("# clusterprofiler-skill · 全量函数签名（按生态包分组）")
     out.append("")
-    out.append("> 数据源：github.com/YuLab-SMU/<生态包>@devel")
+    out.append("> 数据源：各包上游仓库源码（逐包见下文各节的数据源行）")
     out.append("> 每条签名由 `R/` 源码的真实 `formals` 解析得到；第三方包 re-export 函数用 THIRD_PARTY_PARAMS 手工核对。")
     out.append("> 用法：`grep -n \"^### <函数名>\"` 精确查，不要整篇读。")
     out.append("")
@@ -161,7 +179,7 @@ def gen_pkg_mini(pkg_data, pkg_name):
     out = []
     out.append("# %s — %s" % (pkg_name, pkg_data.get("version", "?")))
     out.append("")
-    out.append("> 数据源：github.com/YuLab-SMU/%s@devel" % pkg_name)
+    out.append("> 数据源：%s" % _spec_label(pkg_name))
     out.append("> %d 个已知符号" % len(fns))
     out.append("")
     # 按 kind 分
@@ -179,6 +197,39 @@ def gen_pkg_mini(pkg_data, pkg_name):
             out.append("- `%s(%s)`" % (name, sig or "?"))
         out.append("")
     return "\n".join(out)
+
+
+def _spec_label(pkg_name):
+    """该包的数据源描述。优先用 fetch_sources 落下的 source.json（真实 ref）。"""
+    import json as _json
+    sp = os.path.join(BUILD_DIR, pkg_name, "source.json")
+    if os.path.exists(sp):
+        try:
+            info = _json.loads(io.open(sp, encoding="utf-8").read())
+            if info.get("repo"):
+                return "%s @ %s" % (info["repo"], info.get("ref", "?"))
+        except Exception:
+            pass
+    spec = _fs.PACKAGES.get(pkg_name)
+    if spec is None:
+        return "上游源码（详见 tools/whitelist.json）"
+    if isinstance(spec, tuple):
+        return "%s @ %s" % (spec[0], spec[1])
+    if isinstance(spec, str) and spec.startswith("bioc:"):
+        return "Bioconductor bioc/%s::%s" % (_fs.BIOC_REL, spec.split(":", 1)[1])
+    return "%s @ 默认分支" % spec
+
+
+def prune_ecosystem(pkgs):
+    """删掉 references/ecosystem/ 里对应包已不存在的 .md（如 v1.0 残留的 TCMDATA/HDO）。"""
+    removed = []
+    for f in sorted(os.listdir(ECOSYSTEM_DIR)):
+        if not f.endswith(".md"):
+            continue
+        if f[:-3] not in pkgs:
+            os.remove(os.path.join(ECOSYSTEM_DIR, f))
+            removed.append(f)
+    return removed
 
 
 def main():
@@ -207,7 +258,10 @@ def main():
         md = gen_pkg_mini(d, pkg)
         p = os.path.join(ECOSYSTEM_DIR, pkg + ".md")
         io.open(p, "wb").write(md.encode("utf-8"))
+    removed = prune_ecosystem(pkgs)
     print("written %d 个 ecosystem/<pkg>.md" % len(pkgs))
+    if removed:
+        print("清理陈旧 ecosystem 文档: %s" % ", ".join(removed))
 
     # 重新生成 whitelist.json（不再覆盖；从 build_api.py --merge 写）
     print("\nwhitelist.json 应由 build_api.py --merge 生成（包含 short + full name）")

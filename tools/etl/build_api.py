@@ -254,6 +254,93 @@ THIRD_PARTY_PARAMS = {
 
 # ================ 1. 解析 R source ================
 
+# ---------------------------------------------------------------- NAMESPACE 预处理
+# CNEr 等老 Bioconductor 包的 NAMESPACE 是「多行块 + 块内文件注释」风格：
+#   exportMethods(
+#     ## Axt-class.R
+#     targetRanges, queryRanges,
+#     ## Axt-methods.R
+#     matchDistribution)
+# 直接用 `^exportMethods\(([^)]+?)\)` 这类正则会踩两个坑：
+#   1) `[^)]` 会吃掉换行，于是跨行捕获到整段（含注释）；
+#   2) 注释文本 `## Axt-class.R` 会被当作导出符号名写进 whitelist，
+#      产生 `"## AllClasses.r\n  score"` 这种垃圾键。
+# 所以必须「先剥注释 -> 再把续行拼成单行指令 -> 最后校验符号名合法」。
+
+_NS_SYM_RE = re.compile(r"^[A-Za-z._][A-Za-z0-9._]*$")
+# R 里合法但不是普通标识符的导出名（方法/运算符），必须白名单放行，否则会被校验误杀
+_NS_OP_NAMES = {
+    "[", "[[", "$", "@", "<-", "<<-", "+", "-", "*", "/", "^", ":", "::",
+    ":::", "~", "!", "&", "&&", "|", "||", "==", "!=", "<", ">", "<=", ">=",
+    "(", "{",
+}
+
+
+def _ns_valid_sym(name):
+    """符号名必须是 R 合法标识符或已知运算符，否则丢弃（防注释/文件名漏进白名单）。"""
+    if not name:
+        return False
+    if name in _NS_OP_NAMES:
+        return True
+    if name.startswith("%") and name.endswith("%") and len(name) > 2:
+        return True
+    return bool(_NS_SYM_RE.match(name))
+
+
+def _ns_strip_comments(text):
+    """去掉 NAMESPACE 里的 `#` 注释，但保留引号内的 `#`。"""
+    out = []
+    for line in text.split("\n"):
+        buf, inq, i, n = [], None, 0, len(line)
+        while i < n:
+            ch = line[i]
+            if inq:
+                buf.append(ch)
+                if ch == "\\" and i + 1 < n:
+                    buf.append(line[i + 1])
+                    i += 2
+                    continue
+                if ch == inq:
+                    inq = None
+                i += 1
+                continue
+            if ch in "'\"":
+                inq = ch
+                buf.append(ch)
+                i += 1
+                continue
+            if ch == "#":
+                break
+            buf.append(ch)
+            i += 1
+        out.append("".join(buf))
+    return "\n".join(out)
+
+
+def _ns_directives(text):
+    """把 NAMESPACE 归一化成「一行一条指令」。
+
+    一条指令 = 从 `name(` 开始，一直累加到括号配平为止。
+    这样后续所有正则都能用 `^...$` 安全地逐行匹配，不再跨行误捕。
+    """
+    text = _ns_strip_comments(text)
+    buf, depth = "", 0
+    for raw in text.split("\n"):
+        seg = raw.strip()
+        if not seg:
+            continue
+        buf = seg if not buf else buf + " " + seg
+        # 必须只累加**新增段**的括号增量。
+        # 写成 buf.count(..) 会把整段重复计入，累加器永远归不了零，
+        # 结果把整个 NAMESPACE 吞成一条指令（CNEr 实测从 146 个符号掉到 0）。
+        depth += seg.count("(") - seg.count(")")
+        if depth <= 0:
+            yield buf
+            buf, depth = "", 0
+    if buf.strip():
+        yield buf
+
+
 def parse_pkg(pkg):
     """解析单个包。返回 (functions_dict, version_str, raw_data_dict)。"""
     src_dir = os.path.join(BUILD_DIR, pkg)
@@ -262,7 +349,9 @@ def parse_pkg(pkg):
     desc = os.path.join(src_dir, "DESCRIPTION")
     if not os.path.isfile(ns):
         raise FileNotFoundError("NAMESPACE 不存在: %s (请先跑 fetch_sources.py)" % ns)
-    ns_text = io.open(ns, encoding="utf-8").read()
+    # 归一化：剥注释 + 合并续行，得到「一行一条指令」的 NAMESPACE
+    ns_lines = list(_ns_directives(io.open(ns, encoding="utf-8").read()))
+    ns_text = "\n".join(ns_lines)
 
     # R sources
     fns = {}
@@ -273,37 +362,48 @@ def parse_pkg(pkg):
 
     # NAMESPACE: export / S3method / exportClasses / exportMethods / importFrom
     def parse_export(text):
+        # export("a", "b") / export(a, b) 两种写法都要支持。
+        # 原实现用 `inner.startswith('"')` 判别，遇到 export("a","b") 会
+        # 整体 strip 引号得到 `a","b` 这种坏名字。
+        def _unq(tok):
+            return tok.strip().strip('"').strip("'")
+
         out = []
         for m in re.finditer(r"^export\(\s*([^)]*)\)", text, re.M):
-            inner = m.group(1)
-            if inner.startswith('"'):
-                out.append(inner.strip('"'))
-            else:
-                out += [x.strip() for x in inner.split(",") if x.strip()]
+            for tok in m.group(1).split(","):
+                tok = _unq(tok)
+                if tok and _ns_valid_sym(tok):
+                    out.append(tok)
         return sorted(set(out))
 
-    pkg_exports = [x.strip('"') for x in parse_export(ns_text)]
+    pkg_exports = [x for x in parse_export(ns_text) if _ns_valid_sym(x)]
 
     s3 = []
-    for m in re.finditer(r'^S3method\(\s*"?([\w.<\-]+)"?\s*,\s*"?([\w.]+)"?', ns_text, re.M):
-        s3.append({"generic": m.group(1), "class": m.group(2)})
+    for m in re.finditer(r'^S3method\(\s*"?([^",\s]+)"?\s*,\s*"?([^")\s]+)"?',
+                         ns_text, re.M):
+        g, c = m.group(1), m.group(2)
+        if _ns_valid_sym(g) and c:
+            s3.append({"generic": g, "class": c})
 
     s4cls = []
     for m in re.finditer(r"^exportClasses\(([^)]*)\)", ns_text, re.M):
-        s4cls += [x.strip().strip('"') for x in m.group(1).split(",") if x.strip()]
+        s4cls += [x for x in (t.strip().strip('"') for t in m.group(1).split(","))
+                  if _ns_valid_sym(x)]
 
     exported_methods = []
-    for m in re.finditer(r"^exportMethods\(\s*([^)]+?)\s*\)", ns_text, re.M):
+    for m in re.finditer(r"^exportMethods\(([^)]*)\)", ns_text, re.M):
         for tok in m.group(1).split(","):
-            tok = tok.strip().strip('"')
-            if tok:
+            tok = tok.strip().strip('"').strip("'")
+            if _ns_valid_sym(tok):
                 exported_methods.append(tok)
 
     imports = {}
-    for m in re.finditer(r"^importFrom\(([^,]+),\s*([\s\S]*?)\)\s*$", ns_text, re.M):
-        p = m.group(1).strip().strip('"')
-        fns_in = [x.strip() for x in m.group(2).split(",") if x.strip()]
-        imports.setdefault(p, []).extend(fns_in)
+    for m in re.finditer(r"^importFrom\(\s*([^,]+),\s*(.*?)\s*\)\s*$", ns_text, re.M):
+        p = m.group(1).strip().strip('"').strip("'")
+        if not p:
+            continue
+        fns_in = [x.strip().strip('"').strip("'") for x in m.group(2).split(",")]
+        imports.setdefault(p, []).extend([x for x in fns_in if _ns_valid_sym(x)])
 
     # find_def
     def find_def(name, table):
@@ -553,6 +653,24 @@ def _inject_third_party(all_symbols):
     return added
 
 
+def _describe_sources(sources):
+    """人可读且真实的来源汇总（不要硬编码某个组织/分支）。"""
+    if not sources:
+        return "unknown"
+    repos = {v.get("repo", "?") for v in sources.values()}
+    orgs = set()
+    for r in repos:
+        if r.startswith("bioconductor.org"):
+            orgs.add("Bioconductor")
+        elif "/" in r:
+            orgs.add(r.split("/", 1)[0])
+        else:
+            orgs.add(r)
+    refs = sorted({str(v.get("ref", "?")) for v in sources.values()})
+    return "%d 个上游源（含 %s），ref 因包而异：%s" % (
+        len(sources), "、".join(sorted(orgs)), "、".join(refs))
+
+
 def merge_all_whitelist():
     """合并所有 pkg 的 raw/<pkg>/api_full.json 到 tools/whitelist.json"""
     # 复用 fetch_sources.py 的 PACKAGES 字典
@@ -599,12 +717,33 @@ def merge_all_whitelist():
         all_s4classes += d.get("s4classes", [])
         all_s4methods += d.get("s4methods", [])
 
+    # 逐包真实溯源：读 fetch_sources 写的 <pkg>/source.json
+    sources = {}
+    for pkg in fs.PACKAGES:
+        sp = os.path.join(BUILD_DIR, pkg, "source.json")
+        if os.path.exists(sp):
+            try:
+                sources[pkg] = json.loads(io.open(sp, encoding="utf-8").read())
+            except Exception:  # noqa: BLE001
+                pass
+        if pkg not in sources:
+            spec = fs.PACKAGES[pkg]
+            if isinstance(spec, str) and spec.startswith("bioc:"):
+                sources[pkg] = {"package": pkg,
+                                "repo": "bioconductor.org/packages/%s/bioc" % fs.BIOC_REL,
+                                "ref": "?"}
+            else:
+                repo = spec[0] if isinstance(spec, tuple) else spec
+                ref = spec[1] if isinstance(spec, tuple) else "?"
+                sources[pkg] = {"package": pkg, "repo": repo, "ref": ref}
+
     wl = {
         "generated_from": {
             "format_version": "ecosystem-1.0",
             "generated_at": __import__("datetime").datetime.now().isoformat(),
-            "source": "github.com/YuLab-SMU/<多个包>@devel",
+            "source": _describe_sources(sources),
             "packages": pkg_versions,
+            "sources": sources,
         },
         "symbols": all_symbols,
         "deprecated_args": {},
