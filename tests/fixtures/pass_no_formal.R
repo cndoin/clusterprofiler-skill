@@ -1,0 +1,1 @@
+diversity(x, index = 'shannon')

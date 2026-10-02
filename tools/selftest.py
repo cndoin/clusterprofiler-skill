@@ -48,6 +48,15 @@ EXPECT = {
     # fixture 05 故意写 dotplot(width=) 错参数；新版下 cp_lint 把
     # dotplot 的 `...` 透传参数降为 warning，所以 errors 应为空
     "05_common_traps.R":    (0, {}),
+    # === v2.1.0 回归测试 ===
+    # 没用导出名的形式（只看到符号名，没解析到 formals）→ 不能误报"参数不存在"
+    "pass_no_formal.R":     (0, {}),
+    # `=` 分支必须 flush 已识别的左值，否则 by = list(g = cyl) 会解析成 bylist()
+    "pass_eq_flush.R":      (0, {}),
+    # 幻觉函数名 → 必须拦下
+    "fail_hallu_func.R":    (1, {"unknown-function": 1}),
+    # 真实函数 + 幻觉参数 → 必须拦下
+    "fail_hallu_arg.R":     (1, {"unknown-arg": 1}),
 }
 
 BLOCK = re.compile(r"```r\n(.*?)```", re.S)
