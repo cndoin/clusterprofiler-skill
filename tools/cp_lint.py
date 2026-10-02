@@ -4,7 +4,7 @@
 
 做的事：
   1. 扫描 R 脚本里所有函数调用
-  2. 函数名必须在 whitelist.json（144 个真实符号，从 clusterProfiler 源码 + 第三方包 re-export 提取）
+  2. 函数名必须在 whitelist.json（38 个包解析出的 6137 个键，含 `pkg::sym` 限定名与第三方 re-export）
      —— 不存在 = ERROR，并给出「大小写改错 / 拼写相近」的正确写法建议
   3. 命名参数必须是该函数真实拥有的参数名 —— 不存在 = ERROR
   4. 结构性检查：中文全角括号、library() 缺失
@@ -188,6 +188,11 @@ def scan_calls(code):
             nxt = code[i + 1] if i + 1 < n else ""
             prev = code[i - 1] if i > 0 else ""
             if nxt != "=" and prev not in "=<>!+-*/&|^":
+                # 必须先 flush：否则左值名会与右值的标识符粘连。
+                # 例：`aggregate(x, by = list(cyl), FUN = mean)` 里的 `by=list`
+                # 会被读成一个名为 `bylist` 的函数调用，
+                # 既丢了真实的 `list()` 调用，又多报一个 unknown-function。
+                flush_ident()
                 seg = code[fr["seg"]:i]
                 m = re.match(r"^\s*([A-Za-z._][A-Za-z0-9._]*)\s*$", seg)
                 if m and fr["kind"] == "call":
@@ -311,25 +316,42 @@ def lint(path, wl, allow_unknown=False):
     user_defs = set(re.findall(r"([A-Za-z._][A-Za-z0-9._]*)\s*<-\s*function", code))
     user_defs |= set(re.findall(r"([A-Za-z._][A-Za-z0-9._]*)\s*=\s*function", code))
 
+    # 生态包集合。只有这些包的 `pkg::fn` 调用才在射程内；
+    # `dplyr::filter` / `ggplot2::aes` 这类生态外调用直接放行（不报错也不校验）。
+    # 关键：白名单里出现过 `pkg::sym` 限定名的包必须在集合里，
+    # 否则会把一个已经有事实数据的包当成生态外而静默跳过。
+    eco_pkgs = {k.split("::", 1)[0] for k in symbols if "::" in k}
+    eco_pkgs.add("clusterProfiler")
+    eco_pkgs |= set((wl.get("generated_from", {}) or {}).get("packages", {}) or {})
+
     checked = 0
+    noformals = 0          # 只有导出名、无法校验参数的调用数（诚实暴露校验覆盖率）
     seen_unknown = set()
     for name, line, args, pkg in calls:
         if not name:
             continue
         if name in user_defs:
             continue
-        if pkg is not None and pkg not in ("clusterProfiler", "enrichit", "enrichplot"):
-            continue
-        if name in BASE_R or name in KNOWN_3RD:
-            continue
-        if name not in symbols:
-            if name in seen_unknown:
+        if pkg is not None:
+            # `pkg::fn` 限定调用：先按限定名查，再回退到短名
+            if pkg not in eco_pkgs:
                 continue
-            seen_unknown.add(name)
+            label = pkg + "::" + name
+            sym = symbols.get(label) or symbols.get(name)
+        else:
+            if name in BASE_R or name in KNOWN_3RD:
+                continue
+            label = name
+            sym = symbols.get(name)
+
+        if sym is None:
+            if label in seen_unknown:
+                continue
+            seen_unknown.add(label)
             tip = suggest(name, symbols.keys())
             item = {"line": line, "code": "unknown-function", "name": name,
-                    "msg": "`%s()` 不在 clusterProfiler 的导出 / re-export 清单里"
-                          % name}
+                    "msg": "`%s()` 不在 clusterProfiler 生态的导出 / re-export 清单里"
+                          % label}
             if tip:
                 item["msg"] += "；" + tip
             else:
@@ -341,8 +363,14 @@ def lint(path, wl, allow_unknown=False):
             continue
 
         checked += 1
-        sym = symbols[name]
         valid = set(sym["args"])
+        if not valid:
+            # 空 args = 我们只拿到了导出名、没解析到 formals。
+            # 此时“没有这个参数”是**没有证据**，不是证据表明不存在。
+            # 若照常报 unknown-arg，会把 `diversity(index=)`、
+            # `plotCov(col=, lwd=)` 这类正确代码全部误杀。
+            noformals += 1
+            continue
         has_dots = "..." in valid
 
         for an, aln, av in args:
@@ -374,6 +402,7 @@ def lint(path, wl, allow_unknown=False):
         "warnings": warnings,
         "stats": {"calls_found": len(calls),
                   "cp_calls_checked": checked,
+                  "args_unverified": noformals,
                   "errors": len(errors), "warnings": len(warnings)},
     }
 
@@ -388,6 +417,9 @@ def render(res):
     s = res["stats"]
     out.append("  调用 %d 处，clusterProfiler 系列函数校验 %d 个" %
                (s["calls_found"], s["cp_calls_checked"]))
+    if s.get("args_unverified"):
+        out.append("  其中 %d 处只有导出名、无 formals，未作参数校验"
+                   % s["args_unverified"])
     out.append("")
     if res["errors"]:
         out.append("ERROR (%d)" % len(res["errors"]))
